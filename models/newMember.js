@@ -7,6 +7,10 @@ const newMemberSchema = new Schema({
         type : String,
         required : true
     },
+    role : {
+        type : String,
+        default : "resident"
+    },
     mobile_number : {
         type : Number,
         required : true
@@ -29,6 +33,14 @@ const newMemberSchema = new Schema({
     },
     flat_number : {
         type : Number,
+        required : true
+    },
+    email : {
+        type : String,
+        required :true
+    },
+    create_password : {
+        type : String,
         required : true
     }
 });

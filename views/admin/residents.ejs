@@ -1,0 +1,131 @@
+<%- layout("layouts/boilerplate") %>
+
+  <style>
+    body {
+      background-color: #f3f4f6;
+    }
+    .status-badge {
+      background-color: #d1fae5;
+      color: #10b981;
+      font-size: 0.8rem;
+      padding: 4px 10px;
+      border-radius: 12px;
+    }
+    .action-icons i {
+      cursor: pointer;
+      margin-right: 10px;
+    }
+    .table-responsive {
+      border-radius: 10px;
+      overflow: hidden;
+    }
+
+  </style>
+
+<body>
+  <div class="admin-resident py-2">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+      <h4 class="fw-bold">Resident Management</h4>
+      <button class="btn btn-primary">
+        <i class="bi bi-plus-lg"></i> Add New Resident
+      </button>
+    </div>
+
+    <!-- Search & Filters -->
+    <div class="bg-white p-3 rounded mb-3 d-flex flex-wrap gap-2 align-items-center">
+      <div class="flex-grow-1">
+        <div class="input-group">
+          <span class="input-group-text bg-white border-end-0"><i class="bi bi-search"></i></span>
+          <input type="text" class="form-control border-start-0" placeholder="Search residents by name, flat number, or block...">
+        </div>
+      </div>
+      <select class="form-select w-auto">
+        <option>Blocks A</option>
+        <option>Blocks B</option>
+        <option>Blocks C</option>
+        <option>Blocks D</option>
+      </select>
+      <select class="form-select w-auto">
+        <option>Active</option>
+        <option>In-Active</option>
+      </select>
+    </div>
+
+    <!-- Table -->
+    <div class="table-responsive bg-white rounded shadow-sm">
+      <table class="table mb-0 align-middle">
+        <thead class="table-light">
+          <tr>
+            <th>Resident</th>
+            <th>Flat Details</th>
+            <th>Contact</th>
+            <th>Family & Vehicles</th>
+            <th>Status</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>
+              <strong>John Doe</strong><br>
+              <small class="text-muted">ID: 1</small>
+            </td>
+            <td>
+              Block A - 301<br>
+              <small class="text-muted">Joined: 2023-01-15</small>
+            </td>
+            <td>
+              john@email.com<br>
+              <small class="text-muted">+91 9876543210</small>
+            </td>
+            <td>
+              4 Members<br>
+              2 Vehicles
+            </td>
+            <td>
+              <span class="status-badge">active</span>
+            </td>
+            <td class="action-icons text-primary">
+              <i class="bi bi-eye-fill"></i>
+              <i class="bi bi-pencil-square text-warning"></i>
+              <i class="bi bi-trash3-fill text-danger"></i>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <strong>Jane Smith</strong><br>
+              <small class="text-muted">ID: 2</small>
+            </td>
+            <td>
+              Block B - 205<br>
+              <small class="text-muted">Joined: 2023-02-20</small>
+            </td>
+            <td>
+              jane@email.com<br>
+              <small class="text-muted">+91 9876543211</small>
+            </td>
+            <td>
+              3 Members<br>
+              1 Vehicles
+            </td>
+            <td>
+              <span class="status-badge">active</span>
+            </td>
+            <td class="action-icons text-primary">
+              <i class="bi bi-eye-fill"></i>
+              <i class="bi bi-pencil-square text-warning"></i>
+              <i class="bi bi-trash3-fill text-danger"></i>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Export Button -->
+    <div class="d-flex justify-content-end mt-4">
+      <button class="btn btn-outline-primary">
+        <i class="bi bi-download me-2"></i> Export Resident List
+      </button>
+    </div>
+  </div>
+</body>

@@ -1,0 +1,134 @@
+<%- layout("layouts/boilerplate") %>
+
+    <style>
+        .payment-box {
+            width: 23rem;
+            height: 6.3rem;
+        }
+        .serach-box{
+            height: 5rem;
+        }
+        .select-status{
+            height: 2.9rem;
+            margin-top: 1rem;
+            margin-right: 1rem;
+            width: 12rem;
+        }
+    </style>
+
+    <body>
+        <div class="payment-container">
+            <div class="payment-header d-flex justify-content-between">
+                <div class="payment-title">
+                    <h3 class="fw-bold">Payment Management</h3>
+                </div>
+                <div class="export-btn">
+                    <button class="p-2 rounded px-4 bg-primary text-white fw-semibold">
+                        <i class="bi bi-download"></i> Export Report
+                    </button>
+                </div>
+            </div>
+
+            <div class="payment-info mt-4 d-flex gap-5">
+                <div class="payment-box d-flex justify-content-between rounded bg-white">
+                    <div class="left mt-3 ms-4">
+                        <p>Total Collected</p>
+                        <h5 class="text-success fs-3 fw-bold">&#8377;2500</h5>
+                    </div>
+                    <div class="right mt-4 me-3">
+                        <i
+                            class="bi bi-currency-dollar text-success bg-success bg-opacity-25 p-2 rounded-circle fs-4"></i>
+                    </div>
+                </div>
+
+                <div class="payment-box d-flex justify-content-between rounded bg-white">
+                    <div class="left mt-3 ms-4">
+                        <p>Pending Amount</p>
+                        <h5 class="text-danger fs-3 fw-bold">&#8377;2000</h5>
+                    </div>
+                    <div class="right mt-4 ms-5 me-3">
+                        <i
+                            class="bi bi-credit-card text-warning text-success bg-warning bg-opacity-25 p-2 rounded-circle fs-4"></i>
+
+                    </div>
+                </div>
+
+                <div class="payment-box d-flex justify-content-between rounded bg-white">
+                    <div class="left mt-3 ms-4">
+                        <p>Collection Rate</p>
+                        <h5 class="text-primary fs-3 fw-bold">56%</h5>
+                    </div>
+                    <div class="right mt-4 ms-5 me-3">
+                        <i
+                            class="bi bi-funnel text-primary text-primary bg-primary bg-opacity-25 p-2 rounded-circle fs-4"></i>
+                    </div>
+                </div>
+            </div>
+
+            <div class="serach-box mt-4  bg-white d-flex gap-2 rounded">
+                <div class="input-group  p-3">
+                    <span class="input-group-text bg-white border-end-0"><i class="bi bi-search"></i></span>
+                    <input type="text" class="form-control border-start-0"
+                        placeholder="Search residents by name, flat number, or block...">
+                </div>
+                <select class="select-status form-select">
+                    <option>All Status</option>
+                    <option>Paid</option>
+                    <option>Pending</option>
+                    <option>Overdue</option>
+                </select>
+            </div>
+
+
+            <div class="table-responsive bg-white rounded shadow-sm mt-3">
+      <table class="table mb-0 align-middle">
+        <thead class="table-light">
+          <tr>
+            <th>RESIDENT DETAILS</th>
+            <th>BILL DETAILS</th>
+            <th>AMOUNT</th>
+            <th>DUE DATE</th>
+            <th>STATUS</th>
+            <th>PAYMENT METHOD</th>
+            <th>ACTIONS</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>
+              <strong>John Doe</strong><br>
+              <small class="text-muted">A-301</small>
+            </td>
+            <td>
+              Maintenance<br>
+              <small class="text-muted">ID:1</small>
+            </td>
+            <td>
+              ₹1,2000<br>
+            </td>
+            <td>
+              2024-01-15<br>
+              <small class="text-muted">Paid: 2024-01-10</small>
+            </td>
+            <td>
+              <span class="status-badge">
+                <div class="text-success fw-bold">Paid</div>   
+              </span>
+            </td>
+            <td class=" fw-bold">
+              Online
+            </td>
+            <td class="d-flex gap-1">
+                <p class="text-success fw-semibold">Mark Paid</p>
+                <p class="text-primary fw-semibold">View Details</p>
+            </td>
+          </tr>
+          
+        </tbody>
+      </table>
+    </div>
+
+
+
+        </div>
+    </body>

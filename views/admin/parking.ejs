@@ -1,0 +1,68 @@
+<%- layout("layouts/boilerplate") %>
+<style>
+      .dash-card {
+            width: 17rem;
+            height: 8rem;
+        }
+</style>
+    <body>
+        <div class="parking-container border">
+            <div class="payment-header d-flex justify-content-between">
+                <div class="payment-title">
+                    <h3 class="fw-bold">Parking Management</h3>
+                </div>
+                <div class="export-btn">
+                    <button class="p-2 rounded px-4 bg-primary text-white fw-semibold">
+                        <i class="bi bi-plus-lg"></i> Allocate Parking
+                    </button>
+                </div>
+            </div>
+
+             <div class="dash-info d-flex gap-5 mt-4">
+                <div class="dash-card d-flex gap-5 rounded-3 bg-white">
+                    <div class="left ms-4 mt-4">
+                        <p class="mt-1">Two Wheeler Slots</p>
+                        <h3 class="fw-bold">80/100</h3>
+                    </div>
+                    <div class="right mt-5 pb-2">
+                        <i class="bi bi-bicycle text-white bg-primary p-2 rounded-circle fs-3"></i>
+                    </div>
+
+                </div>
+
+                <div class="dash-card d-flex gap-5 rounded-3 bg-white">
+                    <div class="left ms-4 mt-4">
+                        <p>Four Wheeler Slots</p>
+                        <h3 class="fw-bold">130/145</h3>
+                    </div>
+                    <div class="right mt-5 pb-2">
+                        <i class="bi bi-car-front text-dark bg-success bg-opacity-25 p-2 rounded-circle fs-4"></i>
+                    </div>
+
+                </div>
+
+                <div class="dash-card d-flex gap-5 rounded-3 bg-white">
+                    <div class="left ms-4 mt-4">
+                        <p>Available Slots</p>
+                        <h3 class="fw-bold">7</h3>
+                    </div>
+                    <div class="right mt-5 pb-2">
+                        <i class="bi bi-plus-lg text-white bg-success  p-2 rounded-circle fs-4"></i>
+                    </div>
+
+                </div>
+
+                <div class="dash-card d-flex gap-5 rounded-3 bg-white">
+                    <div class="left ms-4 mt-4">
+                        <p>Occupancy Rate</p>
+                        <h3 class="fw-bold">88%</h3>
+                    </div>
+                    <div class="right mt-5 pb-2">
+                        <i class="bi bi-car-front-fill text-white p-2 rounded-circle fs-4"
+                            style="background-color: #a855f7;"></i>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </body>

@@ -1,0 +1,135 @@
+<%- layout("layouts/boilerplate") %>
+
+    <style>
+        .dash-card {
+            width: 16.7rem;
+            height: 8rem;
+        }
+
+        .serach-box {
+            height: 5rem;
+        }
+
+        .select-status {
+            height: 2.9rem;
+            margin-top: 1rem;
+            margin-right: 1rem;
+            width: 12rem;
+        }
+    </style>
+
+    <body>
+        <div class="emp-container">
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <h4 class="fw-bold">Employee Management</h4>
+                <button class="btn btn-primary">
+                    <i class="bi bi-plus-lg"></i> Add New Resident
+                </button>
+            </div>
+
+
+            <div class="dash-info d-flex gap-5">
+                <div class="dash-card d-flex gap-5 rounded-3 bg-white">
+                    <div class="left ms-4 mt-4">
+                        <p class="mt-1">Total Residents</p>
+                        <h3 class="fw-bold">146</h3>
+                    </div>
+                    <div class="right mt-5 pb-2">
+                        <i class="bi bi-people text-primary bg-primary bg-opacity-25 p-3 rounded-circle fs-3"></i>
+                    </div>
+
+                </div>
+
+                <div class="dash-card d-flex gap-5 rounded-3 bg-white">
+                    <div class="left ms-4 mt-4">
+                        <p>Pending Payments</p>
+                        <h3 class="fw-bold">&#8377;45000</h3>
+                    </div>
+                    <div class="right mt-5 pb-2">
+                        <i class="bi bi-people text-primary bg-success bg-opacity-25 p-3 rounded-circle fs-3"></i>
+                    </div>
+
+                </div>
+
+                <div class="dash-card d-flex gap-5 rounded-3 bg-white">
+                    <div class="left ms-4 mt-4">
+                        <p>Active Complaints</p>
+                        <h3 class="fw-bold">7</h3>
+                    </div>
+                    <div class="right mt-5 pb-2">
+                        <i class="bi bi-people text-primary bg-primary bg-opacity-25 p-3 rounded-circle fs-3"></i>
+                    </div>
+
+                </div>
+
+                <div class="dash-card d-flex gap-5 rounded-3 bg-white">
+                    <div class="left ms-4 mt-4">
+                        <p>Parking Slots</p>
+                        <h3 class="fw-bold">156/200</h3>
+                    </div>
+                    <div class="right mt-5 pb-2">
+                        <i class="bi bi-people text-primary bg-primary bg-opacity-25 p-3 rounded-circle fs-3"></i>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="serach-box mt-4  bg-white d-flex gap-2 rounded">
+                <div class="input-group  p-3">
+                    <span class="input-group-text bg-white border-end-0"><i class="bi bi-search"></i></span>
+                    <input type="text" class="form-control border-start-0"
+                        placeholder="Search residents by name, flat number, or block...">
+                </div>
+                <select class="select-status form-select">
+                    <option>All Roles</option>
+                    <option>Security Guard</option>
+                    <option>Housekeeper</option>
+                    <option>Gardener</option>
+                </select>
+            </div>
+
+
+            <div class="table-responsive bg-white rounded shadow-sm mt-4">
+                <table class="table mb-0 align-middle">
+                    <thead class="table-light">
+                        <tr>
+                            <th>Employee</th>
+                            <th>Role & Shift</th>
+                            <th>Contact</th>
+                            <th>Salary</th>
+                            <th>Join Date</th>
+                            <th>Status</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                <strong>John Doe</strong><br>
+                            </td>
+                            <td>
+                                Security Guard<br>
+                                <small class="text-muted">Joined: 2023-01-15</small>
+                            </td>
+                            <td>
+                                +91 9876543210<br>
+                            </td>
+                            <td class="fw-semibold">
+                               ₹25,000<br>
+                            </td>
+                            <td>
+                                2023-01-15<br>
+                            </td>
+                            <td>
+                                <span class="status-badge text-success fw-bold">active</span>
+                            </td>
+                            <td class="action-icons text-primary">
+                                <button class="bg-primary text-white p-1 px-3 rounded fw-bold">Manage</button>
+                            </td>
+                        </tr>
+                       
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </body>
