@@ -7,6 +7,10 @@ const NewMember = require('./models/newMember'); //require model that store new 
 const SocitySetUp = require('./models/socitySetUp');  //require model that store society setup details
 const Complaints = require("./models/complain");   //require model that store complaint details
 const Employees = require("./models/employee");    // require model that store employee details
+const session = require('express-session');  // require midleware sessions
+
+
+
 // Middleware to parse JSON requests
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -15,6 +19,23 @@ app.set("views", path.join(__dirname, "views"));
 app.engine("ejs", ejsMate);
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
+
+app.use(session({
+  secret: 'secret',
+  resave: false,
+  saveUninitialized: false,
+  cookie: {
+    expires: Date.now() * 7 * 24 * 60 * 60 * 1000,
+    maxAge: 7 * 24 * 60 * 60 * 1000,
+    // httpOnly : true,
+  }
+}))
+
+app.use((req, res, next) => {
+  res.locals.user = req.session.admin || req.session.addNewMember || null;
+  next();
+});
+
 
 
 // Connect to MongoDB
@@ -36,8 +57,17 @@ app.get("/testing", (req, res) => {
 
 
 app.get("/dashboard", (req, res) => {
-  res.render("admin/dashboard.ejs");
+  res.render("admin/dashboard.ejs", { user: req.session.admin });
 })
+
+
+
+app.get("/logout", (req, res) => {
+  req.session.destroy(() => {
+    res.redirect("/");
+  });
+});
+
 
 app.get("/residents", (req, res) => {
   res.render("admin/residents");
@@ -64,6 +94,49 @@ app.get("/complaints", (req, res) => {
 })
 
 
+
+
+app.get("/resident-dashboard", (req, res) => {
+  res.render("resident/dashboard", { user: req.session.addNewMember })
+})
+
+app.get("/resident-billsPayment", (req, res) => {
+  res.render("resident/billsPayment")
+})
+
+
+app.get("/resident-complaints", (req, res) => {
+  res.render("resident/complaints")
+})
+
+
+app.get("/resident-bookEvent", (req, res) => {
+  res.render("resident/bookEvent")
+})
+
+
+app.get("/resident-ownerList", (req, res) => {
+  res.render("resident/ownerList")
+})
+
+
+app.get("/resident-vehicleSearch", (req, res) => {
+  res.render("resident/vehicleSearch")
+})
+
+
+app.get("/resident-societyStaff", (req, res) => {
+  res.render("resident/societyStaff")
+})
+
+
+app.get("/resident-profile", (req, res) => {
+  res.render("resident/profile")
+})
+
+
+
+
 app.get("/create-account", (req, res) => {
   res.render("admin/createAccount");
 })
@@ -72,7 +145,7 @@ app.get("/admin-login", (req, res) => {
   res.render("login/admin");
 })
 
-app.post("/admin-login", async (req,res) => {
+app.post("/admin-login", async (req, res) => {
   const { email, create_password } = req.body;
 
   const admin = await SocitySetUp.findOne({ email })
@@ -84,34 +157,42 @@ app.post("/admin-login", async (req,res) => {
   if (admin.create_password !== create_password) {
     return res.send("❌ Incorrect password");
   }
-    res.redirect("/dashboard")
+
+  req.session.admin = {
+    id: admin._id,
+    email: admin.email,
+    role: admin.role
+  }
+  res.redirect("/dashboard")
 })
 
 app.get("/resident-login", (req, res) => {
   res.render("login/resident");
 })
 
-app.post("/resident-login",async(req,res)=>{
-  const {email, create_password}=req.body;
+app.post("/resident-login", async (req, res) => {
+  const { email, create_password } = req.body;
 
-  const addNewMember = await NewMember.findOne({email});
+  const addNewMember = await NewMember.findOne({ email });
 
-  if(!addNewMember){
+  if (!addNewMember) {
     res.send("<h1>Admin not fount</h1>")
   }
 
 
-  if(addNewMember.role !== "resident"){
+  if (addNewMember.role !== "resident") {
     return res.send("❌ Access denied: Not an resident")
   }
 
-  if(addNewMember.create_password !== create_password){
+  if (addNewMember.create_password !== create_password) {
     return res.send("❌ Incorrect password");
   }
-
-      res.send("✅ Resident login successful!");
-
-
+  req.session.addNewMember = {
+    id: addNewMember._id,
+    email: addNewMember.email,
+    role: addNewMember.role
+  }
+  res.redirect("/resident-dashboard")
 })
 
 app.post("/create-account", async (req, res) => {
