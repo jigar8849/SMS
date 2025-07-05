@@ -1,5 +1,124 @@
 <%- layout("layouts/boilerplate") %>
 
-<body>
-    <h1>This is complaints page</h1>
-</body>
+    <body>
+        <div class="complaints-container">
+            <div class="com-header d-flex justify-content-between">
+                <div class="left">
+                    <h2 class="fw-bold">Complaints</h2>
+                    <p class="text-muted ">File and track your complaints</p>
+                </div>
+                <div class="right d-flex align-items-center">
+                    <button class="rounded p-2 px-4 text-white bg-primary border-0"><i class="bi bi-plus text-white"></i> File
+                        Complaint</button>
+                </div>
+            </div>
+
+
+            <div class=" mt-4">
+                <div class="row g-3">
+
+                    <!-- Total Complaints -->
+                    <div class="col-md-3 col-sm-6">
+                        <div class="border rounded-3 bg-white d-flex justify-content-between align-items-center p-3">
+                            <div>
+                                <p class="mb-1 text-muted">Total Complaints</p>
+                                <h4 class="fw-bold text-dark">12</h4>
+                            </div>
+                            <i class="bi bi-chat-left fs-3 text-secondary"></i>
+                        </div>
+                    </div>
+
+                    <!-- Open Complaints -->
+                    <div class="col-md-3 col-sm-6">
+                        <div class="border rounded-3 bg-white d-flex justify-content-between align-items-center p-3">
+                            <div>
+                                <p class="mb-1 text-muted">Open</p>
+                                <h4 class="fw-bold text-warning">3</h4>
+                            </div>
+                            <i class="bi bi-exclamation-triangle fs-3 text-warning"></i>
+                        </div>
+                    </div>
+
+                    <!-- In Progress -->
+                    <div class="col-md-3 col-sm-6">
+                        <div class="border rounded-3 bg-white d-flex justify-content-between align-items-center p-3">
+                            <div>
+                                <p class="mb-1 text-muted">In Progress</p>
+                                <h4 class="fw-bold text-primary">2</h4>
+                            </div>
+                            <i class="bi bi-clock fs-3 text-primary"></i>
+                        </div>
+                    </div>
+
+                    <!-- Resolved -->
+                    <div class="col-md-3 col-sm-6">
+                        <div class="border rounded-3 bg-white d-flex justify-content-between align-items-center p-3">
+                            <div>
+                                <p class="mb-1 text-muted">Resolved</p>
+                                <h4 class="fw-bold text-success">7</h4>
+                            </div>
+                            <i class="bi bi-check-circle fs-3 text-success"></i>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+
+            <div class="complaints border rounded mt-4 bg-white">
+                <div class="complaints-header">
+                    <h3 class="p-3 ps-5">Your Complaints</h3>
+                </div>
+                <hr>
+                <div class="complaints-box d-flex justify-content-between p-3 ms-4">
+                    <div>
+                        <div class="d-flex align-items-center mb-2">
+                            <i class="bi bi-clock text-primary fs-5 me-2"></i>
+                            <h6 class="mb-0 fw-bold fs-5">Water leakage in parking area</h6>
+                        </div>
+
+                        <p class="mb-1 text-muted ms-4" style="font-size: 0.95rem;">
+                            There is continuous water leakage in the basement parking area near slot B-15.
+                        </p>
+
+                        <div class="text-muted ms-4">
+                            Filed on 2024-01-10 &nbsp; | &nbsp; Category: Maintenance &nbsp; | &nbsp;
+                            <a href="#" class="text-primary text-decoration-none">1 attachment(s)</a>
+                        </div>
+                    </div>
+
+                    <!-- Right Status Badges -->
+                    <div class="d-flex flex-row align-items-center gap-2 ms-3">
+                        <span class=" text-primary  px-3 py-1 fw-bold">in-progress</span>
+                        <span class=" text-danger  px-3 py-1 fw-bold">high</span>
+                    </div>
+                </div>
+                <hr>
+                <div class="complaints-box d-flex justify-content-between p-3 ms-4">
+                    <div>
+                        <div class="d-flex align-items-center mb-2">
+                            <i class="bi bi-clock text-primary fs-5 me-2"></i>
+                            <h6 class="mb-0 fw-bold fs-5">Water leakage in parking area</h6>
+                        </div>
+
+                        <p class="mb-1 text-muted ms-4" style="font-size: 0.95rem;">
+                            There is continuous water leakage in the basement parking area near slot B-15.
+                        </p>
+
+                        <div class="text-muted ms-4">
+                            Filed on 2024-01-10 &nbsp; | &nbsp; Category: Maintenance &nbsp; | &nbsp;
+                            <a href="#" class="text-primary text-decoration-none">1 attachment(s)</a>
+                        </div>
+                    </div>
+
+                    <!-- Right Status Badges -->
+                    <div class="d-flex flex-row align-items-center gap-2 ms-3">
+                        <span class=" text-primary  px-3 py-1 fw-bold">in-progress</span>
+                        <span class=" text-danger  px-3 py-1 fw-bold">high</span>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+    </body>

@@ -1,5 +1,132 @@
 <%- layout("layouts/boilerplate") %>
+<style>
+    p{
+        margin-bottom: 0rem !important; 
+    }
+</style>
 
-<body>
-    <h1>This is event page</h1>
-</body>
+    <body>
+        <div class="event-container">
+            <div class="com-header d-flex justify-content-between">
+                <div class="left">
+                    <h2 class="fw-bold">Event Booking</h2>
+                    <p class="text-muted ">Book venues for your events and celebrations</p>
+                </div>
+                <div class="right d-flex align-items-center">
+                    <button class="rounded p-2 px-4 text-white bg-primary border-0"><i class="bi bi-plus text-white"></i> Book
+                        Event</button>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="mt-4">
+            <div class="row g-4">
+
+                <!-- Card Start -->
+                <div class="col-md-3 col-sm-6">
+                    <div class="border rounded-4 p-3 bg-white h-100 shadow-sm">
+                        <div class="d-flex justify-content-between align-items-center mb-4">
+                            <h6 class="fw-bold mb-0">Club House</h6>
+                            <i class="bi bi-geo-alt text-primary"></i>
+                        </div>
+                        <div class="text-muted mb-1">
+                            <i class="bi bi-people me-1"></i> Capacity: 100 people
+                        </div>
+                        <div class="text-success mb-3">
+                            <i class="bi bi-calendar-check me-1"></i> Available Today
+                        </div>
+                        <button
+                            class="btn btn-sm btn-primary-subtle bg-primary bg-opacity-25 text-primary w-100 py-2 mt-3">
+                            Check Availability
+                        </button>
+                    </div>
+                </div>
+                <!-- Card End -->
+
+                <!-- Repeat for other cards -->
+                <div class="col-md-3 col-sm-6">
+                    <div class="border rounded-4 p-3 bg-white h-100 shadow-sm">
+                        <div class="d-flex justify-content-between align-items-center mb-4">
+                            <h6 class="fw-bold mb-0">Garden Area</h6>
+                            <i class="bi bi-geo-alt text-primary"></i>
+                        </div>
+                        <div class="text-muted mb-1">
+                            <i class="bi bi-people me-1"></i> Capacity: 200 people
+                        </div>
+                        <div class="text-success mb-3">
+                            <i class="bi bi-calendar-check me-1"></i> Available Today
+                        </div>
+                        <button
+                            class="btn btn-sm btn-primary-subtle bg-primary bg-opacity-25 text-primary w-100 py-2 mt-3">
+                            Check Availability
+                        </button>
+
+                    </div>
+                </div>
+
+                <div class="col-md-3 col-sm-6">
+                    <div class="border rounded-4 p-3 bg-white h-100 shadow-sm">
+                        <div class="d-flex justify-content-between align-items-center mb-4">
+                            <h6 class="fw-bold mb-0">Community Hall</h6>
+                            <i class="bi bi-geo-alt text-primary"></i>
+                        </div>
+                        <div class="text-muted mb-1">
+                            <i class="bi bi-people me-1"></i> Capacity: 150 people
+                        </div>
+                        <div class="text-success mb-3">
+                            <i class="bi bi-calendar-check me-1"></i> Available Today
+                        </div>
+                        <button
+                            class="btn btn-sm btn-primary-subtle bg-primary bg-opacity-25 text-primary w-100 py-2 mt-3">
+                            Check Availability
+                        </button>
+
+                    </div>
+                </div>
+
+                <div class="col-md-3 col-sm-6">
+                    <div class="border rounded-4 p-3 bg-white h-100 shadow-sm">
+                        <div class="d-flex justify-content-between align-items-center mb-4">
+                            <h6 class="fw-bold mb-0">Terrace Garden</h6>
+                            <i class="bi bi-geo-alt text-primary"></i>
+                        </div>
+                        <div class="text-muted mb-1">
+                            <i class="bi bi-people me-1"></i> Capacity: 80 people
+                        </div>
+                        <div class="text-success mb-3">
+                            <i class="bi bi-calendar-check me-1"></i> Available Today
+                        </div>
+                        <button
+                            class="btn btn-sm btn-primary-subtle bg-primary bg-opacity-25 text-primary w-100 py-2 mt-3">
+                            Check Availability
+                        </button>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="upcoming-events border rounded mt-4 bg-white">
+            <div class="event-info-title">
+                <h2 class="m-4">Upcoming Events</h2>
+            </div>
+            <div class="event-info border rounded d-flex justify-content-between m-4">
+                <div class="info-left ms-4 py-4">
+                    <h5 class="fw-bold mb-3">Birthday Party</h5>
+                    <p class="text-muted"><i class="bi bi-calendar-check me-1 text-muted"></i> 2024-01-20</p>
+                    <p class="text-muted"><i class="bi bi-clock text-muted"></i> 18:00 - 22:00</p>
+                    <p class="text-muted"><i class="bi bi-geo-alt text-muted"></i> Club House</p>
+                    <p class="text-muted"><i class="bi bi-person text-muted"></i> 25/30 attendees</p>
+                    <p class="mt-3"><b>Organized by</b> : You</p>
+
+                </div>
+                <div class="info-right mt-4 me-4">
+                    <p class="text-success fw-bold">Approved</p>
+                    <p class="text-warning fw-bold">Pending</p>
+                    <p class="text-danger fw-bold">Reject</p>
+                </div>
+            </div>
+        </div>
+    </body>

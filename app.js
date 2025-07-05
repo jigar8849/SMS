@@ -11,6 +11,7 @@ const session = require('express-session');  // require midleware sessions
 
 
 
+
 // Middleware to parse JSON requests
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -92,6 +93,18 @@ app.get("/flatList", (req, res) => {
 app.get("/complaints", (req, res) => {
   res.render("admin/complaints");
 })
+
+app.get("/addNewResident",(req,res)=>{
+  res.render("forms/addResident")
+})
+
+app.post("/addNewResident",async(req,res)=>{
+  const newAddedMember = new NewMember(req.body);
+  await newAddedMember.save();
+  res.redirect("/residents")
+})
+
+
 
 
 
