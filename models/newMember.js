@@ -31,6 +31,11 @@ const newMemberSchema = new Schema({
         type : Number,
         required : true
     },
+    status : {
+        type : String,
+        enum: ["active", "in-active"],
+        default : "active"
+    },
     flat_number : {
         type : Number,
         required : true

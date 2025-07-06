@@ -5,7 +5,8 @@
             width: 16rem;
             height: 8rem;
         }
-        .blok{
+
+        .blok {
             margin-top: 3rem;
             height: 8rem;
             width: 16rem;
@@ -68,12 +69,19 @@
                 </div>
             </div>
 
-            <div class="block-box d-flex justify-content-center gap-4 mb-4">
-                <div class="box-a blok border d-flex justify-content-center align-items-center rounded-3 fw-bold bg-white"><a href="">Block-A</a></div>
-                <div class="box-b blok border d-flex justify-content-center align-items-center rounded-3 fw-bold bg-white"><a href="">Block-b</a></div>
-                <div class="box-c blok border d-flex justify-content-center align-items-center rounded-3 fw-bold bg-white"><a href="">Block-c</a></div>
-                <div class="box-d blok border d-flex justify-content-center align-items-center rounded-3 fw-bold bg-white"><a href="">Block-d</a></div>
+            <div class="block-box d-flex flex-wrap justify-content-center gap-4 mb-4">
+                <% for (let i=0; i < blockList[0].total_block; i++) { %>
+                    <div
+                        class="box-a blok border d-flex justify-content-center align-items-center rounded-3 fw-bold bg-white">
+                        <a href="">
+                            Block-<%= String.fromCharCode(65 + i) %>
+                        </a>
+                    </div>
+                    <% } %>
             </div>
+
+
+
 
         </div>
     </body>

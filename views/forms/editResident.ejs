@@ -1,0 +1,104 @@
+<%- layout("layouts/boilerplate") %>
+
+<style>
+  body {
+    background-color: #f0f2f5;
+  }
+
+  .edit-form-card {
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 0 20px rgba(0,0,0,0.05);
+    padding: 30px;
+  }
+
+  .edit-form-card h3 {
+    margin-bottom: 25px;
+    color: #333;
+  }
+
+  .form-label {
+    font-weight: 500;
+    color: #555;
+  }
+
+  .btn-primary {
+    background-color: #007bff;
+    border: none;
+    font-weight: 500;
+    padding: 10px 30px;
+  }
+
+  .btn-primary:hover {
+    background-color: #0a6cd5;
+    color: white !important;
+  }
+  
+</style>
+
+<body>
+  <div class="editContainer py-5">
+    <div class="row justify-content-center">
+      <div class="col-12 col-md-10 col-lg-8 col-xl-6">
+        <div class="edit-form-card">
+          <h3>Edit Resident Details</h3>
+          <form action="/residents/<%= residentDetails._id %>?_method=PUT" method="POST">
+            <!-- Owner Name -->
+            <div class="mb-3">
+              <label for="owner_name" class="form-label">Owner Name</label>
+              <input type="text" id="owner_name" name="owner_name" value="<%= residentDetails.owner_name %>" class="form-control" placeholder="Owner Name">
+            </div>
+
+            <!-- Mobile Number -->
+            <div class="mb-3">
+              <label for="mobile_number" class="form-label">Mobile Number</label>
+              <input type="number" id="mobile_number" name="mobile_number" value="<%= residentDetails.mobile_number %>" class="form-control" placeholder="Mobile Number">
+            </div>
+
+            <!-- Number of Members -->
+            <div class="mb-3">
+              <label for="number_of_member" class="form-label">Number of Members</label>
+              <input type="number" id="number_of_member" name="number_of_member" value="<%= residentDetails.number_of_member %>" class="form-control" placeholder="Number of Members">
+            </div>
+
+            <!-- Names of Each Member -->
+            <div class="mb-3">
+              <label for="name_of_each_member" class="form-label">Names of Each Member</label>
+              <input type="text" id="name_of_each_member" name="name_of_each_member" value="<%= residentDetails.name_of_each_member %>" class="form-control" placeholder="Name1, Name2, Name3">
+            </div>
+
+            <!-- Block -->
+            <div class="mb-3">
+              <label for="block" class="form-label">Block</label>
+              <input type="text" id="block" name="block" value="<%= residentDetails.block %>" class="form-control" placeholder="Block (A, B, C...)">
+            </div>
+
+            <!-- Floor Number -->
+            <div class="mb-3">
+              <label for="floor_number" class="form-label">Floor Number</label>
+              <input type="number" id="floor_number" name="floor_number" value="<%= residentDetails.floor_number %>" class="form-control" placeholder="Floor Number">
+            </div>
+
+            <!-- Flat Number -->
+            <div class="mb-3">
+              <label for="flat_number" class="form-label">Flat Number</label>
+              <input type="number" id="flat_number" name="flat_number" value="<%= residentDetails.flat_number %>" class="form-control" placeholder="Flat Number">
+            </div>
+
+            <!-- Status -->
+            <div class="mb-4">
+              <label for="status" class="form-label">Status</label>
+              <select id="status" name="status" class="form-select">
+                <option value="active">Active</option>
+                <option value="in-active">In-Active</option>
+              </select>
+            </div>
+
+            <!-- Submit Button (Does nothing) -->
+                <button type="submit" class="btn btn-primary w-100">Update Resident</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>

@@ -65,58 +65,41 @@
           </tr>
         </thead>
         <tbody>
-          <tr>
+          <% allMemberDetails.forEach(member => { %>
+            <tr>
             <td>
-              <strong>John Doe</strong><br>
+              <strong><%= member.owner_name %></strong><br>
               <small class="text-muted">ID: 1</small>
             </td>
             <td>
-              Block A - 301<br>
+              Block <%= member.block %>-<%= member.flat_number %><br>
               <small class="text-muted">Joined: 2023-01-15</small>
             </td>
             <td>
-              john@email.com<br>
-              <small class="text-muted">+91 9876543210</small>
+              <%= member.email %><br>
+              <small class="text-muted"><%= member.mobile_number %></small>
             </td>
             <td>
-              4 Members<br>
+              <%= member.number_of_member %> Members<br>
               2 Vehicles
             </td>
             <td>
-              <span class="status-badge">active</span>
+              <span class="status-badge"><%= member.status %></span>
             </td>
-            <td class="action-icons text-primary">
+            <td class="action-icons text-primary d-flex">
               <i class="bi bi-eye-fill"></i>
-              <i class="bi bi-pencil-square text-warning"></i>
-              <i class="bi bi-trash3-fill text-danger"></i>
+              <form action="/residents/<%= member._id %>/edit">
+                <button type="submit" class="border-0 bg-white">
+                  <i class="bi bi-pencil-square text-warning"></i>
+                </button>
+              </form>
+              <form action="/residents/<%= member._id %>?_method=DELETE" method="post" >
+                <button class="border-0 bg-white"><i class="bi bi-trash3-fill text-danger"></i></button>
+              </form>
             </td>
           </tr>
-          <tr>
-            <td>
-              <strong>Jane Smith</strong><br>
-              <small class="text-muted">ID: 2</small>
-            </td>
-            <td>
-              Block B - 205<br>
-              <small class="text-muted">Joined: 2023-02-20</small>
-            </td>
-            <td>
-              jane@email.com<br>
-              <small class="text-muted">+91 9876543211</small>
-            </td>
-            <td>
-              3 Members<br>
-              1 Vehicles
-            </td>
-            <td>
-              <span class="status-badge">active</span>
-            </td>
-            <td class="action-icons text-primary">
-              <i class="bi bi-eye-fill"></i>
-              <i class="bi bi-pencil-square text-warning"></i>
-              <i class="bi bi-trash3-fill text-danger"></i>
-            </td>
-          </tr>
+         <% }); %>
+        
         </tbody>
       </table>
     </div>
