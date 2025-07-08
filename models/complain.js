@@ -23,9 +23,24 @@ const complaintsSchema = new Schema({
         type: String,
         required: true
     },
+    created_at : {
+        type : Date,
+        required : true,
+        default : Date.now
+    },
     Attachments: {
         url: String,
         filename: String,
+    },
+    status : {
+        type : String,
+        enum : ["Pending", "Complete", "On-hold", "Reject","In-Progress"],
+        default : "Pending"
+
+    },
+    resident : {
+        type : mongoose.Schema.Types.ObjectId,
+        ref : "NewMember"
     }
 });
 

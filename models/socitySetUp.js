@@ -34,6 +34,10 @@ const socitySetUp = new Schema({
         type: Number,
         required: true
     },
+    total_flat : {
+        type : Number,
+        required : true
+    },
     house_per_level: {
         type: Number,
         required: true

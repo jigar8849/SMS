@@ -1,193 +1,185 @@
 <%- layout("layouts/boilerplate") %>
 
-    <style>
-        .serach-box {
-            height: 5rem;
-        }
+  <style>
+    .serach-box {
+      height: 5rem;
+    }
 
-        .dash-card {
-            width: 16rem;
-            height: 8rem;
-        }
+    .dash-card {
+      width: 16rem;
+      height: 8rem;
+    }
 
-        .select-status {
-            height: 2.9rem;
-            margin-top: 1rem;
-            margin-right: 1rem;
-            width: 12rem;
-        }
-    </style>
+    .select-status {
+      height: 2.9rem;
+      margin-top: 1rem;
+      margin-right: 1rem;
+      width: 12rem;
+    }
 
-    <body>
-        <div class="compailin-container">
-            <div class="d-flex justify-content-between align-items-center mb-4">
-                <h4 class="fw-bold">Complaints Management</h4>
-                
-            </div>
+    .badge-soft-danger {
+      background-color: #f8d7da;
+      color: #842029;
+      padding: 0.35em 0.65em;
+    }
 
+    .compailin-container {
+      padding: 1rem 2rem;
+    }
+  </style>
 
-            <div class="dash-info d-flex gap-5 d-flex justify-content-between">
-                <div class="dash-card d-flex gap-5 rounded-3 bg-white">
-                    <div class="left ms-4 mt-4">
-                        <p class="mt-1">Total Complaints</p>
-                        <h3 class="fw-bold">3</h3>
-                    </div>
-                    <div class="right mt-5 pb-2">
-                        <i
-                            class="bi bi-chat-left-text text-primary bg-primary bg-opacity-25 p-3 rounded-circle fs-3"></i>
-                    </div>
+  <div class="compailin-container">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+      <h4 class="fw-bold">Complaints Management</h4>
+    </div>
 
-                </div>
-
-                <div class="dash-card d-flex gap-5 rounded-3 bg-white">
-                    <div class="left ms-4 mt-4">
-                        <p>Pending </p>
-                        <h3 class="fw-bold">2</h3>
-                    </div>
-                    <div class="right mt-5 pb-2">
-                        <i class="bi bi-clock text-danger bg-danger bg-opacity-25 p-3 rounded-circle fs-3"></i>
-                    </div>
-
-                </div>
-
-                <div class="dash-card d-flex gap-5 rounded-3 bg-white">
-                    <div class="left ms-4 mt-4">
-                        <p>In-Progress</p>
-                        <h3 class="fw-bold">2</h3>
-                    </div>
-                    <div class="right mt-5 pb-2">
-                        <i class="bi bi-funnel-fill text-primary bg-warning bg-opacity-25 p-3 rounded-circle fs-3"></i>
-                    </div>
-
-                </div>
-
-                <div class="dash-card d-flex gap-5 rounded-3 bg-white">
-                    <div class="left ms-4 mt-4">
-                        <p>Resolved</p>
-                        <h3 class="fw-bold">1</h3>
-                    </div>
-                    <div class="right mt-5 pb-2">
-                        <i class="bi bi-check-circle text-primary bg-success bg-opacity-25 p-3 rounded-circle fs-3"></i>
-                    </div>
-                </div>
-            </div>
-
-            <div class="bg-white p-3 rounded mb-3 d-flex flex-wrap gap-2 align-items-center mt-4">
-                <div class="flex-grow-1">
-                    <div class="input-group">
-                        <span class="input-group-text bg-white border-end-0"><i class="bi bi-search"></i></span>
-                        <input type="text" class="form-control border-start-0"
-                            placeholder="Search residents by name, flat number, or block...">
-                    </div>
-                </div>
-                <select class="form-select w-auto">
-                    <option>All Status</option>
-                    <option>Pending</option>
-                    <option>In-Progress</option>
-                    <option>Resolved</option>
-                </select>
-                <select class="form-select w-auto">
-                    <option>All Priority</option>
-                    <option>High</option>
-                    <option>Medium</option>
-                    <option>Low</option>
-                </select>
-            </div>
-
-
-            <div class="card rounded">
-                <div class="card-body p-0">
-                    <table class="table align-middle mb-0">
-                        <thead class="table-light">
-                            <tr>
-                                <th>COMPLAINT DETAILS</th>
-                                <th>RESIDENT</th>
-                                <th>CATEGORY</th>
-                                <th>PRIORITY</th>
-                                <th>STATUS</th>
-                                <th>DATE</th>
-                                <th>ACTIONS</th> 
-                            </tr>
-                        </thead>
-                        <tbody>
-
-                            <!-- Row 1 -->
-                            <tr>
-                                <td>
-                                    <strong>Water leakage in bathroom</strong>
-                                    <p class="mb-1 text-muted small">There is continuous water leakage from the bathr…
-                                    </p>
-                                    <a href="#" class="text-primary small"><i class="bi bi-paperclip"></i> 1
-                                        attachment(s)</a>
-                                </td>
-                                <td><strong>John Doe</strong><br><span class="text-muted small">Block A - 301</span>
-                                </td>
-                                <td>Plumbing</td>
-                                <td><span class="badge rounded-pill badge-soft-danger">HIGH</span></td>
-                                <td><span class="badge rounded-pill badge-soft-danger">PENDING</span></td>
-                                <td>2024-01-15</td>
-                                <td>
-                                    <i class="bi bi-eye text-primary me-2"></i>
-                                    <select class="form-select form-select-sm">
-                                        <option selected>Pending</option>
-                                        <option>In Progress</option>
-                                        <option>Resolved</option>
-                                    </select>
-                                </td>
-                            </tr>
-
-                            <!-- Row 2 -->
-                            <tr>
-                                <td>
-                                    <strong>Elevator not working</strong>
-                                    <p class="mb-1 text-muted small">The elevator in Block B has been out of order sinc…
-                                    </p>
-                                </td>
-                                <td><strong>Jane Smith</strong><br><span class="text-muted small">Block B - 205</span>
-                                </td>
-                                <td>Maintenance</td>
-                                <td><span class="badge rounded-pill badge-soft-warning">MEDIUM</span></td>
-                                <td><span class="badge rounded-pill badge-soft-warning">IN PROGRESS</span></td>
-                                <td>2024-01-14</td>
-                                <td>
-                                    <i class="bi bi-eye text-primary me-2"></i>
-                                    <select class="form-select form-select-sm">
-                                        <option>Pending</option>
-                                        <option selected>In Progress</option>
-                                        <option>Resolved</option>
-                                    </select>
-                                </td>
-                            </tr>
-
-                            <!-- Row 3 -->
-                            <tr>
-                                <td>
-                                    <strong>Parking space issue</strong>
-                                    <p class="mb-1 text-muted small">Someone is parking in my designated parking spo…
-                                    </p>
-                                </td>
-                                <td><strong>Mike Johnson</strong><br><span class="text-muted small">Block A - 102</span>
-                                </td>
-                                <td>Parking</td>
-                                <td><span class="badge rounded-pill badge-soft-success">LOW</span></td>
-                                <td><span class="badge rounded-pill badge-soft-success">RESOLVED</span></td>
-                                <td>2024-01-10</td>
-                                <td>
-                                    <i class="bi bi-eye text-primary me-2"></i>
-                                    <select class="form-select form-select-sm">
-                                        <option>Pending</option>
-                                        <option>In Progress</option>
-                                        <option selected>Resolved</option>
-                                    </select>
-                                </td>
-                            </tr>
-
-                        </tbody>
-                    </table>
-                </div>
-            </div>
+    <div class="dash-info d-flex flex-wrap gap-3 justify-content-between">
+      <div class="dash-card d-flex justify-content-between align-items-center rounded-3 bg-white p-3">
+        <div>
+          <p class="mb-1">Total Complaints</p>
+          <h3 class="fw-bold">3</h3>
         </div>
+        <i class="bi bi-chat-left-text text-primary bg-primary bg-opacity-25 p-3 rounded-circle fs-3"></i>
+      </div>
 
+      <div class="dash-card d-flex justify-content-between align-items-center rounded-3 bg-white p-3">
+        <div>
+          <p class="mb-1">Pending</p>
+          <h3 class="fw-bold">2</h3>
+        </div>
+        <i class="bi bi-clock text-danger bg-danger bg-opacity-25 p-3 rounded-circle fs-3"></i>
+      </div>
 
+      <div class="dash-card d-flex justify-content-between align-items-center rounded-3 bg-white p-3">
+        <div>
+          <p class="mb-1">In-Progress</p>
+          <h3 class="fw-bold">2</h3>
+        </div>
+        <i class="bi bi-funnel-fill text-warning bg-warning bg-opacity-25 p-3 rounded-circle fs-3"></i>
+      </div>
 
-    </body>
+      <div class="dash-card d-flex justify-content-between align-items-center rounded-3 bg-white p-3">
+        <div>
+          <p class="mb-1">Resolved</p>
+          <h3 class="fw-bold">1</h3>
+        </div>
+        <i class="bi bi-check-circle text-success bg-success bg-opacity-25 p-3 rounded-circle fs-3"></i>
+      </div>
+    </div>
+
+    <div class="bg-white p-3 rounded mb-3 d-flex flex-wrap gap-2 align-items-center mt-4">
+      <div class="flex-grow-1">
+        <div class="input-group">
+          <span class="input-group-text bg-white border-end-0">
+            <i class="bi bi-search"></i>
+          </span>
+          <input type="text" class="form-control border-start-0"
+            placeholder="Search residents by name, flat number, or block..." />
+        </div>
+      </div>
+      <select class="form-select w-auto">
+        <option>All Status</option>
+        <option>Pending</option>
+        <option>In-Progress</option>
+        <option>Resolved</option>
+      </select>
+      <select class="form-select w-auto">
+        <option>All Priority</option>
+        <option>High</option>
+        <option>Medium</option>
+        <option>Low</option>
+      </select>
+    </div>
+
+    <div class="card rounded">
+      <div class="card-body p-0">
+        <table class="table align-middle mb-0">
+          <thead class="table-light">
+            <tr>
+              <th>COMPLAINT DETAILS</th>
+              <th>RESIDENT</th>
+              <th>CATEGORY</th>
+              <th>PRIORITY</th>
+              <th>STATUS</th>
+              <th>DATE</th>
+              <th>ACTIONS</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% complainsDetails.forEach(compDetail=> { %>
+              <tr>
+                <td>
+                  <strong>
+                    <%= compDetail.title %>
+                  </strong>
+                  <p class="mb-1 text-muted small">
+                    <%= compDetail.description %>
+                  </p>
+                  <a href="#" class="text-primary small">
+                    <i class="bi bi-paperclip"></i>
+                    <%= compDetail.Attachments %> 1 attachment(s)
+                  </a>
+                </td>
+                <td>
+                  <strong>
+                    <% if (compDetail.resident) { %>
+                      <%= compDetail.resident.owner_name %>
+                        <% } else { %>
+                          Unknown Resident
+                          <% } %>
+                  </strong><br>
+                  <p class="text-muted small">
+                    Block <%= compDetail.resident?.block %>-<%= compDetail.resident?.flat_number %>
+                  </p>
+                </td>
+                <td class="fw-bold">
+                  <%= compDetail.category %>
+                </td>
+                <td>
+                  <span class="text-dark fw-bold">
+                    <%= compDetail.priority %>
+                  </span>
+                </td>
+                <td>
+                  <% if (compDetail.status==="Pending" ) { %>
+                    <span class="badge p-2 px-4 py-2 rounded-pill bg-danger text-white fw-bold">
+                      <%= compDetail.status %>
+                    </span>
+                    <% } else if (compDetail.status==="In-Progress" ) { %>
+                      <span class="badge p-2 px-4 py-2 rounded-pill bg-warning text-dark fw-bold">
+                        <%= compDetail.status %>
+                      </span>
+                      <% } else if (compDetail.status==="Complete" ) { %>
+                        <span class="badge p-2 px-4 py-2 rounded-pill bg-success text-white fw-bold">
+                          <%= compDetail.status %>
+                        </span>
+                        <% } else if (compDetail.status==="Reject" ) { %>
+                          <span class="badge p-2 px-4 py-2 rounded-pill bg-secondary text-white fw-bold">
+                            <%= compDetail.status %>
+                          </span>
+                          <% } else if (compDetail.status==="On-hold" ) { %>
+                            <span class="badge p-2 px-4 py-2 rounded-pill bg-primary text-white fw-bold">
+                              <%= compDetail.status %>
+                            </span>
+                            <% } else { %>
+                              <span class="badge p-2 px-4 py-2 rounded-pill bg-dark text-white fw-bold">
+                                <%= compDetail.status %>
+                              </span>
+                              <% } %>
+                </td>
+
+                <td>
+                  <%= compDetail.created_at.toISOString().split('T')[0] %>
+                </td>
+                <td>
+                  <a href="/complaints/<%= compDetail._id %>/edit" class="btn btn-sm btn-primary">
+                    Manage
+                  </a>
+                </td>
+              </tr>
+              <% }); %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>

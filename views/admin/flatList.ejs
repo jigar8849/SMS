@@ -27,7 +27,9 @@
                 <div class="dash-card d-flex gap-5 rounded-3 bg-white">
                     <div class="left ms-4 mt-4">
                         <p class="mt-1">Total Blocks</p>
-                        <h3 class="fw-bold">4</h3>
+                        <h3 class="fw-bold">
+                            <%= blockList[0].total_block %>
+                        </h3>
                     </div>
                     <div class="right mt-5 pb-2">
                         <i class="bi bi-bicycle text-white bg-primary p-2 rounded-circle fs-3"></i>
@@ -38,7 +40,9 @@
                 <div class="dash-card d-flex gap-5 rounded-3 bg-white">
                     <div class="left ms-4 mt-4">
                         <p>Total Flats</p>
-                        <h3 class="fw-bold">146</h3>
+                        <h3 class="fw-bold">
+                            <%= blockList[0].total_flat %>
+                        </h3>
                     </div>
                     <div class="right mt-5 pb-2">
                         <i class="bi bi-car-front text-dark bg-success bg-opacity-25 p-2 rounded-circle fs-4"></i>
@@ -49,7 +53,9 @@
                 <div class="dash-card d-flex gap-5 rounded-3 bg-white">
                     <div class="left ms-4 mt-4">
                         <p>Available Slots</p>
-                        <h3 class="fw-bold">7</h3>
+                        <h3 class="fw-bold">
+                            <%= blockList[0].total_flat - totalNumberFlats %>
+                        </h3>
                     </div>
                     <div class="right mt-5 pb-2">
                         <i class="bi bi-plus-lg text-white bg-success  p-2 rounded-circle fs-4"></i>
@@ -60,7 +66,9 @@
                 <div class="dash-card d-flex gap-5 rounded-3 bg-white">
                     <div class="left ms-4 mt-4">
                         <p>Occupancy Rate</p>
-                        <h3 class="fw-bold">88%</h3>
+                        <h3 class="fw-bold">
+                            <%= Math.round((totalNumberFlats/blockList[0].total_flat)*100) %>%
+                        </h3>
                     </div>
                     <div class="right mt-5 pb-2">
                         <i class="bi bi-car-front-fill text-white p-2 rounded-circle fs-4"
@@ -73,7 +81,7 @@
                 <% for (let i=0; i < blockList[0].total_block; i++) { %>
                     <div
                         class="box-a blok border d-flex justify-content-center align-items-center rounded-3 fw-bold bg-white">
-                        <a href="">
+                        <a href="/flatList/<%= String.fromCharCode(65 + i) %>">
                             Block-<%= String.fromCharCode(65 + i) %>
                         </a>
                     </div>

@@ -32,7 +32,7 @@
                 <div class="dash-card d-flex gap-5 rounded-3 bg-white">
                     <div class="left ms-4 mt-4">
                         <p class="mt-1">Total Employees</p>
-                        <h3 class="fw-bold">3</h3>
+                        <h3 class="fw-bold"><%= totalEmployees %></h3>
                     </div>
                     <div class="right mt-5 pb-2">
                         <i class="bi bi-people text-primary bg-primary bg-opacity-25 p-3 rounded-circle fs-3"></i>
@@ -43,7 +43,7 @@
                 <div class="dash-card d-flex gap-5 rounded-3 bg-white">
                     <div class="left ms-4 mt-4">
                         <p>Active</p>
-                        <h3 class="fw-bold text-success fw-bold">3</h3>
+                        <h3 class="fw-bold text-success fw-bold"><%= totalActiveEmployees %></h3>
                     </div>
                     <div class="right mt-5 pb-2">
                         <i class="bi bi-people text-primary bg-success bg-opacity-25 p-3 rounded-circle fs-3"></i>
@@ -53,8 +53,8 @@
 
                 <div class="dash-card d-flex gap-5 rounded-3 bg-white">
                     <div class="left ms-4 mt-4">
-                        <p>Security Guards</p>
-                        <h3 class="fw-bold">2</h3>
+                        <p>In-active</p>
+                        <h3 class="fw-bold"><%= totalEmployees - totalActiveEmployees %></h3>
                     </div>
                     <div class="right mt-5 pb-2">
                         <i class="bi bi-people text-primary bg-primary bg-opacity-25 p-3 rounded-circle fs-3"></i>
@@ -65,7 +65,7 @@
                 <div class="dash-card d-flex gap-5 rounded-3 bg-white">
                     <div class="left ms-4 mt-4">
                         <p>Monthly Payroll</p>
-                        <h3 class="fw-bold">45000</h3>
+                        <h3 class="fw-bold"><%= totalSalaryAmount %></h3>
                     </div>
                     <div class="right mt-5 pb-2">
                         <i class="bi bi-people text-primary bg-primary bg-opacity-25 p-3 rounded-circle fs-3"></i>

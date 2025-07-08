@@ -9,7 +9,7 @@ const SocitySetUp = require('./models/socitySetUp');  //require model that store
 const Complaints = require("./models/complain");   //require model that store complaint details
 const Employees = require("./models/employee");    // require model that store employee details
 const session = require('express-session');  // require midleware sessions
-const newMember = require("./models/newMember");
+
 
 
 
@@ -49,6 +49,7 @@ async function main() {
   console.log("MongoDB Connected");
 }
 
+
 app.get("/", (req, res) => {
   res.render("home");
 });
@@ -74,7 +75,7 @@ app.get("/logout", (req, res) => {
 
 //simple admin page RESIDENTS page route
 app.get("/residents", async (req, res) => {
-  const allMemberDetails = await newMember.find({});
+  const allMemberDetails = await NewMember.find({});
   res.render("admin/residents", { allMemberDetails });
 })
 
@@ -93,7 +94,7 @@ app.post("/addNewResident", async (req, res) => {
 // edit - this page redirect to the edit form page
 app.get("/residents/:id/edit", async (req, res) => {
 
-  const residentDetails = await newMember.findById(req.params.id);
+  const residentDetails = await NewMember.findById(req.params.id);
   res.render("forms/editResident", { residentDetails })
 })
 
@@ -103,7 +104,7 @@ app.put("/residents/:id", async (req, res) => {
   const updatedDetails = req.body;
   //this line do that it take multiple user name in single line by coma seprated and store in array form
   updatedDetails.name_of_each_member = updatedDetails.name_of_each_member.split(",").map(name => name.trim());
-  await newMember.findByIdAndUpdate(id, updatedDetails, { new: true });
+  await NewMember.findByIdAndUpdate(id, updatedDetails, { new: true });
   res.redirect("/residents");
 });
 
@@ -111,7 +112,7 @@ app.put("/residents/:id", async (req, res) => {
 //DELETE - this route use to delete perticular one resident from table
 app.delete("/residents/:id", async (req, res) => {
   const id = req.params.id;
-  await newMember.findByIdAndDelete(id);
+  await NewMember.findByIdAndDelete(id);
   res.redirect("/residents");
 })
 
@@ -126,40 +127,72 @@ app.get("/parking", (req, res) => {
 
 
 
-app.get("/employees", async(req, res) => {
+app.get("/employees", async (req, res) => {
   const allEmployeeDetails = await Employees.find();
-  res.render("admin/employees",{allEmployeeDetails});
+  const totalEmployees = await Employees.countDocuments();
+  const totalActiveEmployees = await Employees.countDocuments({ status: "Active" });
+  const totalSalary = await Employees.aggregate([
+    {
+      $group: {
+        _id: null,
+        total: { $sum: "$salary" }
+      }
+    }
+  ]);
+  const totalSalaryAmount = totalSalary[0] ? totalSalary[0].total : 0;
+
+  res.render("admin/employees", { allEmployeeDetails, totalEmployees, totalActiveEmployees, totalSalaryAmount });
 })
 
-app.get("/employees/:id/edit",async(req,res)=>{
+app.get("/employees/:id/edit", async (req, res) => {
   const employee = await Employees.findById(req.params.id);
-  res.render("forms/employeeManage",{employee});
+  res.render("forms/employeeManage", { employee });
 })
 
-app.put("/employees/:id",async(req,res)=>{
+app.put("/employees/:id", async (req, res) => {
   const id = req.params.id;
-  await Employees.findByIdAndUpdate(id,req.body);
+  await Employees.findByIdAndUpdate(id, req.body);
   res.redirect("/employees");
 })
 
-app.delete("/employees/:id",async(req,res)=>{
+app.delete("/employees/:id", async (req, res) => {
   const id = req.params.id;
- const temp = await Employees.findByIdAndDelete(id)
- console.log(temp);
+  const temp = await Employees.findByIdAndDelete(id)
+  console.log(temp);
   res.redirect("/employees");
 })
 
 
 
-app.get("/flatList", async(req, res) => {
+app.get("/flatList", async (req, res) => {
   const blockList = await SocitySetUp.find();
-  res.render("admin/flatList",{blockList});
+  const totalNumberFlats = await NewMember.countDocuments();
+  res.render("admin/flatList", { blockList, totalNumberFlats });
 })
 
-app.get("/complaints", (req, res) => {
-  res.render("admin/complaints");
+app.get("/flatList/:blockName",async(req,res)=>{
+  const blockName = req.params.blockName
+  const members = await NewMember.find({block : blockName});
+  res.render("forms/flatListBlock",{blockName,members})
 })
 
+app.get("/complaints", async(req, res) => {
+  const complainsDetails = await Complaints.find().populate("resident","owner_name block flat_number")
+  complainsDetails.map(item => item.toJSON())
+  res.render("admin/complaints",{complainsDetails});
+})
+
+app.get("/complaints/:id/edit",async(req,res)=>{
+    const complain = await Complaints.findById(req.params.id);
+    res.render("forms/complainManage",{complain});
+})
+
+app.post("/complaints/:id/edit", async(req,res)=>{
+  const id = req.params.id;
+  const data = req.body
+  await Complaints.findByIdAndUpdate(id, data)
+  res.redirect("/complaints");
+})
 
 
 
@@ -222,10 +255,13 @@ app.get("/newComplain", (req, res) => {
 })
 
 app.post("/newComplain", async (req, res) => {
-  const newComplain = new Complaints(req.body);
+  const newComplainData = req.body;
+//Attach the logged-in resident’s ID
+  newComplainData.resident = req.session.addNewMember.id;
+  const newComplain = new Complaints(newComplainData);
   await newComplain.save();
-  res.redirect("/resident-complaints")
-})
+  res.redirect("/resident-complaints");
+});
 
 
 
