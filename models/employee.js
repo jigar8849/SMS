@@ -27,6 +27,10 @@ const employeesSchema = new Schema({
         type : String,
         enum : ['Active', 'Inactive'],
         required : true
+    },
+    location : {
+        type : String,
+        required : true
     }
 });
 

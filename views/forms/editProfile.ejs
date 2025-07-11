@@ -1,0 +1,59 @@
+<%- layout("layouts/boilerplate") %>
+
+
+  <body>
+    <div class="container mt-5">
+      <h2 class="mb-4">Add New Member</h2>
+      <form method="post" action="/resident-profile/<%= profileInfo._id %>/edit">
+
+        <div class="row mb-3">
+          <div class="col-md-6">
+            <label for="ownerFirstName" class="form-label">First Name</label>
+            <input type="text" class="form-control" id="ownerFirstName" name="first_name" required>
+          </div>
+          <div class="col-md-6">
+            <label for="ownerLastName" class="form-label">Last Name</label>
+            <input type="text" class="form-control" id="ownerLastName" name="last_name" required>
+          </div>
+        </div>
+
+
+
+
+
+        <div class="row mb-3">
+          <div class="col-md-6">
+            <label for="mobileNumber" class="form-label">Mobile Number</label>
+            <input type="tel" class="form-control" id="mobileNumber" name="mobile_number" required>
+          </div>
+          <div class="col-md-6">
+            <label for="numberOfMembers" class="form-label">Number of Members</label>
+            <input type="number" class="form-control" id="numberOfMembers" name="number_of_member" required>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+           <div class="col-md-6">
+            <label for="mobileNumber" class="form-label">Emergency Mobile Number</label>
+            <input type="tel" class="form-control" id="mobileNumber" name="emergency_number" required>
+          </div>
+          <div class="col-md-6">
+            <label for="mobileNumber" class="form-label">Birth Date</label>
+            <input type="date" class="form-control" id="mobileNumber" name="birth_date" required>
+          </div>
+        </div>
+
+
+        
+
+        <div class="row mb-3">
+          <div class="col-md-6">
+            <label for="email" class="form-label">Email</label>
+            <input type="email" class="form-control" id="email" name="email" required>
+          </div>
+        </div>
+
+        <button type="submit" class="btn btn-success fw-bold fs-5">Submit Form</button>
+      </form>
+    </div>
+  </body>

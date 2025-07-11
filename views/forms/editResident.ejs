@@ -45,10 +45,15 @@
           <form action="/residents/<%= residentDetails._id %>?_method=PUT" method="POST">
             <!-- Owner Name -->
             <div class="mb-3">
-              <label for="owner_name" class="form-label">Owner Name</label>
-              <input type="text" id="owner_name" name="owner_name" value="<%= residentDetails.owner_name %>" class="form-control" placeholder="Owner Name">
+              <label for="owner_name" class="form-label">First Name</label>
+              <input type="text" id="owner_name" name="first_name" value="<%= residentDetails.first_name %>" class="form-control" placeholder="Owner Name">
             </div>
 
+            
+            <div class="mb-3">
+              <label for="owner_name" class="form-label">Last Name</label>
+              <input type="text" id="owner_name" name="last_name" value="<%= residentDetails.last_name %>" class="form-control" placeholder="Owner Name">
+            </div>
             <!-- Mobile Number -->
             <div class="mb-3">
               <label for="mobile_number" class="form-label">Mobile Number</label>

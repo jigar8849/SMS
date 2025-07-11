@@ -1,68 +1,155 @@
 <%- layout("layouts/boilerplate") %>
+
 <style>
-      .dash-card {
-            width: 17rem;
-            height: 8rem;
-        }
+  .dash-card {
+    width: 17rem;
+    height: 8rem;
+  }
 </style>
-    <body>
-        <div class="parking-container border">
-            <div class="payment-header d-flex justify-content-between">
-                <div class="payment-title">
-                    <h3 class="fw-bold">Parking Management</h3>
-                </div>
-                <div class="export-btn">
-                    <button class="p-2 rounded px-4 bg-primary text-white fw-semibold">
-                        <i class="bi bi-plus-lg"></i> Allocate Parking
-                    </button>
-                </div>
-            </div>
 
-             <div class="dash-info d-flex gap-5 mt-4">
-                <div class="dash-card d-flex gap-5 rounded-3 bg-white">
-                    <div class="left ms-4 mt-4">
-                        <p class="mt-1">Two Wheeler Slots</p>
-                        <h3 class="fw-bold">80/100</h3>
-                    </div>
-                    <div class="right mt-5 pb-2">
-                        <i class="bi bi-bicycle text-white bg-primary p-2 rounded-circle fs-3"></i>
-                    </div>
+<body>
+  <div class="parking-container">
+    <div class="payment-header d-flex justify-content-between">
+      <div class="payment-title">
+        <h3 class="fw-bold">Parking Management</h3>
+      </div>
+    </div>
 
-                </div>
-
-                <div class="dash-card d-flex gap-5 rounded-3 bg-white">
-                    <div class="left ms-4 mt-4">
-                        <p>Four Wheeler Slots</p>
-                        <h3 class="fw-bold">130/145</h3>
-                    </div>
-                    <div class="right mt-5 pb-2">
-                        <i class="bi bi-car-front text-dark bg-success bg-opacity-25 p-2 rounded-circle fs-4"></i>
-                    </div>
-
-                </div>
-
-                <div class="dash-card d-flex gap-5 rounded-3 bg-white">
-                    <div class="left ms-4 mt-4">
-                        <p>Available Slots</p>
-                        <h3 class="fw-bold">7</h3>
-                    </div>
-                    <div class="right mt-5 pb-2">
-                        <i class="bi bi-plus-lg text-white bg-success  p-2 rounded-circle fs-4"></i>
-                    </div>
-
-                </div>
-
-                <div class="dash-card d-flex gap-5 rounded-3 bg-white">
-                    <div class="left ms-4 mt-4">
-                        <p>Occupancy Rate</p>
-                        <h3 class="fw-bold">88%</h3>
-                    </div>
-                    <div class="right mt-5 pb-2">
-                        <i class="bi bi-car-front-fill text-white p-2 rounded-circle fs-4"
-                            style="background-color: #a855f7;"></i>
-                    </div>
-                </div>
-            </div>
-
+    <!-- DASHBOARD CARDS -->
+    <div class="dash-info d-flex flex-wrap gap-4 mt-4">
+      <!-- Two Wheeler -->
+      <div class="dash-card d-flex gap-5 rounded-3 bg-white">
+        <div class="left ms-4 mt-4">
+          <p class="mt-1">Two Wheeler Slots</p>
+          <h3 class="fw-bold">
+            <%= twoWheeler %>/<%= society?.total_two_wheeler_slot ?? 0 %>
+          </h3>
         </div>
-    </body>
+        <div class="right mt-5 pb-2">
+          <i class="bi bi-bicycle text-white bg-primary p-2 rounded-circle fs-3"></i>
+        </div>
+      </div>
+
+      <!-- Four Wheeler -->
+      <div class="dash-card d-flex gap-5 rounded-3 bg-white">
+        <div class="left ms-4 mt-4">
+          <p>Four Wheeler Slots</p>
+          <h3 class="fw-bold">
+            <%= fourWheeler %>/<%= society?.total_four_wheeler_slot ?? 0 %>
+          </h3>
+        </div>
+        <div class="right mt-5 pb-2">
+          <i class="bi bi-car-front text-dark bg-success bg-opacity-25 p-2 rounded-circle fs-4"></i>
+        </div>
+      </div>
+
+      <!-- Available Four Wheeler Slots -->
+      <div class="dash-card d-flex gap-5 rounded-3 bg-white">
+        <div class="left ms-4 mt-4">
+          <p>Available 4W Slots</p>
+          <h3 class="fw-bold">
+            <%= (society?.total_four_wheeler_slot ?? 0) - fourWheeler %>
+          </h3>
+        </div>
+        <div class="right mt-5 pb-2">
+          <i class="bi bi-plus-lg text-white bg-success p-2 rounded-circle fs-4"></i>
+        </div>
+      </div>
+
+      <!-- Occupancy -->
+      <div class="dash-card d-flex gap-5 rounded-3 bg-white">
+        <div class="left ms-4 mt-4">
+          <p>Occupancy Rate</p>
+          <h3 class="fw-bold">
+            <% let occ = society?.total_four_wheeler_slot ? Math.round((fourWheeler / society.total_four_wheeler_slot) * 100) : 0; %>
+            <%= occ %> %
+          </h3>
+        </div>
+        <div class="right mt-5 pb-2">
+          <i class="bi bi-car-front-fill text-white p-2 rounded-circle fs-4"
+            style="background-color: #a855f7;"></i>
+        </div>
+      </div>
+    </div>
+
+  <div class="mt-4 border rounded p-3 bg-white">
+      <div class="row g-3 align-items-center">
+        <!-- Search Box -->
+        <div class="col-md-9 col-sm-12">
+          <div class="input-group">
+            <span class="input-group-text bg-white border-end-0">
+              <i class="bi bi-search text-muted"></i>
+            </span>
+            <input type="text" class="form-control border-start-0"
+              placeholder="Search by registration number, owner name, or flat...">
+            <button class="rounded p-2 px-4 text-white bg-primary border-0 ms-2">Search</button>
+          </div>
+        </div>
+
+        <!-- Filter Dropdown -->
+        <div class="col-md-3 col-sm-12">
+          <select class="form-select border-primary text-dark fw-semibold">
+            <option selected>All Vehicles</option>
+            <option>Two Wheelers</option>
+            <option>Four Wheelers</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+
+    <!-- VEHICLE LIST -->
+    <div class="vehicle-info mt-4 border rounded bg-white">
+      <div class="info-head m-4">
+        <h5 class="fw-bold">Search Results</h5>
+      </div>
+      <hr>
+
+      <div class="container mb-3 mt-4">
+        <div class="row g-3">
+          <% allParkingDetails.forEach(pDetail => { %>
+            <div class="col-12 col-sm-6 col-md-4">
+              <div class="card p-3 shadow-sm h-100">
+                <div class="row align-items-center mb-3">
+                  <div class="col-auto">
+                    <% if (pDetail.four_wheeler) { %>
+                      <i class="bi bi-car-front fs-1 text-primary"></i>
+                    <% } %>
+                    <% if (pDetail.two_wheeler) { %>
+                      <i class="bi bi-bicycle fs-1 text-success"></i>
+                    <% } %>
+                  </div>
+                  <div class="col">
+                    <% if (pDetail.four_wheeler) { %>
+                      <h4 class="mb-1">
+                        <%= pDetail.four_wheeler %>
+                        <span class="badge bg-light text-primary">4-wheeler</span>
+                      </h4>
+                    <% } %>
+                    <% if (pDetail.two_wheeler) { %>
+                      <h4 class="mb-0">
+                        <%= pDetail.two_wheeler %>
+                        <span class="badge bg-light text-success">2-wheeler</span>
+                      </h4>
+                    <% } %>
+                  </div>
+                </div>
+
+                <div class="mb-2 fs-5">
+                  <strong>Owner :</strong> <%= pDetail.first_name %> <%= pDetail.last_name %><br />
+                  <strong>Flat :</strong> Block <%= pDetail.block %> - <%= pDetail.flat_number %><br />
+                  <strong>Phone :</strong> +91 <%= pDetail.mobile_number %><br />
+                </div>
+
+                <div class="d-flex flex-column flex-sm-row gap-3 mt-3">
+                  <button class="btn btn-primary w-100 w-sm-auto">Contact Owner</button>
+                  <button class="btn btn-outline-secondary w-100 w-sm-auto">Report Issue</button>
+                </div>
+              </div>
+            </div>
+          <% }); %>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>

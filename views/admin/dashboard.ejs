@@ -1,7 +1,7 @@
 <%- layout("layouts/boilerplate") %>
 
     <style>
-        .dash-title{
+        .dash-title {
             width: 78vw;
         }
 
@@ -37,7 +37,9 @@
                 <div class="dash-card d-flex gap-5 rounded-3 bg-white">
                     <div class="left ms-4 mt-4">
                         <p class="mt-1">Total Residents</p>
-                        <h3 class="fw-bold">146</h3>
+                        <h3 class="fw-bold">
+                            <%= totalResidents.total_flat %>
+                        </h3>
                     </div>
                     <div class="right mt-5 pb-2">
                         <i class="bi bi-people text-white bg-primary p-2 rounded-circle fs-3"></i>
@@ -59,7 +61,9 @@
                 <div class="dash-card d-flex gap-5 rounded-3 bg-white">
                     <div class="left ms-4 mt-4">
                         <p>Active Complaints</p>
-                        <h3 class="fw-bold">7</h3>
+                        <h3 class="fw-bold">
+                            <%= totalComplains %>
+                        </h3>
                     </div>
                     <div class="right mt-5 pb-2">
                         <i class="bi bi-exclamation-circle-fill text-white bg-danger p-2 rounded-circle fs-4"></i>
@@ -70,7 +74,9 @@
                 <div class="dash-card d-flex gap-5 rounded-3 bg-white">
                     <div class="left ms-4 mt-4">
                         <p>Parking Slots</p>
-                        <h3 class="fw-bold">156/200</h3>
+                        <h3 class="fw-bold">
+                            <%= totalParkingTaken %>/<%= totalResidents.total_four_wheeler_slot %>
+                        </h3>
                     </div>
                     <div class="right mt-5 pb-2">
                         <i class="bi bi-car-front-fill text-white p-2 rounded-circle fs-4"
@@ -101,33 +107,43 @@
 
                             <div class="upper d-flex ms-4 my-3 gap-4">
 
-                                <div
-                                    class="action-card border d-flex flex-column justify-content-center align-items-center p-4">
-                                    <i class="bi bi-people fs-2 text-primary"></i>
-                                    <p class="fw-semibold">Add Resident</p>
-                                </div>
+                                <a href="/addNewResident" class="text-decoration-none">
+                                    <div
+                                        class="action-card border d-flex flex-column justify-content-center align-items-center p-4">
+                                        <i class="bi bi-people fs-2 text-primary"></i>
+                                        <p class="fw-semibold">Add Resident</p>
+                                    </div>
+                                </a>
 
 
-                                <div
+                                <a href="" class="text-decoration-none">
+                                    <div
                                     class="action-card border d-flex flex-column justify-content-center align-items-center p-4">
                                     <i class="bi bi-credit-card-2-front fs-2 text-primary"></i>
                                     <p class="fw-semibold">Record Payment</p>
                                 </div>
+                                </a>
                             </div>
 
                             <div class="lower d-flex ms-4 my-3 gap-4">
 
+                                <a href="" class="text-decoration-none">
+                                    
                                 <div
                                     class="action-card border d-flex flex-column justify-content-center align-items-center p-4">
                                     <i class="bi bi-calendar-event fs-2 text-primary"></i>
                                     <p class="fw-semibold">Schedule Event</p>
                                 </div>
+                                </a>
 
+                                <a href="/complaints" class="text-decoration-none">
+                                    
                                 <div
                                     class="action-card border d-flex flex-column justify-content-center align-items-center p-4">
                                     <i class="bi bi-exclamation-circle fs-2 text-primary"></i>
                                     <p class="fw-semibold">View Complaints</p>
                                 </div>
+                                </a>
                             </div>
                         </div>
                     </div>

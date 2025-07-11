@@ -34,7 +34,7 @@ const complaintsSchema = new Schema({
     },
     status : {
         type : String,
-        enum : ["Pending", "Complete", "On-hold", "Reject","In-Progress"],
+        enum : ["Pending", "Complete", "On-hold", "Reject","InProgress"],
         default : "Pending"
 
     },

@@ -73,9 +73,10 @@
                                             <% members.forEach(member=> { %>
                                                 <tr>
                                                     <td class="fw-semibold"><%= blockName %>-<%= member.flat_number %></td>
-                                                    <td class="fw-semibold"><%= member.owner_name %></td>
+                                                    <td class="fw-semibold"><%= member.first_name %> <%= member.last_name %></td>
                                                     <td class="fw-semibold"><%= member.mobile_number %></td>
                                                 </tr>
+
                                             <% }) %>
                                         <% } %>
 

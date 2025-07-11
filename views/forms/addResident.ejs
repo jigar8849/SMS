@@ -1,107 +1,142 @@
 <%- layout("layouts/boilerplate") %>
 
 
-<body>
+  <body>
     <div class="container mt-5">
-  <h2 class="mb-4">Add New Member</h2>
-  <form method="post" action="/addNewResident" id="addMemberForm">
-    
-      <div class="col-md-6 w-auto mb-3">
-        <label for="ownerName" class="form-label">Owner Name</label>
-        <input type="text" class="form-control" id="ownerName" name="owner_name" required>
-      </div>
-      
+      <h2 class="mb-4">Add New Member</h2>
+      <form method="post" action="/addNewResident" id="addMemberForm">
+
+        <div class="row mb-3">
+          <div class="col-md-6">
+            <label for="ownerFirstName" class="form-label">Owner First Name</label>
+            <input type="text" class="form-control" id="ownerFirstName" name="first_name" required>
+          </div>
+          <div class="col-md-6">
+            <label for="ownerLastName" class="form-label">Owner Last Name</label>
+            <input type="text" class="form-control" id="ownerLastName" name="last_name" required>
+          </div>
+        </div>
 
 
-    <div class="row mb-3">
-      <div class="col-md-6">
-        <label for="mobileNumber" class="form-label">Mobile Number</label>
-        <input type="tel" class="form-control" id="mobileNumber" name="mobile_number" required>
-      </div>
-      <div class="col-md-6">
-        <label for="numberOfMembers" class="form-label">Number of Members</label>
-        <input type="number" class="form-control" id="numberOfMembers" name="number_of_member" required>
-      </div>
-    </div>
 
-   <div class="mb-3">
-      <label class="form-label">Name of Each Member</label>
-      <div id="memberNamesContainer">
-        <!-- Initial member name input -->
-        <div class="input-group mb-2">
-          <input type="text" class="form-control member-name-input" name="name_of_each_member[]" placeholder="Member Name" required>
-          <button type="button" class="btn btn-outline-danger" onclick="this.parentElement.remove()">
-            <i class="bi bi-x-lg"></i>
+
+
+        <div class="row mb-3">
+          <div class="col-md-6">
+            <label for="mobileNumber" class="form-label">Mobile Number</label>
+            <input type="tel" class="form-control" id="mobileNumber" name="mobile_number" required>
+          </div>
+          <div class="col-md-6">
+            <label for="numberOfMembers" class="form-label">Number of Members</label>
+            <input type="number" class="form-control" id="numberOfMembers" name="number_of_member" required>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <div class="col-md-6">
+            <label for="mobileNumber" class="form-label">Birth Date</label>
+            <input type="date" class="form-control" id="mobileNumber" name="birth_date" required>
+          </div>
+           <div class="col-md-6">
+            <label for="mobileNumber" class="form-label">Emergency Mobile Number</label>
+            <input type="tel" class="form-control" id="mobileNumber" name="emergency_number" required>
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label">Name of Each Member</label>
+          <div id="memberNamesContainer">
+            <!-- Initial member name input -->
+            <div class="input-group mb-2">
+              <input type="text" class="form-control member-name-input" name="name_of_each_member[]"
+                placeholder="Member Name" required>
+              <button type="button" class="btn btn-outline-danger" onclick="this.parentElement.remove()">
+                <i class="bi bi-x-lg"></i>
+              </button>
+            </div>
+          </div>
+          <button type="button" class="btn btn-secondary mt-2 bg-primary border-0" id="addMemberNameBtn">
+            <i class="bi bi-plus-lg"></i> Add Member Name
           </button>
         </div>
-      </div>
-      <button type="button" class="btn btn-secondary mt-2 bg-primary border-0" id="addMemberNameBtn">
-        <i class="bi bi-plus-lg"></i> Add Member Name
-      </button>
+
+
+        <div class="row mb-3">
+          <div class="col-md-4">
+            <label for="block" class="form-label">Block</label>
+            <input type="text" class="form-control" id="block" name="block" required>
+          </div>
+          <div class="col-md-4">
+            <label for="floorNumber" class="form-label">Floor Number</label>
+            <input type="number" class="form-control" id="floorNumber" name="floor_number" required>
+          </div>
+          <div class="col-md-4">
+            <label for="flatNumber" class="form-label">Flat Number</label>
+            <input type="number" class="form-control" id="flatNumber" name="flat_number" required>
+          </div>
+        </div>
+
+
+        <div class="row col-12">
+          <div class="col-6">
+            <label for="block" class="form-label">Four wheeler</label>
+            <input type="text" class="form-control" id="block" name="four_wheeler" placeholder="GJ-11-XX-1234" >
+          </div>
+          <div class="col-6">
+            <label for="floorNumber" class="form-label">Two wheeler</label>
+            <input type="text" class="form-control" id="floorNumber" name="two_wheeler" placeholder="GJ-01-XX-1234" >
+          </div>
+        </div>
+
+
+
+
+        <div class="row mb-3">
+          <div class="col-md-6">
+            <label for="email" class="form-label">Email</label>
+            <input type="email" class="form-control" id="email" name="email" required>
+          </div>
+          <div class="col-md-6">
+            <label for="createPassword" class="form-label">Create Password</label>
+            <input type="password" class="form-control" id="createPassword" name="create_password" required>
+          </div>
+        </div>
+
+        <button type="submit" class="btn btn-success fw-bold fs-5">Submit Form</button>
+      </form>
     </div>
 
+    <script>
+      const numberOfMembersInput = document.getElementById('numberOfMembers');
+      const memberNamesContainer = document.getElementById('memberNamesContainer');
+      const addMemberNameBtn = document.getElementById('addMemberNameBtn');
 
-    <div class="row mb-3">
-      <div class="col-md-4">
-        <label for="block" class="form-label">Block</label>
-        <input type="text" class="form-control" id="block" name="block" required>
-      </div>
-      <div class="col-md-4">
-        <label for="floorNumber" class="form-label">Floor Number</label>
-        <input type="number" class="form-control" id="floorNumber" name="floor_number" required>
-      </div>
-      <div class="col-md-4">
-        <label for="flatNumber" class="form-label">Flat Number</label>
-        <input type="number" class="form-control" id="flatNumber" name="flat_number" required>
-      </div>
-    </div>
+      numberOfMembersInput.addEventListener('change', () => {
+        renderMemberInputs(numberOfMembersInput.value);
+      });
 
-    <div class="row mb-3">
-      <div class="col-md-6">
-        <label for="email" class="form-label">Email</label>
-        <input type="email" class="form-control" id="email" name="email" required>
-      </div>
-      <div class="col-md-6">
-        <label for="createPassword" class="form-label">Create Password</label>
-        <input type="password" class="form-control" id="createPassword" name="create_password" required>
-      </div>
-    </div>
+      addMemberNameBtn.addEventListener('click', () => {
+        addMemberInput();
+      });
 
-    <button type="submit" class="btn btn-success fw-bold fs-5">Submit Form</button>
-  </form>
-</div>
+      function renderMemberInputs(count) {
+        memberNamesContainer.innerHTML = '';
+        for (let i = 0; i < count; i++) {
+          addMemberInput();
+        }
+      }
 
-<script>
-  const numberOfMembersInput = document.getElementById('numberOfMembers');
-  const memberNamesContainer = document.getElementById('memberNamesContainer');
-  const addMemberNameBtn = document.getElementById('addMemberNameBtn');
-
-  numberOfMembersInput.addEventListener('change', () => {
-    renderMemberInputs(numberOfMembersInput.value);
-  });
-
-  addMemberNameBtn.addEventListener('click', () => {
-    addMemberInput();
-  });
-
-  function renderMemberInputs(count) {
-    memberNamesContainer.innerHTML = '';
-    for (let i = 0; i < count; i++) {
-      addMemberInput();
-    }
-  }
-
-  function addMemberInput() {
-    const index = memberNamesContainer.querySelectorAll('.member-name-input').length;
-    const div = document.createElement('div');
-    div.classList.add('input-group', 'mb-2');
-    div.innerHTML = `
+      function addMemberInput() {
+        const index = memberNamesContainer.querySelectorAll('.member-name-input').length;
+        const div = document.createElement('div');
+        div.classList.add('input-group', 'mb-2');
+        div.innerHTML = `
       <input type="text" class="form-control member-name-input" name="name_of_each_member[]" placeholder="Member Name" required>
       <button type="button" class="btn btn-outline-danger" onclick="this.parentElement.remove()">
         <i class="bi bi-x-lg"></i>
       </button>
     `;
-    memberNamesContainer.appendChild(div);
-  }
-</script>
-</body>
+        memberNamesContainer.appendChild(div);
+      }
+    </script>
+  </body>

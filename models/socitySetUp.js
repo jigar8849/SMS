@@ -42,6 +42,14 @@ const socitySetUp = new Schema({
         type: Number,
         required: true
     },
+    total_four_wheeler_slot : {
+        type : Number,
+        required : true
+    },
+    total_two_wheeler_slot : {
+        type : Number,
+        required : true
+    },
     admin_name: {
         type: String,
         required: true

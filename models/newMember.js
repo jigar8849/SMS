@@ -3,8 +3,16 @@ const { Schema } = mongoose;
 
 
 const newMemberSchema = new Schema({
-    owner_name : {
+    first_name : {
         type : String,
+        required : true
+    },
+    last_name : {
+        type : String,
+        required : true
+    },
+    birth_date : {
+        type : Date,
         required : true
     },
     role : {
@@ -12,6 +20,10 @@ const newMemberSchema = new Schema({
         default : "resident"
     },
     mobile_number : {
+        type : Number,
+        required : true
+    },
+    emergency_number: {
         type : Number,
         required : true
     },
@@ -36,6 +48,13 @@ const newMemberSchema = new Schema({
         enum: ["active", "in-active"],
         default : "active"
     },
+    two_wheeler : {
+        type : String
+    },
+    
+    four_wheeler : {
+        type : String
+    },
     flat_number : {
         type : Number,
         required : true
@@ -47,6 +66,10 @@ const newMemberSchema = new Schema({
     create_password : {
         type : String,
         required : true
+    },
+    society : {
+        type : mongoose.Schema.Types.ObjectId,
+        ref : 'SocitySetUp',
     }
 });
 

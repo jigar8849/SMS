@@ -9,6 +9,7 @@ const SocitySetUp = require('./models/socitySetUp');  //require model that store
 const Complaints = require("./models/complain");   //require model that store complaint details
 const Employees = require("./models/employee");    // require model that store employee details
 const session = require('express-session');  // require midleware sessions
+const { isResidentLoggedIn , isAdminLoggedIn} = require("./middleware");
 
 
 
@@ -55,13 +56,16 @@ app.get("/", (req, res) => {
 });
 
 
-app.get("/testing", (req, res) => {
-  res.render("admin/test.ejs");
-})
-
-
-app.get("/dashboard", (req, res) => {
-  res.render("admin/dashboard.ejs");
+app.get("/dashboard", async (req, res) => {
+  const totalResidents = await SocitySetUp.findOne();
+  const totalComplains = await Complaints.countDocuments();
+  const totalParkingTaken = await NewMember.countDocuments({
+    $or: [
+      { two_wheeler: { $exists: true, $ne: "" } },
+      { four_wheeler: { $exists: true, $ne: "" } }
+    ]
+  });
+  res.render("admin/dashboard.ejs", { totalResidents, totalComplains, totalParkingTaken });
 })
 
 
@@ -80,7 +84,7 @@ app.get("/residents", async (req, res) => {
 })
 
 // this is for add new resident btn 
-app.get("/addNewResident", (req, res) => {
+app.get("/addNewResident", isAdminLoggedIn,(req, res) => {
   res.render("forms/addResident")
 })
 
@@ -120,8 +124,12 @@ app.get("/payments", (req, res) => {
   res.render("admin/payments");
 })
 
-app.get("/parking", (req, res) => {
-  res.render("admin/parking");
+app.get("/parking", async (req, res) => {
+  const allParkingDetails = await NewMember.find()
+  const twoWheeler = await NewMember.countDocuments({ two_wheeler: { $exists: true, $ne: "" } });
+  const fourWheeler = await NewMember.countDocuments({ four_wheeler: { $exists: true, $ne: "" } });
+  const society = await SocitySetUp.findOne({}, "total_four_wheeler_slot total_two_wheeler_slot");
+  res.render("admin/parking", { allParkingDetails, society, twoWheeler, fourWheeler });
 })
 
 
@@ -144,7 +152,7 @@ app.get("/employees", async (req, res) => {
   res.render("admin/employees", { allEmployeeDetails, totalEmployees, totalActiveEmployees, totalSalaryAmount });
 })
 
-app.get("/employees/:id/edit", async (req, res) => {
+app.get("/employees/:id/edit",isAdminLoggedIn, async (req, res) => {
   const employee = await Employees.findById(req.params.id);
   res.render("forms/employeeManage", { employee });
 })
@@ -170,24 +178,24 @@ app.get("/flatList", async (req, res) => {
   res.render("admin/flatList", { blockList, totalNumberFlats });
 })
 
-app.get("/flatList/:blockName",async(req,res)=>{
+app.get("/flatList/:blockName",isAdminLoggedIn, async (req, res) => {
   const blockName = req.params.blockName
-  const members = await NewMember.find({block : blockName});
-  res.render("forms/flatListBlock",{blockName,members})
+  const members = await NewMember.find({ block: blockName });
+  res.render("forms/flatListBlock", { blockName, members })
 })
 
-app.get("/complaints", async(req, res) => {
-  const complainsDetails = await Complaints.find().populate("resident","owner_name block flat_number")
+app.get("/complaints", async (req, res) => {
+  const complainsDetails = await Complaints.find().populate("resident", "owner_name block flat_number")
   complainsDetails.map(item => item.toJSON())
-  res.render("admin/complaints",{complainsDetails});
+  res.render("admin/complaints", { complainsDetails });
 })
 
-app.get("/complaints/:id/edit",async(req,res)=>{
-    const complain = await Complaints.findById(req.params.id);
-    res.render("forms/complainManage",{complain});
+app.get("/complaints/:id/edit",isAdminLoggedIn, async (req, res) => {
+  const complain = await Complaints.findById(req.params.id);
+  res.render("forms/complainManage", { complain });
 })
 
-app.post("/complaints/:id/edit", async(req,res)=>{
+app.post("/complaints/:id/edit", async (req, res) => {
   const id = req.params.id;
   const data = req.body
   await Complaints.findByIdAndUpdate(id, data)
@@ -196,7 +204,7 @@ app.post("/complaints/:id/edit", async(req,res)=>{
 
 
 
-app.get("/addNewEmployee", (req, res) => {
+app.get("/addNewEmployee",isAdminLoggedIn, (req, res) => {
   res.render("forms/newEmployee")
 })
 
@@ -210,10 +218,21 @@ app.post("/addNewEmployee", async (req, res) => {
 
 
 
+//Middleware for resident
+
+// function isResidentLoggedIn(req, res, next) {
+//   if (!req.session.addNewMember) {
+//     return res.status(401).send("❌ You must be logged in as a resident.");
+//   }
+//   next();
+// }
 
 
-app.get("/resident-dashboard", (req, res) => {
-  res.render("resident/dashboard")
+
+
+app.get("/resident-dashboard", async(req, res) => {
+  const resName = await NewMember.findOne();
+  res.render("resident/dashboard",{resName})
 })
 
 app.get("/resident-billsPayment", (req, res) => {
@@ -221,8 +240,56 @@ app.get("/resident-billsPayment", (req, res) => {
 })
 
 
-app.get("/resident-complaints", (req, res) => {
-  res.render("resident/complaints")
+app.get("/resident-complaints", async (req, res) => {
+  const complainsDetails = await Complaints.find()
+  const totalComplains = await Complaints.countDocuments()
+  const statusCounts = await Complaints.aggregate([
+    {
+      $match: {
+        status: { $in: ["Reject", "Complete", "InProgress"] }
+      }
+    },
+    {
+      $group: {
+        _id: "$status",
+        count: { $sum: 1 }
+      }
+    }
+  ]);
+
+  // Turn it into an object for easy EJS use:
+  const counts = {
+    Reject: 0,
+    Complete: 0,
+    InProgress: 0
+  };
+
+  statusCounts.forEach(item => {
+    counts[item._id] = item.count;
+  });
+  res.render("resident/complaints", { complainsDetails, totalComplains, counts })
+})
+
+
+
+app.get("/newComplain", isResidentLoggedIn, async (req, res) => {
+  res.render("forms/newComplain");
+})
+
+
+app.post("/newComplain", isResidentLoggedIn, async (req, res) => {
+  const newComplainData = req.body;
+  //Attach the logged-in resident’s ID
+  newComplainData.resident = req.session.addNewMember.id;
+  const newComplain = new Complaints(newComplainData);
+  await newComplain.save();
+  res.redirect("/resident-complaints");
+});
+
+app.delete("/resident-complaints/:id", async (req, res) => {
+  const { id } = req.params;
+  await Complaints.findByIdAndDelete(id);
+  res.redirect("/resident-complaints")
 })
 
 
@@ -236,32 +303,78 @@ app.get("/resident-ownerList", (req, res) => {
 })
 
 
-app.get("/resident-vehicleSearch", (req, res) => {
-  res.render("resident/vehicleSearch")
+app.get("/resident-vehicleSearch", async (req, res) => {
+  const allParkingDetails = await NewMember.find({
+    $or: [
+      { two_wheeler: { $exists: true, $ne: "" } },
+      { four_wheeler: { $exists: true, $ne: "" } }
+    ]
+  });
+  const twoWheeler = await NewMember.countDocuments({ two_wheeler: { $exists: true, $ne: "" } });
+  const fourWheeler = await NewMember.countDocuments({ four_wheeler: { $exists: true, $ne: "" } });
+  res.render("resident/vehicleSearch", { allParkingDetails, twoWheeler, fourWheeler });
 })
 
 
-app.get("/resident-societyStaff", (req, res) => {
-  res.render("resident/societyStaff")
+app.get("/resident-societyStaff", async (req, res) => {
+  const staffDetails = await Employees.find();
+  res.render("resident/societyStaff", { staffDetails })
 })
 
 
-app.get("/resident-profile", (req, res) => {
-  res.render("resident/profile")
-})
-
-app.get("/newComplain", (req, res) => {
-  res.render("forms/newComplain")
-})
-
-app.post("/newComplain", async (req, res) => {
-  const newComplainData = req.body;
-//Attach the logged-in resident’s ID
-  newComplainData.resident = req.session.addNewMember.id;
-  const newComplain = new Complaints(newComplainData);
-  await newComplain.save();
-  res.redirect("/resident-complaints");
+app.get("/resident-profile", async (req, res) => {
+  const profileInfo = await NewMember.findById(req.session.addNewMember.id);
+  res.render("resident/profile", { profileInfo });
 });
+
+
+app.get("/resident-profile/:id/edit",isResidentLoggedIn, async (req, res) => {
+  const id = req.params.id;
+  const profileInfo = await NewMember.findById(id)
+  res.render("forms/editProfile", { profileInfo });
+})
+
+app.post("/resident-profile/:id/edit", async (req, res) => {
+  const id = req.params.id;
+  const data = req.body;
+
+  await NewMember.findByIdAndUpdate(id, data);
+  res.redirect("/resident-profile")
+})
+
+
+app.get("/addFamilyMember/:id/add",isResidentLoggedIn,async (req, res) => {
+  const memberDetailId = await NewMember.findById(req.session.addNewMember.id);
+  res.render("forms/addFamilyMember", { memberDetailId });
+});
+
+app.post("/addFamilyMember/:id/add", async (req, res) => {
+  const id = req.params.id
+  const data = req.body;
+  await NewMember.findByIdAndUpdate(id, data)
+  res.redirect("/resident-profile")
+})
+
+
+// app.get("addFamilyMember/:id/delete",async(req,res)=>{
+//   const profileInfo = await NewMember.findById(id)
+//   res.redirect("/resident-profile",{profileInfo})
+// })
+
+//2
+app.get("resident-profile/:id/delete", async (req, res) => {
+  const profileInfo = await NewMember.findById(id)
+  res.render("resident/profile", { profileInfo })
+})
+
+app.delete("resident-profile/:id/delete", async (req, res) => {
+  const id = req.params.id
+  await NewMember.findByIdAndDelete(id)
+})
+
+
+
+
 
 
 
