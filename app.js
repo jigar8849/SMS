@@ -8,6 +8,7 @@ const NewMember = require('./models/newMember'); //require model that store new 
 const SocitySetUp = require('./models/socitySetUp');  //require model that store society setup details
 const Complaints = require("./models/complain");   //require model that store complaint details
 const Employees = require("./models/employee");    // require model that store employee details
+const Event = require("./models/event");
 const session = require('express-session');  // require midleware sessions
 const { isResidentLoggedIn , isAdminLoggedIn} = require("./middleware");
 
@@ -49,7 +50,6 @@ async function main() {
   await mongoose.connect("mongodb://localhost:27017/SMS");
   console.log("MongoDB Connected");
 }
-
 
 app.get("/", (req, res) => {
   res.render("home");
@@ -96,7 +96,7 @@ app.post("/addNewResident", async (req, res) => {
 })
 
 // edit - this page redirect to the edit form page
-app.get("/residents/:id/edit", async (req, res) => {
+app.get("/residents/:id/edit",isAdminLoggedIn, async (req, res) => {
 
   const residentDetails = await NewMember.findById(req.params.id);
   res.render("forms/editResident", { residentDetails })
@@ -114,7 +114,7 @@ app.put("/residents/:id", async (req, res) => {
 
 
 //DELETE - this route use to delete perticular one resident from table
-app.delete("/residents/:id", async (req, res) => {
+app.delete("/residents/:id",isAdminLoggedIn, async (req, res) => {
   const id = req.params.id;
   await NewMember.findByIdAndDelete(id);
   res.redirect("/residents");
@@ -286,15 +286,89 @@ app.post("/newComplain", isResidentLoggedIn, async (req, res) => {
   res.redirect("/resident-complaints");
 });
 
-app.delete("/resident-complaints/:id", async (req, res) => {
+app.delete("/resident-complaints/:id",isResidentLoggedIn ,async (req, res) => {
   const { id } = req.params;
   await Complaints.findByIdAndDelete(id);
   res.redirect("/resident-complaints")
 })
 
 
-app.get("/resident-bookEvent", (req, res) => {
-  res.render("resident/bookEvent")
+//this page redirect to main EVENT BOOK page
+app.get("/resident-bookEvent", async(req, res) => {
+  const eventDetails = await Event.find({}).populate("createdBy","first_name last_name")
+  res.render("resident/bookEvent",{eventDetails})
+})
+
+//this page to Render to EVENT BOOK Form page 
+app.get("/resident-bookEvent/book",isResidentLoggedIn,(req,res)=>{
+  res.render("forms/eventBook")
+})
+
+//This route render to ADMIN panel dashboard quick access side that open and give permission to "Approved", "Rejected","Pending"
+app.get("/approveEvent",async(req,res)=>{
+  const eventDetails = await Event.find().populate("createdBy","first_name last_name block flat_number")
+  res.render("forms/eventApprove",{eventDetails})
+})
+
+//update the status to APPROVED
+app.post("/approveEvent/:id/approve",async(req,res)=>{
+  await Event.findByIdAndUpdate(req.params.id, {status : "Approved"});
+  res.redirect("/approveEvent");
+})
+
+//update the status to REJECTED
+app.post("/approveEvent/:id/reject",async(req,res)=>{
+  await Event.findByIdAndUpdate(req.params.id, {status : "Rejected"})
+  res.redirect("/approveEvent");
+})
+
+app.get("/resident-bookEvent/:id/edit",async(req,res)=>{
+  const id = req.params.id;
+  const eventDetails = await Event.findById(id)
+  res.render("forms/updateEvent",{eventDetails})
+})
+
+app.post("/resident-bookEvent/:id/edit",async(req,res)=>{
+  await Event.findByIdAndUpdate(req.params.id, req.body)
+  res.redirect("/resident-bookEvent")
+})
+
+//DELETE the created event
+app.delete("/resident-bookEvent/:id",async(req,res)=>{
+  await Event.findByIdAndDelete(req.params.id);
+  res.redirect("/resident-bookEvent");
+})
+
+//this route use to check the venue is available for any event for perticular date
+app.post("/check-availability", async (req, res) => {
+  const { venue, date } = req.body;
+
+  if (!venue || !date) {
+    return res.status(400).json({ available: false, message: "Missing data" });
+  }
+
+  const isBooked = await Event.exists({
+    venue: venue,
+    date: new Date(date)
+  });
+
+  if (isBooked) {
+    return res.json({ available: false, message: "Not Available" });
+  } else {
+    return res.json({ available: true, message: "Available" });
+  }
+});
+
+
+
+app.post("/resident-bookEvent/book",isResidentLoggedIn,async(req,res)=>{
+  const data = req.body;
+  const newEvent = new Event({
+    ...data,
+    createdBy: req.session.addNewMember.id //  This links the event to the user!
+  });  await newEvent.save()
+  res.redirect("/resident-bookEvent")
+
 })
 
 

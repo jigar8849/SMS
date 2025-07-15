@@ -1,0 +1,124 @@
+<%- layout("layouts/boilerplate") %>
+
+<style>
+  body {
+    background: linear-gradient(135deg, #f0f4f8, #d9e8f5);
+    min-height: 100vh;
+  }
+
+  .card {
+    border: none;
+    border-radius: 1rem;
+  }
+
+  .card-header {
+    background: linear-gradient(135deg, #007bff, #0056b3);
+    border-top-left-radius: 1rem;
+    border-top-right-radius: 1rem;
+  }
+
+  .card-header h4 {
+    font-weight: bold;
+  }
+
+  .form-label {
+    font-weight: 500;
+  }
+
+  .btn-primary {
+    background: linear-gradient(135deg, #007bff, #0056b3);
+    border: none;
+    transition: all 0.3s ease;
+  }
+
+  .btn-primary:hover {
+    background: linear-gradient(135deg, #0056b3, #003f7f);
+    transform: translateY(-2px);
+  }
+
+  .hero-title {
+    font-weight: 700;
+    color: #333;
+    margin-bottom: 20px;
+  }
+
+  .shadow-sm {
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1) !important;
+  }
+</style>
+
+<body>
+
+  <div class="container py-5">
+    <div class="text-center mb-4">
+      <h1 class="hero-title">Plan Your Perfect Event</h1>
+      <p class="text-muted">Book your desired venue hassle-free & get it approved by admin!</p>
+    </div>
+
+    <div class="row justify-content-center">
+      <div class="col-md-8 col-lg-6">
+        <div class="card shadow-sm">
+          <div class="card-header text-white">
+            <h4 class="mb-0">Event Booking Form</h4>
+          </div>
+          <div class="card-body p-4">
+
+            <form action="/resident-bookEvent/book" method="POST">
+              <!-- Title -->
+              <div class="mb-3">
+                <label for="title" class="form-label">Event Title</label>
+                <input type="text" class="form-control rounded-pill px-4" id="title" name="title" placeholder="Birthday Party, Wedding..." required>
+              </div>
+
+              <!-- Venue -->
+              <div class="mb-3">
+                <label for="venue" class="form-label">Venue</label>
+                <select class="form-select rounded-pill px-4" id="venue" name="venue" required>
+                  <option value="">-- Select Venue --</option>
+                  <option value="Club House">Club House</option>
+                  <option value="Garden">Garden</option>
+                  <option value="Community Hall">Community Hall</option>
+                  <option value="Terrace Garden">Terrace Garden</option>
+                  <option value="Banquet Hall">Banquet Hall</option>
+                </select>
+              </div>
+
+              
+              <!-- attendees -->
+              <div class="mb-3">
+                <label for="date" class="form-label">Expected Attendees</label>
+                <input type="number" class="form-control rounded-pill px-4" id="date" name="attendees" placeholder="50" required>
+              </div>
+
+              <!-- Date -->
+              <div class="mb-3">
+                <label for="date" class="form-label">Event Date</label>
+                <input type="date" class="form-control rounded-pill px-4" id="date" name="date" required>
+              </div>
+
+              <!-- Time Slots -->
+              <div class="row mb-4">
+                <div class="col">
+                  <label for="startTime" class="form-label">Start Time</label>
+                  <input type="time" class="form-control rounded-pill px-4" id="startTime" name="startTime" required>
+                </div>
+                <div class="col">
+                  <label for="endTime" class="form-label">End Time</label>
+                  <input type="time" class="form-control rounded-pill px-4" id="endTime" name="endTime" required>
+                </div>
+              </div>
+
+              <!-- Submit -->
+              <div class="d-grid">
+                <button type="submit" class="btn btn-primary btn-lg rounded-pill">
+                  📅 Book Now
+                </button>
+              </div>
+            </form>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
