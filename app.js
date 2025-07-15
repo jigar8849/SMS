@@ -10,9 +10,13 @@ const Complaints = require("./models/complain");   //require model that store co
 const Employees = require("./models/employee");    // require model that store employee details
 const Event = require("./models/event");
 const session = require('express-session');  // require midleware sessions
-const { isResidentLoggedIn , isAdminLoggedIn} = require("./middleware");
+const RedisStore = require('connect-redis').default // use to store sessions
+const { createClient } = require('redis');   // use to store sessions
+const { isResidentLoggedIn , isAdminLoggedIn, catchAsync} = require("./middleware");
 
-
+const PDFDocument = require('pdfkit');
+require('pdfkit-table');
+const fs = require('fs');
 
 
 
@@ -25,16 +29,16 @@ app.use(express.urlencoded({ extended: true }));
 app.use(methodOverride("_method"))
 app.use(express.json());
 
-app.use(session({
-  secret: 'secret',
-  resave: false,
-  saveUninitialized: false,
-  cookie: {
-    expires: Date.now() * 7 * 24 * 60 * 60 * 1000,
-    maxAge: 7 * 24 * 60 * 60 * 1000,
-    // httpOnly : true,
-  }
-}))
+app.use(
+  session({
+    secret: 'your-secret',
+    resave: false,
+    saveUninitialized: false,
+    cookie: {
+      maxAge: 7 * 24 * 60 * 60 * 1000,
+    },
+  })
+);
 
 app.use((req, res, next) => {
   res.locals.user = req.session.admin || req.session.addNewMember || null;
@@ -184,6 +188,124 @@ app.get("/flatList/:blockName",isAdminLoggedIn, async (req, res) => {
   res.render("forms/flatListBlock", { blockName, members })
 })
 
+
+app.get('/download-pdf', async (req, res) => {
+  try {
+    const blockName = req.query.block;
+    
+    if (!blockName) {
+      return res.status(400).send('Block parameter is required');
+    }
+
+    const members = await NewMember.find({ block: blockName })
+                                 .sort({ flat_number: 1 });
+
+    const doc = new PDFDocument({ margin: 30, size: 'A4' });
+    
+    // Set PDF filename with block name
+    res.setHeader('Content-disposition', `attachment; filename="block-${blockName}-residents.pdf"`);
+    res.setHeader('Content-type', 'application/pdf');
+    doc.pipe(res);
+
+    // Title with block name (black text)
+    doc.fontSize(20)
+       .font('Helvetica-Bold')
+       .fillColor('#000000') // Pure black
+       .text(`Block ${blockName} Resident List`, { align: 'center' })
+       .moveDown(0.5);
+
+    // Generation info (gray text)
+    doc.fontSize(10)
+       .font('Helvetica')
+       .fillColor('#555555') // Dark gray
+       .text(`Generated on ${new Date().toLocaleDateString()} • ${members.length} residents`, 
+             { align: 'center' })
+       .moveDown(1.5);
+
+    // Table setup
+    const tableTop = 150;
+    const rowHeight = 25;
+    const colWidths = [100, 250, 150]; // House No, Owner Name, Contact
+    const tableLeft = (doc.page.width - colWidths.reduce((a, b) => a + b, 0)) / 2;
+
+    // Draw table header (black background with white text)
+    doc.rect(tableLeft, tableTop - 25, colWidths.reduce((a, b) => a + b, 0), 25)
+       .fill('#000000'); // Black header
+    
+    // Header text (white)
+    doc.font('Helvetica-Bold')
+       .fontSize(12)
+       .fillColor('#ffffff') // White text
+       .text('House No.', tableLeft + 10, tableTop - 20)
+       .text('Owner Name', tableLeft + colWidths[0] + 10, tableTop - 20)
+       .text('Contact', tableLeft + colWidths[0] + colWidths[1] + 10, tableTop - 20);
+
+    // Table rows (black text on white/gray alternating background)
+    doc.font('Helvetica')
+       .fontSize(10)
+       .fillColor('#000000'); // Black text
+    
+    members.forEach((member, i) => {
+      const y = tableTop + (i * rowHeight);
+      
+      // Alternate row background (white and light gray)
+      if (i % 2 === 0) {
+        doc.fillColor('#ffffff') // White
+           .rect(tableLeft, y, colWidths.reduce((a, b) => a + b, 0), rowHeight)
+           .fill();
+      } else {
+        doc.fillColor('#f0f0f0') // Light gray
+           .rect(tableLeft, y, colWidths.reduce((a, b) => a + b, 0), rowHeight)
+           .fill();
+      }
+
+      // Reset to black text after filling background
+      doc.fillColor('#000000');
+
+      // Row content
+      doc.text(`${blockName}-${member.flat_number}`, tableLeft + 10, y + 8)
+         .text(`${member.first_name} ${member.last_name}`, tableLeft + colWidths[0] + 10, y + 8)
+         .text(member.mobile_number, tableLeft + colWidths[0] + colWidths[1] + 10, y + 8);
+
+      // Horizontal line between rows (light gray)
+      doc.strokeColor('#e0e0e0') // Light gray line
+         .moveTo(tableLeft, y + rowHeight)
+         .lineTo(tableLeft + colWidths.reduce((a, b) => a + b, 0), y + rowHeight)
+         .stroke();
+    });
+
+    // Vertical borders (gray)
+    doc.strokeColor('#d0d0d0') // Medium gray
+       .lineWidth(0.5)
+       .moveTo(tableLeft + colWidths[0], tableTop - 25)
+       .lineTo(tableLeft + colWidths[0], tableTop + (members.length * rowHeight))
+       .stroke()
+       .moveTo(tableLeft + colWidths[0] + colWidths[1], tableTop - 25)
+       .lineTo(tableLeft + colWidths[0] + colWidths[1], tableTop + (members.length * rowHeight))
+       .stroke();
+
+    // Outer border (black)
+    doc.strokeColor('#000000') // Black border
+       .lineWidth(1)
+       .rect(tableLeft, tableTop - 25, colWidths.reduce((a, b) => a + b, 0), 
+             tableTop + (members.length * rowHeight) - (tableTop - 25))
+       .stroke();
+
+    // Footer (gray text)
+    doc.fontSize(9)
+       .fillColor('#777777') // Medium gray
+       .text('© Your Society Management System', 50, doc.page.height - 50, 
+             { align: 'left', width: doc.page.width - 100 })
+       .text(`Page 1 of 1`, 50, doc.page.height - 50, 
+             { align: 'right', width: doc.page.width - 100 });
+
+    doc.end();
+  } catch (error) {
+    console.error('PDF Generation Error:', error);
+    res.status(500).send('Error generating PDF');
+  }
+});
+
 app.get("/complaints", async (req, res) => {
   const complainsDetails = await Complaints.find().populate("resident", "owner_name block flat_number")
   complainsDetails.map(item => item.toJSON())
@@ -317,10 +439,10 @@ app.post("/approveEvent/:id/approve",async(req,res)=>{
 })
 
 //update the status to REJECTED
-app.post("/approveEvent/:id/reject",async(req,res)=>{
+app.post("/approveEvent/:id/reject",catchAsync(async(req,res)=>{
   await Event.findByIdAndUpdate(req.params.id, {status : "Rejected"})
   res.redirect("/approveEvent");
-})
+}))
 
 app.get("/resident-bookEvent/:id/edit",async(req,res)=>{
   const id = req.params.id;
@@ -519,4 +641,19 @@ app.post("/create-account", async (req, res) => {
 
 app.listen(3000, () => {
   console.log("Server is running on port 3000");
+});
+
+
+
+
+
+// If route not found
+app.use((req, res, next) => {
+  res.status(404).send('404 Not Found');
+});
+
+// Global error handler
+app.use((err, req, res, next) => {
+  console.error(err.stack);
+  res.status(500).send('Something went wrong!');
 });
