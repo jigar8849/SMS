@@ -67,6 +67,10 @@ const newMemberSchema = new Schema({
         type : String,
         required : true
     },
+    createdAt : {
+        type : Date,
+        default : Date.now()
+    },
     society : {
         type : mongoose.Schema.Types.ObjectId,
         ref : 'SocitySetUp',

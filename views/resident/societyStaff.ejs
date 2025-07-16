@@ -70,3 +70,30 @@
 
   </div>
 </div>
+
+
+
+<!-- 
+<script>
+        function filterStaff() {
+            const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+            const roleFilter = document.getElementById('roleFilter').value;
+            const staffCards = document.querySelectorAll('.staff-card');
+
+            staffCards.forEach(card => {
+                const name = card.dataset.name;
+                const role = card.dataset.role;
+                const matchesSearch = name.includes(searchTerm) || role.toLowerCase().includes(searchTerm);
+                const matchesRole = !roleFilter || role === roleFilter;
+
+                if (matchesSearch && matchesRole) {
+                    card.style.display = 'block';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        }
+
+        // Initialize the filter on page load
+        document.addEventListener('DOMContentLoaded', filterStaff);
+    </script> -->

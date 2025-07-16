@@ -494,9 +494,146 @@ app.post("/resident-bookEvent/book",isResidentLoggedIn,async(req,res)=>{
 })
 
 
-app.get("/resident-ownerList", (req, res) => {
-  res.render("resident/ownerList")
+app.get("/resident-ownerList", async(req, res) => {
+   const BlockList = await SocitySetUp.find();
+  res.render("resident/ownerList",{BlockList})
 })
+
+app.get("/resident-ownerList/:blockName", async(req,res)=>{
+    const blockName = req.params.blockName
+     const members = await NewMember.find({ block: blockName });
+  res.render("forms/ownerList",{blockName,members})
+})
+
+//generate RESIDENT side owner list PDF
+app.get('/resident-download-pdf', async (req, res) => {
+  try {
+    const blockName = req.query.block;
+    
+    if (!blockName) {
+      return res.status(400).send('Block parameter is required');
+    }
+
+    const members = await NewMember.find({ block: blockName })
+                                 .sort({ flat_number: 1 });
+
+    const doc = new PDFDocument({ 
+      margin: 30, 
+      size: 'A4',
+      layout: 'portrait' 
+    });
+    
+    // Set PDF filename with block name
+    res.setHeader('Content-disposition', `attachment; filename="block-${blockName}-residents.pdf"`);
+    res.setHeader('Content-type', 'application/pdf');
+    doc.pipe(res);
+
+    // Title with block name
+    doc.fontSize(18)
+       .font('Helvetica-Bold')
+       .fillColor('#000000')
+       .text(`Block ${blockName} Resident List`, { align: 'center' })
+       .moveDown(0.5);
+
+    // Generation info
+    doc.fontSize(10)
+       .font('Helvetica')
+       .fillColor('#555555')
+       .text(`Generated on ${new Date().toLocaleDateString()} • ${members.length} residents`, 
+             { align: 'center' })
+       .moveDown(1.5);
+
+    // Table setup - optimized column widths
+    const tableTop = 120;
+    const rowHeight = 25;
+    const colWidths = [50, 150, 100, 150, 80]; // No., Owner Name, Contact, Email, Family
+    const tableLeft = 50; // Fixed left margin instead of centering
+
+    // Draw table header
+    doc.rect(tableLeft, tableTop - 25, colWidths.reduce((a, b) => a + b, 0), 25)
+       .fill('#333333'); // Darker header
+    
+    // Header text (white)
+    doc.font('Helvetica-Bold')
+       .fontSize(10)
+       .fillColor('#ffffff')
+       .text('House No.', tableLeft + 1, tableTop - 20)
+       .text('Owner Name', tableLeft + colWidths[0] + 5, tableTop - 20)
+       .text('Contact', tableLeft + colWidths[0] + colWidths[1] + 5, tableTop - 20)
+       .text('Email', tableLeft + colWidths[0] + colWidths[1] + colWidths[2] + 5, tableTop - 20)
+       .text('Total Members', tableLeft + colWidths[0] + colWidths[1] + colWidths[2] + colWidths[3] + 5, tableTop - 20);
+
+    // Table rows
+    doc.font('Helvetica')
+       .fontSize(9)
+       .fillColor('#000000');
+    
+    members.forEach((member, i) => {
+      const y = tableTop + (i * rowHeight);
+      
+      // Alternate row background
+      doc.fillColor(i % 2 === 0 ? '#ffffff' : '#f8f8f8')
+         .rect(tableLeft, y, colWidths.reduce((a, b) => a + b, 0), rowHeight)
+         .fill();
+      
+      // Reset to black text
+      doc.fillColor('#000000');
+
+      // Row content - with proper text wrapping for long fields
+      doc.text(`${member.block}-${member.flat_number}`, tableLeft + 5, y + 8)
+         .text(`${member.first_name} ${member.last_name}`, tableLeft + colWidths[0] + 5, y + 8, {
+           width: colWidths[1] - 10,
+           ellipsis: true
+         })
+         .text(member.mobile_number, tableLeft + colWidths[0] + colWidths[1] + 5, y + 8)
+         .text(member.email || 'N/A', tableLeft + colWidths[0] + colWidths[1] + colWidths[2] + 5, y + 8, {
+           width: colWidths[3] - 10,
+           ellipsis: true
+         })
+         .text(member.number_of_member?.toString() || 'N/A', tableLeft + colWidths[0] + colWidths[1] + colWidths[2] + colWidths[3] + 5, y + 8);
+
+      // Horizontal line between rows
+      doc.strokeColor('#e0e0e0')
+         .moveTo(tableLeft, y + rowHeight)
+         .lineTo(tableLeft + colWidths.reduce((a, b) => a + b, 0), y + rowHeight)
+         .stroke();
+    });
+
+    // Vertical borders
+    doc.strokeColor('#d0d0d0')
+       .lineWidth(0.5);
+    
+    // Draw vertical lines between columns
+    let verticalLineX = tableLeft;
+    for (let i = 0; i < colWidths.length; i++) {
+      verticalLineX += colWidths[i];
+      doc.moveTo(verticalLineX, tableTop - 25)
+         .lineTo(verticalLineX, tableTop + (members.length * rowHeight))
+         .stroke();
+    }
+
+    // Outer border
+    doc.strokeColor('#000000')
+       .lineWidth(1)
+       .rect(tableLeft, tableTop - 25, colWidths.reduce((a, b) => a + b, 0), 
+             tableTop + (members.length * rowHeight) - (tableTop - 25))
+       .stroke();
+
+    // Footer
+    doc.fontSize(9)
+       .fillColor('#777777')
+       .text('© Your Society Management System', 50, doc.page.height - 30, 
+             { align: 'left', width: doc.page.width - 100 })
+       .text(`Page 1 of 1`, 50, doc.page.height - 30, 
+             { align: 'right', width: doc.page.width - 100 });
+
+    doc.end();
+  } catch (error) {
+    console.error('PDF Generation Error:', error);
+    res.status(500).send('Error generating PDF');
+  }
+});
+
 
 
 app.get("/resident-vehicleSearch", async (req, res) => {
