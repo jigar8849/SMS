@@ -1,26 +1,25 @@
 <%- layout("layouts/boilerplate") %>
 
-  <style>
-    body {
-      background-color: #f3f4f6;
-    }
-    .status-badge {
-      background-color: #d1fae5;
-      color: #10b981;
-      font-size: 0.8rem;
-      padding: 4px 10px;
-      border-radius: 12px;
-    }
-    .action-icons i {
-      cursor: pointer;
-      margin-right: 10px;
-    }
-    .table-responsive {
-      border-radius: 10px;
-      overflow: hidden;
-    }
-
-  </style>
+<style>
+  body {
+    background-color: #f3f4f6;
+  }
+  .status-badge {
+    background-color: #d1fae5;
+    color: #10b981;
+    font-size: 0.8rem;
+    padding: 4px 10px;
+    border-radius: 12px;
+  }
+  .action-icons i {
+    cursor: pointer;
+    margin-right: 10px;
+  }
+  .table-responsive {
+    border-radius: 10px;
+    overflow: hidden;
+  }
+</style>
 
 <body>
   <div class="admin-resident py-2">
@@ -36,18 +35,21 @@
       <div class="flex-grow-1">
         <div class="input-group">
           <span class="input-group-text bg-white border-end-0"><i class="bi bi-search"></i></span>
-          <input type="text" class="form-control border-start-0" placeholder="Search residents by name, flat number, or block...">
+          <input type="text" id="searchInput" class="form-control border-start-0"
+            placeholder="Search residents by name, flat number, or block...">
         </div>
       </div>
-      <select class="form-select w-auto">
-        <option>Blocks A</option>
-        <option>Blocks B</option>
-        <option>Blocks C</option>
-        <option>Blocks D</option>
+      <select id="blockFilter" class="form-select w-auto">
+        <option value="">All Blocks</option>
+        <option value="A">Block A</option>
+        <option value="B">Block B</option>
+        <option value="C">Block C</option>
+        <option value="D">Block D</option>
       </select>
-      <select class="form-select w-auto">
-        <option>Active</option>
-        <option>In-Active</option>
+      <select id="statusFilter" class="form-select w-auto">
+        <option value="">All Status</option>
+        <option value="Active">Active</option>
+        <option value="In-Active">In-Active</option>
       </select>
     </div>
 
@@ -66,40 +68,43 @@
         </thead>
         <tbody>
           <% allMemberDetails.forEach(member => { %>
-            <tr>
-            <td>
-              <strong><%= member.first_name %> <%= member.last_name %></strong><br>
-              <small class="text-muted">ID: 1</small>
-            </td>
-            <td>
-              Block <%= member.block %>-<%= member.flat_number %><br>
-              <small class="text-muted">Joined: 2023-01-15</small>
-            </td>
-            <td>
-              <%= member.email %><br>
-              <small class="text-muted"><%= member.mobile_number %></small>
-            </td>
-            <td>
-              <%= member.number_of_member %> Members<br>
-              2 Vehicles
-            </td>
-            <td>
-              <span class="status-badge"><%= member.status %></span>
-            </td>
-            <td class="action-icons text-primary d-flex">
-              <i class="bi bi-eye-fill"></i>
-              <form action="/residents/<%= member._id %>/edit">
-                <button type="submit" class="border-0 bg-white">
-                  <i class="bi bi-pencil-square text-warning"></i>
-                </button>
-              </form>
-              <form action="/residents/<%= member._id %>?_method=DELETE" method="post" >
-                <button class="border-0 bg-white"><i class="bi bi-trash3-fill text-danger"></i></button>
-              </form>
-            </td>
-          </tr>
-         <% }); %>
-        
+            <tr class="residentRow"
+              data-name="<%= member.first_name + ' ' + member.last_name %>"
+              data-flat="<%= member.flat_number %>"
+              data-block="<%= member.block %>"
+              data-status="<%= member.status %>">
+              <td>
+                <strong><%= member.first_name %> <%= member.last_name %></strong><br>
+                <small class="text-muted">ID: 1</small>
+              </td>
+              <td>
+                Block <%= member.block %>-<%= member.flat_number %><br>
+                <small class="text-muted">Joined: 2023-01-15</small>
+              </td>
+              <td>
+                <%= member.email %><br>
+                <small class="text-muted"><%= member.mobile_number %></small>
+              </td>
+              <td>
+                <%= member.number_of_member %> Members<br>
+                2 Vehicles
+              </td>
+              <td>
+                <span class="status-badge"><%= member.status %></span>
+              </td>
+              <td class="action-icons text-primary d-flex">
+                <i class="bi bi-eye-fill"></i>
+                <form action="/residents/<%= member._id %>/edit">
+                  <button type="submit" class="border-0 bg-white">
+                    <i class="bi bi-pencil-square text-warning"></i>
+                  </button>
+                </form>
+                <form action="/residents/<%= member._id %>?_method=DELETE" method="post">
+                  <button class="border-0 bg-white"><i class="bi bi-trash3-fill text-danger"></i></button>
+                </form>
+              </td>
+            </tr>
+          <% }); %>
         </tbody>
       </table>
     </div>
@@ -111,4 +116,41 @@
       </button>
     </div>
   </div>
+
+  <script>
+    const searchInput = document.getElementById("searchInput");
+    const blockFilter = document.getElementById("blockFilter");
+    const statusFilter = document.getElementById("statusFilter");
+    const residentRows = document.querySelectorAll(".residentRow");
+
+    function filterResidents() {
+      const search = searchInput.value.toLowerCase();
+      const block = blockFilter.value.toLowerCase();
+      const status = statusFilter.value.toLowerCase();
+
+      residentRows.forEach(row => {
+        const name = row.dataset.name.toLowerCase();
+        const flat = row.dataset.flat.toLowerCase();
+        const rowBlock = row.dataset.block.toLowerCase();
+        const rowStatus = row.dataset.status.toLowerCase();
+
+        const matchesSearch = name.includes(search) || flat.includes(search) || rowBlock.includes(search);
+        const matchesBlock = block === "" || rowBlock === block;
+        const matchesStatus = status === "" || rowStatus === status.toLowerCase();
+
+        if (matchesSearch && matchesBlock && matchesStatus) {
+          row.style.display = "";
+        } else {
+          row.style.display = "none";
+        }
+      });
+    }
+
+    // Live search
+    searchInput.addEventListener("keyup", filterResidents);
+
+    // Filters
+    blockFilter.addEventListener("change", filterResidents);
+    statusFilter.addEventListener("change", filterResidents);
+  </script>
 </body>

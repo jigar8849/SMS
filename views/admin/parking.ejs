@@ -72,7 +72,7 @@
       </div>
     </div>
 
-  <div class="mt-4 border rounded p-3 bg-white">
+    <div class="mt-4 border rounded p-3 bg-white">
       <div class="row g-3 align-items-center">
         <!-- Search Box -->
         <div class="col-md-9 col-sm-12">
@@ -80,23 +80,22 @@
             <span class="input-group-text bg-white border-end-0">
               <i class="bi bi-search text-muted"></i>
             </span>
-            <input type="text" class="form-control border-start-0"
+            <input type="text" id="searchInput" class="form-control border-start-0"
               placeholder="Search by registration number, owner name, or flat...">
-            <button class="rounded p-2 px-4 text-white bg-primary border-0 ms-2">Search</button>
+            <button id="searchBtn" class="rounded p-2 px-4 text-white bg-primary border-0 ms-2">Search</button>
           </div>
         </div>
 
         <!-- Filter Dropdown -->
         <div class="col-md-3 col-sm-12">
-          <select class="form-select border-primary text-dark fw-semibold">
-            <option selected>All Vehicles</option>
-            <option>Two Wheelers</option>
-            <option>Four Wheelers</option>
+          <select id="vehicleFilter" class="form-select border-primary text-dark fw-semibold">
+            <option value="">All Vehicles</option>
+            <option value="two">Two Wheelers</option>
+            <option value="four">Four Wheelers</option>
           </select>
         </div>
       </div>
     </div>
-
 
     <!-- VEHICLE LIST -->
     <div class="vehicle-info mt-4 border rounded bg-white">
@@ -108,7 +107,11 @@
       <div class="container mb-3 mt-4">
         <div class="row g-3">
           <% allParkingDetails.forEach(pDetail => { %>
-            <div class="col-12 col-sm-6 col-md-4">
+            <div class="col-12 col-sm-6 col-md-4 vehicleCard"
+              data-owner="<%= (pDetail.first_name + ' ' + pDetail.last_name).toLowerCase() %>"
+              data-flat="<%= pDetail.block.toLowerCase() + ' ' + pDetail.flat_number.toString().toLowerCase() %>"
+              data-reg="<%= (pDetail.four_wheeler || pDetail.two_wheeler).toLowerCase() %>"
+              data-type="<%= pDetail.four_wheeler ? 'four' : (pDetail.two_wheeler ? 'two' : '') %>">
               <div class="card p-3 shadow-sm h-100">
                 <div class="row align-items-center mb-3">
                   <div class="col-auto">
@@ -152,4 +155,36 @@
       </div>
     </div>
   </div>
+
+  <script>
+    const searchInput = document.getElementById("searchInput");
+    const vehicleFilter = document.getElementById("vehicleFilter");
+    const searchBtn = document.getElementById("searchBtn");
+    const vehicleCards = document.querySelectorAll(".vehicleCard");
+
+    function filterVehicles() {
+      const search = searchInput.value.toLowerCase();
+      const type = vehicleFilter.value;
+
+      vehicleCards.forEach(card => {
+        const owner = card.dataset.owner;
+        const flat = card.dataset.flat;
+        const reg = card.dataset.reg;
+        const cardType = card.dataset.type;
+
+        const matchesSearch = owner.includes(search) || flat.includes(search) || reg.includes(search);
+        const matchesType = type === "" || cardType === type;
+
+        if (matchesSearch && matchesType) {
+          card.style.display = "";
+        } else {
+          card.style.display = "none";
+        }
+      });
+    }
+
+    searchInput.addEventListener("keyup", filterVehicles);
+    vehicleFilter.addEventListener("change", filterVehicles);
+    searchBtn.addEventListener("click", filterVehicles);
+  </script>
 </body>

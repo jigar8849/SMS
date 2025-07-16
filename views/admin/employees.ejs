@@ -1,143 +1,170 @@
 <%- layout("layouts/boilerplate") %>
 
-    <style>
-        .dash-card {
-            width: 16.7rem;
-            height: 8rem;
-        }
+<style>
+  .dash-card {
+    width: 16.7rem;
+    height: 8rem;
+  }
 
-        .serach-box {
-            height: 5rem;
-        }
+  .serach-box {
+    height: 5rem;
+  }
 
-        .select-status {
-            height: 2.9rem;
-            margin-top: 1rem;
-            margin-right: 1rem;
-            width: 12rem;
-        }
-    </style>
+  .select-status {
+    height: 2.9rem;
+    margin-top: 1rem;
+    margin-right: 1rem;
+    width: 12rem;
+  }
 
-    <body>
-        <div class="emp-container">
-            <div class="d-flex justify-content-between align-items-center mb-4">
-                <h4 class="fw-bold">Employee Management</h4>
-                <a href="/addNewEmployee" class="btn btn-primary">
-                    <i class="bi bi-plus-lg"></i> Add New Employee
-                </a>
-            </div>
+  .status-badge {
+    font-size: 0.8rem;
+  }
+</style>
 
+<body>
+  <div class="emp-container">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+      <h4 class="fw-bold">Employee Management</h4>
+      <a href="/addNewEmployee" class="btn btn-primary">
+        <i class="bi bi-plus-lg"></i> Add New Employee
+      </a>
+    </div>
 
-            <div class="dash-info d-flex gap-5">
-                <div class="dash-card d-flex gap-5 rounded-3 bg-white">
-                    <div class="left ms-4 mt-4">
-                        <p class="mt-1">Total Employees</p>
-                        <h3 class="fw-bold"><%= totalEmployees %></h3>
-                    </div>
-                    <div class="right mt-5 pb-2">
-                        <i class="bi bi-people text-primary bg-primary bg-opacity-25 p-3 rounded-circle fs-3"></i>
-                    </div>
-
-                </div>
-
-                <div class="dash-card d-flex gap-5 rounded-3 bg-white">
-                    <div class="left ms-4 mt-4">
-                        <p>Active</p>
-                        <h3 class="fw-bold text-success fw-bold"><%= totalActiveEmployees %></h3>
-                    </div>
-                    <div class="right mt-5 pb-2">
-                        <i class="bi bi-people text-primary bg-success bg-opacity-25 p-3 rounded-circle fs-3"></i>
-                    </div>
-
-                </div>
-
-                <div class="dash-card d-flex gap-5 rounded-3 bg-white">
-                    <div class="left ms-4 mt-4">
-                        <p>In-active</p>
-                        <h3 class="fw-bold"><%= totalEmployees - totalActiveEmployees %></h3>
-                    </div>
-                    <div class="right mt-5 pb-2">
-                        <i class="bi bi-people text-primary bg-primary bg-opacity-25 p-3 rounded-circle fs-3"></i>
-                    </div>
-
-                </div>
-
-                <div class="dash-card d-flex gap-5 rounded-3 bg-white">
-                    <div class="left ms-4 mt-4">
-                        <p>Monthly Payroll</p>
-                        <h3 class="fw-bold"><%= totalSalaryAmount %></h3>
-                    </div>
-                    <div class="right mt-5 pb-2">
-                        <i class="bi bi-people text-primary bg-primary bg-opacity-25 p-3 rounded-circle fs-3"></i>
-                    </div>
-                </div>
-            </div>
-
-
-            <div class="serach-box mt-4  bg-white d-flex gap-2 rounded">
-                <div class="input-group  p-3">
-                    <span class="input-group-text bg-white border-end-0"><i class="bi bi-search"></i></span>
-                    <input type="text" class="form-control border-start-0"
-                        placeholder="Search residents by name, flat number, or block...">
-                </div>
-                <select class="select-status form-select">
-                    <option>All Roles</option>
-                    <option>Security Guard</option>
-                    <option>Housekeeper</option>
-                    <option>Gardener</option>
-                </select>
-            </div>
-
-
-            <div class="table-responsive bg-white rounded shadow-sm mt-4">
-                <table class="table mb-0 align-middle">
-                    <thead class="table-light">
-                        <tr>
-                            <th>Employee</th>
-                            <th>Role & Shift</th>
-                            <th>Contact</th>
-                            <th>Salary</th>
-                            <th>Join Date</th>
-                            <th>Status</th>
-                            <th>Actions</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        
-                       <% allEmployeeDetails.forEach(employee => { %>
-                            <tr>
-                            <td>
-                                <strong><%= employee.name %></strong><br>
-                            </td>
-                            <td>
-                                <%= employee.role %><br>
-                                <small class="text-muted">Joined: 2023-01-15</small>
-                            </td>
-                            <td>
-                                <%= employee.contact %><br>
-                            </td>
-                            <td class="fw-semibold">
-                               ₹<%= employee.salary %><br>
-                            </td>
-                            <td>
-                                <%= employee.join_date.toISOString().split('T')[0] %><br>
-                            </td>
-                            <td>
-                                <% if (employee.status === "Active") { %>
-                                    <span class="status-badge text-success fw-bold"><%= employee.status %></span>                                    
-                                <% }else{ %>
-                                    <span class="status-badge text-danger fw-bold"><%= employee.status %></span>
-                                <% } %>
-                            </td>
-                            <td class="action-icons text-primary">
-                                <form action="/employees/<%= employee._id %>/edit" method="get">
-                                    <button class="bg-primary text-white p-1 px-3 rounded fw-bold">Manage</button>
-                                </form>
-                            </td>
-                        </tr>
-                      <% }) %>
-                    </tbody>
-                </table>
-            </div>
+    <div class="dash-info d-flex gap-5">
+      <div class="dash-card d-flex gap-5 rounded-3 bg-white">
+        <div class="left ms-4 mt-4">
+          <p class="mt-1">Total Employees</p>
+          <h3 class="fw-bold"><%= totalEmployees %></h3>
         </div>
-    </body>
+        <div class="right mt-5 pb-2">
+          <i class="bi bi-people text-primary bg-primary bg-opacity-25 p-3 rounded-circle fs-3"></i>
+        </div>
+      </div>
+
+      <div class="dash-card d-flex gap-5 rounded-3 bg-white">
+        <div class="left ms-4 mt-4">
+          <p>Active</p>
+          <h3 class="fw-bold text-success"><%= totalActiveEmployees %></h3>
+        </div>
+        <div class="right mt-5 pb-2">
+          <i class="bi bi-people text-primary bg-success bg-opacity-25 p-3 rounded-circle fs-3"></i>
+        </div>
+      </div>
+
+      <div class="dash-card d-flex gap-5 rounded-3 bg-white">
+        <div class="left ms-4 mt-4">
+          <p>In-active</p>
+          <h3 class="fw-bold"><%= totalEmployees - totalActiveEmployees %></h3>
+        </div>
+        <div class="right mt-5 pb-2">
+          <i class="bi bi-people text-primary bg-primary bg-opacity-25 p-3 rounded-circle fs-3"></i>
+        </div>
+      </div>
+
+      <div class="dash-card d-flex gap-5 rounded-3 bg-white">
+        <div class="left ms-4 mt-4">
+          <p>Monthly Payroll</p>
+          <h3 class="fw-bold">₹<%= totalSalaryAmount %></h3>
+        </div>
+        <div class="right mt-5 pb-2">
+          <i class="bi bi-people text-primary bg-primary bg-opacity-25 p-3 rounded-circle fs-3"></i>
+        </div>
+      </div>
+    </div>
+
+    <div class="serach-box mt-4 bg-white d-flex gap-2 rounded">
+      <div class="input-group p-3">
+        <span class="input-group-text bg-white border-end-0"><i class="bi bi-search"></i></span>
+        <input type="text" id="searchInput" class="form-control border-start-0"
+          placeholder="Search employees by name...">
+      </div>
+      <select id="roleFilter" class="select-status form-select">
+        <option value="">All Roles</option>
+        <option value="Security Guard">Security Guard</option>
+        <option value="Housekeeper">Housekeeper</option>
+        <option value="Gardener">Gardener</option>
+      </select>
+    </div>
+
+    <div class="table-responsive bg-white rounded shadow-sm mt-4">
+      <table class="table mb-0 align-middle">
+        <thead class="table-light">
+          <tr>
+            <th>Employee</th>
+            <th>Role & Shift</th>
+            <th>Contact</th>
+            <th>Salary</th>
+            <th>Join Date</th>
+            <th>Status</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% allEmployeeDetails.forEach(employee => { %>
+            <tr class="employeeRow"
+              data-name="<%= employee.name.toLowerCase() %>"
+              data-role="<%= employee.role.toLowerCase() %>">
+              <td>
+                <strong><%= employee.name %></strong><br>
+              </td>
+              <td>
+                <%= employee.role %><br>
+                <small class="text-muted">Joined: <%= employee.join_date.toISOString().split('T')[0] %></small>
+              </td>
+              <td>
+                <%= employee.contact %><br>
+              </td>
+              <td class="fw-semibold">
+                ₹<%= employee.salary %><br>
+              </td>
+              <td>
+                <%= employee.join_date.toISOString().split('T')[0] %><br>
+              </td>
+              <td>
+                <% if (employee.status === "Active") { %>
+                  <span class="status-badge text-success fw-bold"><%= employee.status %></span>
+                <% } else { %>
+                  <span class="status-badge text-danger fw-bold"><%= employee.status %></span>
+                <% } %>
+              </td>
+              <td class="action-icons text-primary">
+                <form action="/employees/<%= employee._id %>/edit" method="get">
+                  <button class="bg-primary text-white p-1 px-3 rounded fw-bold">Manage</button>
+                </form>
+              </td>
+            </tr>
+          <% }) %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <script>
+    const searchInput = document.getElementById("searchInput");
+    const roleFilter = document.getElementById("roleFilter");
+    const employeeRows = document.querySelectorAll(".employeeRow");
+
+    function filterEmployees() {
+      const search = searchInput.value.toLowerCase();
+      const role = roleFilter.value.toLowerCase();
+
+      employeeRows.forEach(row => {
+        const name = row.dataset.name;
+        const empRole = row.dataset.role;
+
+        const matchesSearch = name.includes(search);
+        const matchesRole = role === "" || empRole === role;
+
+        if (matchesSearch && matchesRole) {
+          row.style.display = "";
+        } else {
+          row.style.display = "none";
+        }
+      });
+    }
+
+    searchInput.addEventListener("keyup", filterEmployees);
+    roleFilter.addEventListener("change", filterEmployees);
+  </script>
+</body>

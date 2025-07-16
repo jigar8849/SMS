@@ -307,7 +307,7 @@ app.get('/download-pdf', async (req, res) => {
 });
 
 app.get("/complaints", async (req, res) => {
-  const complainsDetails = await Complaints.find().populate("resident", "owner_name block flat_number")
+  const complainsDetails = await Complaints.find().populate("resident", "first_name last_name block flat_number")
   complainsDetails.map(item => item.toJSON())
   res.render("admin/complaints", { complainsDetails });
 })
