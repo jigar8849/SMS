@@ -1,168 +1,175 @@
 <%- layout("layouts/boilerplate") %>
 
-<style>
-  .main-card {
-    width: 23rem !important;
-  }
-</style>
+  <style>
+    .main-card {
+      width: 23rem !important;
+    }
+  </style>
 
-<body>
-  <div class="vehicle-container">
-    <div class="owner-list-container">
-      <div class="event-container">
-        <div class="com-header d-flex justify-content-between">
-          <div class="left">
-            <h2 class="fw-bold">Vehicle Search</h2>
-            <p class="text-muted">Find vehicle owners for complaints or inquiries</p>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="mt-4">
-      <div class="row g-3">
-        <!-- Total Vehicles -->
-        <div class="col-md-4 col-sm-12">
-          <div class="card p-3 d-flex justify-content-between align-items-center flex-row">
-            <div>
-              <h6 class="text-muted">Total Vehicles</h6>
-              <h3 class="text-primary fw-bold"><%= twoWheeler + fourWheeler %></h3>
+  <body>
+    <div class="vehicle-container">
+      <div class="owner-list-container">
+        <div class="event-container">
+          <div class="com-header d-flex justify-content-between">
+            <div class="left">
+              <h2 class="fw-bold">Vehicle Search</h2>
+              <p class="text-muted">Find vehicle owners for complaints or inquiries</p>
             </div>
-            <i class="bi bi-car-front text-primary fs-2"></i>
           </div>
         </div>
 
-        <!-- Two Wheelers -->
-        <div class="col-md-4 col-sm-12">
-          <div class="card p-3 d-flex justify-content-between align-items-center flex-row">
-            <div>
-              <h6 class="text-muted">Two Wheelers</h6>
-              <h3 class="text-success fw-bold"><%= twoWheeler %></h3>
-            </div>
-            <i class="bi bi-bicycle text-primary fs-2"></i>
-          </div>
-        </div>
 
-        <!-- Four Wheelers -->
-        <div class="col-md-4 col-sm-12">
-          <div class="card p-3 d-flex justify-content-between align-items-center flex-row">
-            <div>
-              <h6 class="text-muted">Four Wheelers</h6>
-              <h3 class="text-warning fw-bold"><%= fourWheeler %></h3>
-            </div>
-            <i class="bi bi-car-front text-primary fs-2"></i>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="mt-4 border rounded p-3 bg-white">
-      <div class="row g-3 align-items-center">
-        <!-- Search Box -->
-        <div class="col-md-9 col-sm-12">
-          <div class="input-group">
-            <span class="input-group-text bg-white border-end-0">
-              <i class="bi bi-search text-muted"></i>
-            </span>
-            <input type="text" id="searchInput" class="form-control border-start-0"
-              placeholder="Search by registration number, owner name, or flat...">
-          </div>
-        </div>
-
-        <!-- Filter Dropdown -->
-        <div class="col-md-3 col-sm-12">
-          <select id="vehicleType" class="form-select border-primary text-dark fw-semibold">
-            <option selected>All Vehicles</option>
-            <option>Two Wheelers</option>
-            <option>Four Wheelers</option>
-          </select>
-        </div>
-      </div>
-    </div>
-
-    <div class="vehicle-info mt-4 border rounded bg-white">
-      <div class="info-head m-4">
-        <h5 class="fw-bold">Search Results</h5>
-      </div>
-      <hr>
-
-      <div class="container mb-3 mt-4">
-        <div class="row g-3">
-          <% allParkingDetails.forEach(pDetail => { %>
-            <div class="col-12 col-sm-6 col-md-4 vehicleCard"
-              data-four_wheeler="<%= pDetail.four_wheeler ? pDetail.four_wheeler : '' %>"
-              data-two_wheeler="<%= pDetail.two_wheeler ? pDetail.two_wheeler : '' %>"
-              data-owner="<%= (pDetail.first_name + ' ' + pDetail.last_name).toLowerCase() %>"
-              data-flat="<%= (pDetail.block + '-' + pDetail.flat_number).toLowerCase() %>"
-            >
-              <div class="card p-3 shadow-sm h-100">
-                <div class="row align-items-center mb-3">
-                  <div class="col-auto">
-                    <% if (pDetail.four_wheeler) { %>
-                      <i class="bi bi-car-front fs-1 text-primary"></i>
-                      <h4 class="mb-0">
-                        <%= pDetail.four_wheeler %>
-                        <span class="badge bg-light text-primary">4-wheeler</span>
-                      </h4>
-                    <% } %>
-                    <% if (pDetail.two_wheeler) { %>
-                      <i class="bi bi-bicycle fs-1 text-success"></i>
-                      <h4 class="mb-0">
-                        <%= pDetail.two_wheeler %>
-                        <span class="badge bg-light text-success">2-wheeler</span>
-                      </h4>
-                    <% } %>
-                  </div>
+        <div class="mt-4">
+          <div class="row g-3">
+            <!-- Total Vehicles -->
+            <div class="col-md-4 col-sm-12">
+              <div class="card p-3 d-flex justify-content-between align-items-center flex-row">
+                <div>
+                  <h6 class="text-muted">Total Vehicles</h6>
+                  <h3 class="text-primary fw-bold">
+                    <%= twoWheeler + fourWheeler %>
+                  </h3>
                 </div>
-
-                <div class="mb-2 fs-5">
-                  <strong>Owner :</strong> <%= pDetail.first_name %> <%= pDetail.last_name %> <br />
-                  <strong>Flat :</strong> Block <%= pDetail.block %> - <%= pDetail.flat_number %> <br />
-                  <strong>Phone :</strong> +91 <%= pDetail.mobile_number %> <br />
-                </div>
-
-                <div class="d-flex flex-column flex-sm-row gap-3 mt-3">
-                  <button class="btn btn-primary w-100 w-sm-auto">Contact Owner</button>
-                  <button class="btn btn-outline-secondary w-100 w-sm-auto">Report Issue</button>
-                </div>
+                <i class="bi bi-car-front text-primary fs-2"></i>
               </div>
             </div>
-          <% }); %>
+
+            <!-- Two Wheelers -->
+            <div class="col-md-4 col-sm-12">
+              <div class="card p-3 d-flex justify-content-between align-items-center flex-row">
+                <div>
+                  <h6 class="text-muted">Two Wheelers</h6>
+                  <h3 class="text-success fw-bold">
+                    <%= twoWheeler %>
+                  </h3>
+                </div>
+                <i class="bi bi-bicycle text-primary fs-2"></i>
+              </div>
+            </div>
+
+            <!-- Four Wheelers -->
+            <div class="col-md-4 col-sm-12">
+              <div class="card p-3 d-flex justify-content-between align-items-center flex-row">
+                <div>
+                  <h6 class="text-muted">Four Wheelers</h6>
+                  <h3 class="text-warning fw-bold">
+                    <%= fourWheeler %>
+                  </h3>
+                </div>
+                <i class="bi bi-car-front text-primary fs-2"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="mt-4 border rounded p-3 bg-white">
+          <div class="row g-3 align-items-center">
+            <!-- Search Box -->
+            <div class="col-md-9 col-sm-12">
+              <div class="input-group">
+                <span class="input-group-text bg-white border-end-0">
+                  <i class="bi bi-search text-muted"></i>
+                </span>
+                <input type="text" id="searchInput" class="form-control border-start-0"
+                  placeholder="Search by registration number, owner name, or flat...">
+              </div>
+            </div>
+
+            <!-- Filter Dropdown -->
+            <div class="col-md-3 col-sm-12">
+              <select id="vehicleType" class="form-select border-primary text-dark fw-semibold">
+                <option selected>All Vehicles</option>
+                <option>Two Wheelers</option>
+                <option>Four Wheelers</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <div class="vehicle-info mt-4 border rounded bg-white">
+          <div class="info-head m-4">
+            <h5 class="fw-bold">Search Results</h5>
+          </div>
+          <hr>
+
+          <div class="container mb-3 mt-4">
+            <div class="row g-3">
+              <% allParkingDetails.forEach(pDetail=> { %>
+                <div class="col-12 col-sm-6 col-md-4 vehicleCard"
+                  data-four_wheeler="<%= pDetail.four_wheeler ? pDetail.four_wheeler : '' %>"
+                  data-two_wheeler="<%= pDetail.two_wheeler ? pDetail.two_wheeler : '' %>"
+                  data-owner="<%= (pDetail.first_name + ' ' + pDetail.last_name).toLowerCase() %>"
+                  data-flat="<%= (pDetail.block + '-' + pDetail.flat_number).toLowerCase() %>">
+                  <div class="card p-3 shadow-sm h-100">
+                    <div class="row align-items-center mb-3">
+                      <div class="col-auto">
+                        <% if (pDetail.four_wheeler) { %>
+                          <i class="bi bi-car-front fs-1 text-primary"></i>
+                          <h4 class="mb-0">
+                            <%= pDetail.four_wheeler %>
+                              <span class="badge bg-light text-primary">4-wheeler</span>
+                          </h4>
+                          <% } %>
+                            <% if (pDetail.two_wheeler) { %>
+                              <i class="bi bi-bicycle fs-1 text-success"></i>
+                              <h4 class="mb-0">
+                                <%= pDetail.two_wheeler %>
+                                  <span class="badge bg-light text-success">2-wheeler</span>
+                              </h4>
+                              <% } %>
+                      </div>
+                    </div>
+
+                    <div class="mb-2 fs-5">
+                      <strong>Owner :</strong>
+                      <%= pDetail.first_name %>
+                        <%= pDetail.last_name %> <br />
+                          <strong>Flat :</strong> Block <%= pDetail.block %> - <%= pDetail.flat_number %> <br />
+                              <strong>Phone :</strong> +91 <%= pDetail.mobile_number %> <br />
+                    </div>
+
+                    <div class="d-flex flex-column flex-sm-row gap-3 mt-3">
+                      <button class="btn btn-primary w-100 w-sm-auto">Contact Owner</button>
+                      <button class="btn btn-outline-secondary w-100 w-sm-auto">Report Issue</button>
+                    </div>
+                  </div>
+                </div>
+                <% }); %>
+            </div>
+          </div>
         </div>
       </div>
     </div>
-  </div>
+    <script>
+      function filterVehicle() {
+        const search = document.getElementById("searchInput").value.toLowerCase();
+        const filter = document.getElementById("vehicleType").value;
+        const vehicleCards = document.querySelectorAll(".vehicleCard");
 
-  <script>
-    function filterVehicle() {
-      const search = document.getElementById("searchInput").value.toLowerCase();
-      const filter = document.getElementById("vehicleType").value;
-      const vehicleCards = document.querySelectorAll(".vehicleCard");
+        vehicleCards.forEach(card => {
+          const car = card.dataset.four_wheeler.toLowerCase();
+          const bike = card.dataset.two_wheeler.toLowerCase();
+          const owner = card.dataset.owner;
+          const flat = card.dataset.flat;
 
-      vehicleCards.forEach(card => {
-        const car = card.dataset.four_wheeler.toLowerCase();
-        const bike = card.dataset.two_wheeler.toLowerCase();
-        const owner = card.dataset.owner;
-        const flat = card.dataset.flat;
+          const matchesSearch =
+            car.includes(search) ||
+            bike.includes(search) ||
+            owner.includes(search) ||
+            flat.includes(search);
 
-        const matchesSearch =
-          car.includes(search) ||
-          bike.includes(search) ||
-          owner.includes(search) ||
-          flat.includes(search);
+          const type = car ? "Four Wheelers" : "Two Wheelers";
+          const matchesType = filter === "All Vehicles" || filter === type;
 
-        const type = car ? "Four Wheelers" : "Two Wheelers";
-        const matchesType = filter === "All Vehicles" || filter === type;
+          if (matchesSearch && matchesType) {
+            card.style.display = "block";
+          } else {
+            card.style.display = "none";
+          }
+        });
+      }
 
-        if (matchesSearch && matchesType) {
-          card.style.display = "block";
-        } else {
-          card.style.display = "none";
-        }
-      });
-    }
-
-    document.getElementById("searchInput").addEventListener("input", filterVehicle);
-    document.getElementById("vehicleType").addEventListener("change", filterVehicle);
-  </script>
-</body>
+      document.getElementById("searchInput").addEventListener("input", filterVehicle);
+      document.getElementById("vehicleType").addEventListener("change", filterVehicle);
+    </script>
+  </body>

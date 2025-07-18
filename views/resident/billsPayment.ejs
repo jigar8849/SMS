@@ -1,5 +1,236 @@
 <%- layout("layouts/boilerplate") %>
+    <style>
+        .quick-pay-card {
+            background: linear-gradient(90deg, #1d4ed8, #2563eb);
+            color: white;
+            border-radius: 12px;
+            padding: 20px 30px;
+        }
 
-<body>
-    <h1>This is bill and payment page</h1>
-</body>
+        .pay-btn {
+            background-color: rgba(255, 255, 255, 0.2);
+            border: none;
+            color: white;
+            padding: 8px 18px;
+            border-radius: 8px;
+            font-weight: 500;
+        }
+
+        .pay-btn:hover {
+            background-color: rgba(255, 255, 255, 0.3);
+        }
+
+        hr {
+            margin: 0rem !important;
+        }
+
+        .status-badge {
+            font-size: 0.75rem;
+            background-color: #fef3c7;
+            color: #92400e;
+            padding: 4px 8px;
+            border-radius: 8px;
+            font-weight: 500;
+        }
+
+        .pay-btn {
+            background-color: #2563eb;
+            color: white;
+            font-weight: 500;
+            border-radius: 8px;
+        }
+
+        .pay-btn:hover {
+            background-color: #1d4ed8;
+        }
+
+        .due-date-icon {
+            color: #d97706;
+        }
+
+        .no-bills {
+            padding: 20px;
+            text-align: center;
+            color: #666;
+        }
+    </style>
+
+    <body>
+        <div class="payment-container">
+            <div class="com-header d-flex justify-content-between">
+                <div class="left">
+                    <h2 class="fw-bold">Bills & Payments</h2>
+                    <p class="text-muted">Manage your society bills and payment history</p>
+                </div>
+                <div class="right d-flex align-items-center">
+                    <a href="" class="rounded p-2 px-4 text-white bg-success border-0 text-decoration-none">
+                        <i class="bi bi-download text-white"></i> Download History
+                    </a>
+                </div>
+            </div>
+
+            <div class="mt-4">
+                <div class="row g-3">
+                    <!-- Pending Bills -->
+                    <!-- Pending Bills -->
+                    <div class="col-md-4 col-sm-12">
+                        <div class="card p-3 d-flex justify-content-between align-items-center flex-row">
+                            <div>
+                                <h6 class="text-muted">Pending Bills</h6>
+                                <h3 class="text-danger fw-bold">
+                                    ₹<%= pendingTotal %>
+                                </h3>
+                            </div>
+                            <i class="bi bi-exclamation-circle-fill text-danger fs-2"></i>
+                        </div>
+                    </div>
+
+                    <!-- Paid this month -->
+                    <div class="col-md-4 col-sm-12">
+                        <div class="card p-3 d-flex justify-content-between align-items-center flex-row">
+                            <div>
+                                <h6 class="text-muted">Paid This Month</h6>
+                                <h3 class="text-success fw-bold">
+                                    ₹<%= paidTotal %>
+                                </h3>
+                            </div>
+                            <i class="bi bi-check-circle text-success fs-2"></i>
+                        </div>
+                    </div>
+
+                    <!-- Due date -->
+                    <div class="col-md-4 col-sm-12">
+                        <div class="card p-3 d-flex justify-content-between align-items-center flex-row">
+                            <div>
+                                <h6 class="text-muted">Next Due Date</h6>
+                                <h3 class="text-primary fw-bold">
+                                    <%= nextDueDate %>
+                                </h3>
+                            </div>
+                            <i class="bi bi-calendar-check text-primary fs-2"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="quick-pay-card d-flex justify-content-between align-items-center mt-4">
+                <div>
+                    <h5 class="mb-1 fw-bold">Quick Pay Pending Bills</h5>
+                    <small>Pay all your pending bills in one go</small>
+                </div>
+                <button class="pay-btn" id="quickPayBtn">Pay Selected (₹0)</button>
+            </div>
+        </div>
+
+        <div class="all-bills border rounded mt-5">
+            <h3 class="m-4">All Bills</h3>
+            <hr>
+
+            <% if (!billDetails || billDetails.length===0) { %>
+                <div class="no-bills p-4">
+                    <i class="bi bi-receipt fs-1 text-muted"></i>
+                    <p class="mt-3">No bills found for your account</p>
+                </div>
+                <% } else { %>
+                    <% billDetails.forEach(bill=> { %>
+                        <div class="bill-item d-flex justify-content-between bg-white align-items-center">
+                            <div class="d-flex align-items-start gap-3 ms-4">
+                                <input type="checkbox" class="form-check-input mt-1 bill-checkbox"
+                                    data-amount="<%= bill.amount %>" <%=bill.status==='Paid' ? 'disabled' : '' %>>
+
+                                <div>
+                                    <h4 class="fw-bold mb-1">
+                                        <%= bill.title %>
+                                    </h4>
+                                    <div class="text-muted small d-flex align-items-center gap-2">
+                                        <i class="bi bi-clock due-date-icon"></i>
+                                        <% if (bill.type) { %>
+                                            <%= bill.type %> •
+                                                <% } %>
+                                                    <% if (bill.dueDate) { %>
+                                                        Due <%= new Date(bill.dueDate).toLocaleDateString('en-US', {
+                                                            month: 'short' , day: 'numeric' , year: 'numeric' }) %>
+                                                            <% } else { %>
+                                                                No due date specified
+                                                                <% } %>
+                                    </div>
+                                    <% if (bill.status==='Pending' && bill.dueDate && new Date(bill.dueDate) < new
+                                        Date()) { %>
+                                        <small class="text-danger">Overdue</small>
+                                        <% } %>
+                                </div>
+                            </div>
+
+                            <div class="text-end me-4">
+                                <div class="fw-bold fs-4 mt-4">₹<%= bill.amount %>
+                                </div>
+
+                                <% if (bill.status==="Pending" ) { %>
+                                    <span class="status-badge text-dark fw-bold">
+                                        <%= bill.status %>
+                                    </span>
+                                    <% } else { %>
+                                        <span class="status-badge bg-success text-white fw-bold px-3">
+                                            <%= bill.status %>
+                                        </span>
+                                        <% } %>
+
+                                            <div class="mt-4 mb-4">
+                                                <% if (bill.status==="Pending" ) { %>
+                                                    <form action="/pay-bill/<%= bill._id %>" method="POST">
+                                                        <button type="submit" class="btn pay-btn">
+                                                            <i class="bi bi-credit-card me-1"></i> Pay Now
+                                                        </button>
+                                                    </form>
+
+                                                    <% } else { %>
+                                                        <small class="text-muted">
+                                                            Paid on <%= new Date(bill.paidAt).toLocaleDateString() %>
+                                                        </small>
+                                                        <% } %>
+                                            </div>
+                            </div>
+                        </div>
+                        <hr>
+                        <% }); %>
+                            <% } %>
+        </div>
+
+        <script>
+            document.addEventListener("DOMContentLoaded", function () {
+                const checkboxes = document.querySelectorAll(".bill-checkbox");
+                const quickPayBtn = document.getElementById("quickPayBtn");
+                let total = 0;
+
+                function updateTotal() {
+                    total = 0;
+                    checkboxes.forEach(cb => {
+                        if (cb.checked && !cb.disabled) {
+                            total += parseFloat(cb.dataset.amount);
+                        }
+                    });
+
+                    quickPayBtn.textContent = `Pay Selected (₹${total.toFixed(2)})`;
+                    quickPayBtn.disabled = total === 0;
+                }
+
+                checkboxes.forEach(checkbox => {
+                    checkbox.addEventListener("change", updateTotal);
+                });
+
+                // Quick pay functionality
+                quickPayBtn.addEventListener("click", function () {
+                    const selectedBills = [];
+                    checkboxes.forEach(cb => {
+                        if (cb.checked && !cb.disabled) {
+                            selectedBills.push(cb.closest('.bill-item').querySelector('form'));
+                        }
+                    });
+
+                    if (selectedBills.length > 0 && confirm(`Pay ₹${total.toFixed(2)} for ${selectedBills.length} bill(s)?`)) {
+                        selectedBills.forEach(form => form.submit());
+                    }
+                });
+            });
+        </script>
+    </body>

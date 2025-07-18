@@ -1,0 +1,64 @@
+<%- layout("layouts/boilerplate") %>
+
+
+<body class="bg-light">
+    <div class="container py-5">
+        <div class="card shadow">
+            <div class="card-header bg-primary text-white">
+                <div class="d-flex justify-content-between align-items-center">
+                    <h2 class="mb-0">Bill Management</h2>
+                    <a href="/createBill" class="btn btn-light">
+                        <i class="fas fa-plus"></i> Create New Bill
+                    </a>
+                </div>
+            </div>
+            
+            <div class="card-body">
+                <% if (bills.length > 0) { %>
+                    <div class="table-responsive">
+                        <table class="table table-hover">
+                            <thead class="table-light">
+                                <tr>
+                                    <th>Title</th>
+                                    <th>Type</th>
+                                    <th>Amount</th>
+                                    <th>Due Date</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <% bills.forEach(bill => { %>
+                                    <tr>
+                                        <td><%= bill.title %></td>
+                                        <td><span class="badge bg-info"><%= bill.type %></span></td>
+                                        <td>₹<%= bill.amount %></td>
+                                        <td><%= bill.dueDate.toLocaleDateString() %></td>
+                                        <td>
+                                            <div class="d-flex gap-2">
+                                                <a href="/bills/<%= bill._id %>/edit" class="btn btn-sm btn-warning">
+                                                    <i class="fas fa-edit"></i> Edit
+                                                </a>
+                                                <form action="/bills/<%= bill._id %>?_method=DELETE" method="POST">
+                                                    <button type="submit" class="btn btn-sm btn-danger">
+                                                        <i class="fas fa-trash"></i> Delete
+                                                    </button>
+                                                </form>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                <% }); %>
+                            </tbody>
+                        </table>
+                    </div>
+                <% } else { %>
+                    <div class="alert alert-info">
+                        No bills found. Create your first bill!
+                    </div>
+                <% } %>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>

@@ -1,0 +1,39 @@
+<%- layout("layouts/boilerplate") %>
+
+
+<body>
+    <h2>Pay ₹<%= bill.amount %> for <%= bill.title %></h2>
+
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+<script>
+  const options = {
+    key: "<%= razorpayKey %>",
+    amount: "<%= amount %>",
+    currency: "INR",
+    name: "Society Management",
+    description: "Bill Payment",
+    image: "/logo.png",
+    order_id: "<%= orderId %>",
+    handler: function (response) {
+      // Submit to backend for verification
+      fetch("/verify-payment", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(response)
+      }).then(res => {
+        if (res.ok) window.location.href = "/resident-billsPayment";
+        else alert("Payment verification failed");
+      });
+    },
+    prefill: {
+      name: "<%= bill.residentName || '' %>"
+    },
+    theme: {
+      color: "#3399cc"
+    }
+  };
+  const rzp = new Razorpay(options);
+  rzp.open();
+</script>
+
+</body>

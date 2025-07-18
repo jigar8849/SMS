@@ -10,7 +10,9 @@
   "license": "ISC",
   "description": "",
   "dependencies": {
+    "connect-flash": "^0.1.1",
     "connect-redis": "^5.2.0",
+    "dotenv": "^17.2.0",
     "ejs": "^3.1.10",
     "ejs-mate": "^4.0.0",
     "express": "^5.1.0",
@@ -19,6 +21,7 @@
     "mongoose": "^8.16.0",
     "pdfkit": "^0.17.1",
     "pdfkit-table": "^0.1.99",
+    "razorpay": "^2.9.6",
     "redis": "^5.6.0"
   }
 }
