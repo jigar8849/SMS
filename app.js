@@ -14,6 +14,9 @@ const AdminBillTemplate = require("./models/adminBill"); //admin can create bill
 const ResidentBill = require("./models/residentBill");  // Resident pay bill that can created by admin
 const Razorpay = require('razorpay');
 const crypto = require("crypto");
+// const bcrypt = require("bcrypt");
+const passport = require("passport");
+const LocalStrategy = require("passport-local");
 
 const session = require('express-session');  // require midleware sessions
 const RedisStore = require('connect-redis').default // use to store sessions
@@ -49,6 +52,9 @@ app.use(
   })
 );
 
+app.use(passport.initialize());
+app.use(passport.session());
+
 // flash massages
 app.use(flash());
 app.use((req, res, next) => {
@@ -58,10 +64,10 @@ app.use((req, res, next) => {
 });
 
 
-const razorpayInstance = new Razorpay({
-  key_id: 'YOUR_RAZORPAY_KEY_ID',  // Get from Razorpay dashboard
-  key_secret: 'YOUR_RAZORPAY_KEY_SECRET'  // Get from Razorpay dashboard
-});
+// const razorpayInstance = new Razorpay({
+//   key_id: 'YOUR_RAZORPAY_KEY_ID',  // Get from Razorpay dashboard
+//   key_secret: 'YOUR_RAZORPAY_KEY_SECRET'  // Get from Razorpay dashboard
+// });
 
 
 
@@ -69,8 +75,6 @@ app.use((req, res, next) => {
   res.locals.user = req.session.admin || req.session.addNewMember || null;
   next();
 });
-
-
 
 // Connect to MongoDB
 main().catch(err => console.log("MongoDB Connection Error:", err));
@@ -118,11 +122,43 @@ app.get("/addNewResident", isAdminLoggedIn, (req, res) => {
 })
 
 //this will add take new resident details and save to database
+
 app.post("/addNewResident", async (req, res) => {
-  const newAddedMember = new NewMember(req.body);
-  await newAddedMember.save();
-  res.redirect("/residents")
-})
+  try {
+    const {
+      first_name, last_name, email,
+      mobile_number, number_of_member, birth_date,
+      emergency_number, name_of_each_member,
+      block, floor_number, flat_number,
+      four_wheeler, two_wheeler, create_password
+    } = req.body;
+
+    const newResident = new NewMember({
+      first_name,
+      last_name,
+      email,
+      mobile_number,
+      number_of_member,
+      birth_date,
+      emergency_number,
+      name_of_each_member,
+      block,
+      floor_number,
+      flat_number,
+      four_wheeler,
+      two_wheeler,
+      role: "resident"
+    });
+
+    // hash and save password
+    await NewMember.register(newResident, create_password); // <- this is what hashes and salts the password
+
+    res.send("✅ New Resident Added!");
+  } catch (error) {
+    console.error(error);
+    res.send("❌ Error adding resident");
+  }
+});
 
 // edit - this page redirect to the edit form page
 app.get("/residents/:id/edit", isAdminLoggedIn, async (req, res) => {
@@ -1061,23 +1097,35 @@ app.get("/admin-login", (req, res) => {
 app.post("/admin-login", async (req, res) => {
   const { email, create_password } = req.body;
 
-  const admin = await SocitySetUp.findOne({ email })
+  try {
+    // Try to find admin by email
+    const admin = await SocitySetUp.findOne({ email });
 
-  if (admin.role !== "admin") {
-    return res.setEncoding("❌ Access denied: Not an admin")
-  }
+    if (!admin || admin.role !== "admin") {
+      return res.send("❌ Access denied: Not an admin or user not found");
+    }
 
-  if (admin.create_password !== create_password) {
-    return res.send("❌ Incorrect password");
-  }
+    // Authenticate using passport-local-mongoose
+    const authenticatedAdmin = await new Promise((resolve, reject) => {
+      SocitySetUp.authenticate()(email, create_password, (err, user, options) => {
+        if (err || !user) return reject("❌ Incorrect email or password");
+        resolve(user);
+      });
+    });
 
-  req.session.admin = {
-    id: admin._id,
-    email: admin.email,
-    role: admin.role
+    // Set session if authenticated
+    req.session.admin = {
+      id: authenticatedAdmin._id,
+      email: authenticatedAdmin.email,
+      role: authenticatedAdmin.role
+    };
+
+    res.redirect("/dashboard");
+  } catch (err) {
+    res.send(typeof err === "string" ? err : "❌ Login failed");
   }
-  res.redirect("/dashboard")
-})
+});
+
 
 app.get("/resident-login", (req, res) => {
   res.render("login/resident");
@@ -1086,33 +1134,56 @@ app.get("/resident-login", (req, res) => {
 app.post("/resident-login", async (req, res) => {
   const { email, create_password } = req.body;
 
-  const addNewMember = await NewMember.findOne({ email });
+  try {
+    const resident = await NewMember.findOne({ email });
 
-  if (!addNewMember) {
-    res.send("<h1>Admin not fount</h1>")
-  }
+    if (!resident) {
+      return res.send("<h1>Resident not found</h1>");
+    }
 
+    if (resident.role !== "resident") {
+      return res.send("❌ Access denied: Not a resident");
+    }
 
-  if (addNewMember.role !== "resident") {
-    return res.send("❌ Access denied: Not an resident")
-  }
+    // Use passport-local-mongoose's authenticate method
+    const authenticatedResident = await new Promise((resolve, reject) => {
+      NewMember.authenticate()(email, create_password, (err, user, options) => {
+        if (err || !user) return reject("❌ Incorrect email or password");
+        resolve(user);
+      });
+    });
 
-  if (addNewMember.create_password !== create_password) {
-    return res.send("❌ Incorrect password");
+    // Store session data
+    req.session.addNewMember = {
+      id: authenticatedResident._id,
+      email: authenticatedResident.email,
+      role: authenticatedResident.role
+    };
+
+    res.redirect("/resident-dashboard");
+
+  } catch (err) {
+    res.send(typeof err === "string" ? err : "❌ Login failed");
   }
-  req.session.addNewMember = {
-    id: addNewMember._id,
-    email: addNewMember.email,
-    role: addNewMember.role
-  }
-  res.redirect("/resident-dashboard")
-})
+});
 
 app.post("/create-account", async (req, res) => {
-  const newAccount = new SocitySetUp(req.body);
-  await newAccount.save();
-  res.redirect("/dashboard");
-})
+  const { password, confirm_password, ...otherFields } = req.body;
+
+  if (password !== confirm_password) {
+    return res.send("❌ Passwords do not match");
+  }
+
+  try {
+    const newAdmin = new SocitySetUp(otherFields); // create admin without password
+    await SocitySetUp.register(newAdmin, password); // hashes and saves password
+    res.redirect("/dashboard");
+  } catch (err) {
+    console.error("❌ Error while creating account:", err);
+    res.send("❌ Failed to create society account. Maybe email is already taken?");
+  }
+});
+
 
 app.listen(3000, () => {
   console.log("Server is running on port 3000");

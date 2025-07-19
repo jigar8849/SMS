@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
 const { Schema } = mongoose;
+const passportLocalMongoose = require("passport-local-mongoose");
 
 
 const newMemberSchema = new Schema({
@@ -63,10 +64,10 @@ const newMemberSchema = new Schema({
         type : String,
         required :true
     },
-    create_password : {
-        type : String,
-        required : true
-    },
+    // create_password : {
+    //     type : String,
+    //     required : true
+    // },
     createdAt : {
         type : Date,
         default : Date.now()
@@ -76,6 +77,9 @@ const newMemberSchema = new Schema({
         ref : 'SocitySetUp',
     }
 });
+
+newMemberSchema.plugin(passportLocalMongoose, { usernameField: "email" });
+
 
 module.exports = mongoose.model("NewMember",newMemberSchema);
 

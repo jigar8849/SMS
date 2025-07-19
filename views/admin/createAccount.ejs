@@ -62,7 +62,7 @@
                                 <input type="text" class="form-control" name="socity_name" required />
                             </div>
 
-                            
+
                             <div class="col-md-6">
                                 <label class="form-label">Total Flats</label>
                                 <input type="number" class="form-control" name="total_flat" required />
@@ -82,7 +82,7 @@
                             </div>
 
 
-                             <div class="col-md-6">
+                            <div class="col-md-6">
                                 <label class="form-label">Total Four Wheeler Slot</label>
                                 <input type="number" class="form-control" name="total_four_wheeler_slot" required />
                             </div>
@@ -129,7 +129,7 @@
                             </div>
                             <div class="col-md-6">
                                 <label class="form-label">Create Password</label>
-                                <input type="password" class="form-control" name="create_password" required />
+                                <input type="password" class="form-control" name="password" required />
                             </div>
                             <div class="col-12">
                                 <label class="form-label">Confirm Password</label>
@@ -138,21 +138,31 @@
                         </div>
                     </div>
 
-                    <form action="/create-account" method="POST">
+                    
                         <!-- All your input fields go here -->
 
                         <!-- Submit Button -->
                         <div class="text-center">
-                            <button class="btn btn-primary px-5 py-2 fs-5">
+                            <button type="submit" class="btn btn-primary px-5 py-2 fs-5">
                                 Create Society Account
                             </button>
                         </div>
-                    </form>
+                    
 
 
             </div>
         </div>
     </div>
+    <script>
+        document.querySelector("form").addEventListener("submit", function (e) {
+            const pass = document.querySelector("input[name='password']").value;
+            const confirm = document.querySelector("input[name='confirm_password']").value;
+            if (pass !== confirm) {
+                alert("❌ Passwords do not match!");
+                e.preventDefault();
+            }
+        });
+    </script>
 
 </body>
 
