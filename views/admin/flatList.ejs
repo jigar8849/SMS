@@ -11,6 +11,80 @@
             height: 8rem;
             width: 16rem;
         }
+
+
+  @media (max-width: 576px) {
+  /* Dashboard cards responsive - 2 per row */
+  .dash-info {
+    flex-wrap: wrap !important;
+    gap: 1rem !important;
+    justify-content: space-between !important;
+  }
+  .dash-card {
+    width: 48% !important;
+    min-width: 145px;
+    height: auto !important;
+    margin-bottom: 1rem;
+    font-size: 0.95rem;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 0.2rem !important;
+    padding: 1rem 0.25rem !important;
+    text-align: center;
+  }
+  .dash-card:only-child { 
+    width: 100% !important; 
+  }
+  .dash-card .left,
+  .dash-card .right { 
+    margin: 0 !important; 
+    padding: 0 !important; 
+  }
+  .dash-card .left { 
+    order: 1; 
+    width: 100%; 
+    margin-bottom: 0.15rem; 
+  }
+  .dash-card .right { 
+    order: 2; 
+    width: 100%; 
+    margin-top: 0.2rem; 
+  }
+
+  /* Header stays in single row - just adjust font size */
+  .flat-container h4.fw-bold {
+    font-size: 1.15rem !important;
+  }
+
+  /* Block boxes responsive - 2 per row */
+  .block-box {
+    gap: 1rem !important;
+    justify-content: space-between !important;
+  }
+  .blok {
+    width: 48% !important;
+    height: 6rem !important;
+    margin-top: 1rem !important;
+    min-width: 140px;
+    font-size: 0.95rem;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+  }
+  .blok a {
+    text-decoration: none;
+    color: inherit;
+    font-weight: bold;
+  }
+  
+  /* If only one block, make it full width */
+  .blok:only-child {
+    width: 100% !important;
+  }
+}
+
+
     </style>
 
     <body>

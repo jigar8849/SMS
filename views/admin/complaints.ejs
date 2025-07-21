@@ -26,6 +26,110 @@
   .compailin-container {
     padding: 1rem 2rem;
   }
+
+@media (max-width: 576px) {
+  /* Container padding adjustment */
+  .compailin-container {
+    padding: 1rem !important;
+  }
+
+  /* Dashboard cards responsive - 2 per row */
+  .dash-info {
+    gap: 1rem !important;
+  }
+  .dash-card {
+    width: 48% !important;
+    min-width: 140px;
+    height: auto !important;
+    margin-bottom: 1rem;
+    font-size: 0.9rem;
+    padding: 0.75rem !important;
+  }
+  .dash-card:only-child {
+    width: 100% !important;
+  }
+  .dash-card h3 {
+    font-size: 1.25rem !important;
+  }
+  .dash-card p {
+    font-size: 0.85rem !important;
+    margin-bottom: 0.25rem !important;
+  }
+  .dash-card i {
+    font-size: 1.5rem !important;
+    padding: 0.5rem !important;
+  }
+
+  /* Header section */
+  .compailin-container h4.fw-bold {
+    font-size: 1.15rem !important;
+  }
+
+  /* Search and filters - SINGLE ROW like previous pages */
+  .bg-white.p-3.rounded.mb-3.d-flex {
+    display: flex !important;
+    flex-direction: row !important;
+    flex-wrap: nowrap !important;
+    gap: 0.5rem !important;
+    align-items: center !important;
+  }
+  .flex-grow-1 {
+    width: 50% !important;
+    flex: 0 0 50% !important;
+  }
+  .form-select.w-auto {
+    width: 25% !important;
+    flex: 0 0 25% !important;
+    min-width: 0 !important;
+  }
+  .input-group {
+    width: 100% !important;
+    min-width: 0 !important;
+  }
+
+  /* Table responsive adjustments */
+  .card {
+    font-size: 0.85rem !important;
+  }
+  .table {
+    font-size: 0.8rem !important;
+  }
+  .table th,
+  .table td {
+    padding: 0.5rem 0.25rem !important;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    max-width: 120px;
+  }
+  .table th:first-child,
+  .table td:first-child {
+    max-width: 150px;
+    white-space: normal;
+  }
+  .table .small {
+    font-size: 0.7rem !important;
+  }
+  .badge {
+    font-size: 0.65rem !important;
+    padding: 0.25em 0.5em !important;
+  }
+  .btn-sm {
+    font-size: 0.7rem !important;
+    padding: 0.25rem 0.5rem !important;
+  }
+
+  /* Make complaint details more readable on mobile */
+  .table td strong {
+    font-size: 0.85rem !important;
+  }
+  .table .text-muted.small {
+    font-size: 0.7rem !important;
+    line-height: 1.2;
+  }
+}
+
+
 </style>
 
 <div class="compailin-container">

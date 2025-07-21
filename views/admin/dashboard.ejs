@@ -24,6 +24,73 @@
             width: 15rem;
             border-radius: 0.5rem;
         }
+
+@media (max-width: 576px) {
+    body{
+        margin: 0px !important;
+        padding: 0px !important;
+        width: 100vw;
+        height: 100vh;
+        box-sizing: border-box;
+    }
+    .dash-title {
+    width: 92vw;
+    font-size: 1.1rem;
+    padding-left: 0 !important;
+    margin-left: 0 !important;
+    border-radius: 0 !important;
+  }
+  .dash-title{
+    border-radius: 0.7rem !important;
+  }
+  .dash-title h1, .dash-title p {
+    font-size: 1rem;
+    margin-left: 1rem !important;
+  }
+
+   .dash-info {
+    flex-wrap: wrap !important;
+    gap: 1rem !important;
+    margin-left: 0 !important;
+    justify-content: space-between !important;
+  }
+  .dash-card {
+    width: 48% !important;    /* Two cards per row */
+    min-width: 145px;
+    margin: 0 0 1rem 0;
+    height: auto;
+  }
+
+  .active-action-boxes {
+    
+    flex-direction: column !important;
+    gap: 1rem !important;
+  }
+  .activities-box, .actions-box {
+width: 92vw !important;    margin-left: 0 !important;
+    margin-right: 0 !important;
+  }
+  .activity-title ul {
+    font-size: 1rem !important;
+  }
+  .actions-title h5 {
+    margin-left: 1rem !important;
+    font-size: 1rem !important;
+  }
+  .action-boxes .upper,
+  .action-boxes .lower {
+    flex-direction: column !important;
+    gap: 1rem !important;
+    margin: 1rem !important;
+  }
+  .action-card {
+    width: 100% !important;
+    margin-bottom: 1rem;
+    padding: 1rem !important;
+  }
+}
+
+        
     </style>
 
     <body>
@@ -116,7 +183,7 @@
                                 </a>
 
 
-                                <a href="" class="text-decoration-none">
+                                <a href="/payments" class="text-decoration-none">
                                     <div
                                     class="action-card border d-flex flex-column justify-content-center align-items-center p-4">
                                     <i class="bi bi-credit-card-2-front fs-2 text-primary"></i>

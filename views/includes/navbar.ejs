@@ -1,48 +1,100 @@
-
+<!-- includes/navbar.ejs or similar file -->
 <style>
+  nav.navbar {
+    height: 4rem;
+    padding: 0;
+  }
+  .nav-role-text {
+    height: 4rem;
+    width: 16rem;
+    background-color: #0d6efd;
+    color: white;
+    font-weight: 600;
+    font-size: 1.1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  /* Hamburger Button - initially hidden */
+  .navbar-hamburger {
+    display: none;
+    background: none;
+    border: none;
+    font-size: 2rem;
+    color: #0d6efd;
+    margin-left: 0.7rem;
+    margin-right: 0.5rem;
+    align-items: center;
+  }
+  .navbar-container {
+    height: 100%;
+    display: flex;
+    align-items: stretch;
+    width: 100%;
+  }
+  @media (max-width: 576px) {
+    /* Hide role panel, show hamburger */
+    .nav-role-text {
+      display: none !important;
+    }
+    .navbar-hamburger {
+      display: flex !important;
+    }
     nav{
-        padding: 0;
-        margin: 0;
-        height: 4rem;
+      width: 100vw;
     }
-    .nav-admin-text{
-        width: 16rem;
-        height: 10vh;
+    .navbar-title {
+      font-size: 1rem !important;
     }
+    .user-info-text {
+      display: none;
+    }
+    .bi-person-circle {
+      font-size: 1.5rem !important;
+    }
+  }
+  @media (max-width: 768px) {
+    .nav-role-text {
+      width: auto;
+      padding: 0 1rem;
+      font-size: 1rem;
+    }
+    .navbar-title {
+      font-size: 1rem !important;
+    }
+    .user-info-text {
+      display: none;
+    }
+    .bi-person-circle {
+      font-size: 1.5rem !important;
+    }
+  }
 </style>
 
-<body>
-    <nav class="navbar navbar-expand-lg navbar-light bg-white border-bottom shadow-sm">
-  <div class="container-fluid px-0 d-flex align-items-center">
-
-        <% if (user && user.role === "admin") { %>
-          <!-- Left: Admin Panel -->
-          <span class="bg-primary text-white px-4 py-3 fs-5 fw-bold nav-admin-text">
-            Admin Panel
-          </span>
-          <% }else if (user && user.role === "resident") { %>
-          <!-- Left: Admin Panel -->
-          <span class="bg-primary text-white px-4 py-3 fs-5 fw-bold nav-admin-text">
-            Resident Panel
-          </span>
-          <% } %>
-
-    <!-- Center: Page Title -->
-    <div class="flex-grow-1 ms-4 fw-semibold fs-4">
+<nav class="navbar navbar-expand-lg navbar-light bg-white border-bottom shadow-sm">
+  <div class="container-fluid px-0 navbar-container">
+    <!-- Hamburger for sidebar toggle (only on mobile) -->
+    <button class="navbar-hamburger" id="sidebarToggle" aria-label="Toggle sidebar" type="button">
+      <i class="bi bi-list"></i>
+    </button>
+    <!-- Left: Role Panel (hidden on xs) -->
+    <% if (user && user.role === "admin") { %>
+      <div class="nav-role-text">Admin Panel</div>
+    <% } else if (user && user.role === "resident") { %>
+      <div class="nav-role-text">Resident Panel</div>
+    <% } %>
+    <!-- Center Title -->
+    <div class="flex-grow-1 d-flex align-items-center ms-3 fw-semibold fs-4 navbar-title">
       Society Management
     </div>
-
-    <!-- Right: Notifications and User Info -->
+    <!-- Right: Notification and User Info -->
     <div class="d-flex align-items-center me-3">
-      <!-- Notification Bell -->
-      <button class="btn btn-link text-dark me-1">
-        <i class="bi bi-bell" style="font-size: 1.7rem;"></i>
+      <button class="btn btn-link text-dark p-0 me-2">
+        <i class="bi bi-bell fs-4"></i>
       </button>
-
-      <!-- User Info -->
       <div class="d-flex align-items-center bg-light rounded-pill px-2 py-1">
         <i class="bi bi-person-circle text-primary me-2" style="font-size: 2rem;"></i>
-        <div class="text-end">
+        <div class="text-end user-info-text">
           <div class="fw-bold small">Admin User</div>
           <div class="text-muted small">Administrator</div>
         </div>
@@ -51,4 +103,11 @@
   </div>
 </nav>
 
-</body>
+
+
+
+<!-- | Device Type           | Max Width (px) | CSS Media Query Example             |
+| --------------------- | -------------- | ----------------------------------- |
+| Extra Small (phones)  | **≤ 576px**    | @media (max-width: 576px) { ... } |
+| Small (larger phones) | **≤ 768px**    | @media (max-width: 768px) { ... } |
+| Medium (tablets)      | ≤ 992px        | @media (max-width: 992px) { ... } | -->

@@ -187,13 +187,29 @@ app.delete("/residents/:id", isAdminLoggedIn, async (req, res) => {
 
 //render to payment page in admin page
 app.get("/payments", async (req, res) => {
-  res.render("admin/payments");
+  const billDetails = await ResidentBill.find({}).populate("resident", "first_name last_name block flat_number ")
+  
+  .populate("billTemplate", "title amount dueDate ")
+  res.render("admin/payments",{billDetails});
+})
+
+
+app.get("/payments/mark/:id",async(req,res)=>{
+  let id = req.params.id;
+  await ResidentBill.findByIdAndUpdate(id,{
+    isPaid : true,
+    paidAt: new Date()
+  })
+  res.redirect("/payments");
+
 })
 
 //render to create bill page
 app.get("/createBill", isAdminLoggedIn, (req, res) => {
   res.render("forms/createBill");
 });
+
+
 
 
 //save created bill data in database
@@ -246,24 +262,24 @@ app.get("/admin-bill-list", isAdminLoggedIn, async (req, res) => {
       return res.redirect('/admin-login');
     }
 
-    const bills = await AdminBillTemplate.find({ 
-      createdBy: req.session.admin.id 
+    const bills = await AdminBillTemplate.find({
+      createdBy: req.session.admin.id
     })
-    .sort({ dueDate: 1 })
-    .lean(); // Convert to plain JS objects for EJS
+      .sort({ dueDate: 1 })
+      .lean(); // Convert to plain JS objects for EJS
 
     // Calculate bill statuses for the view
     const billsWithStatus = bills.map(bill => ({
       ...bill,
       isOverdue: new Date(bill.dueDate) < new Date(),
-      formattedDate: bill.dueDate.toLocaleDateString('en-US', { 
-        year: 'numeric', 
-        month: 'short', 
-        day: 'numeric' 
+      formattedDate: bill.dueDate.toLocaleDateString('en-US', {
+        year: 'numeric',
+        month: 'short',
+        day: 'numeric'
       })
     }));
 
-    res.render("forms/billList", { 
+    res.render("forms/billList", {
       bills: billsWithStatus,
       success: req.flash('success'),
       error: req.flash('error')
@@ -293,7 +309,7 @@ app.get("/bills/:id/edit", isAdminLoggedIn, async (req, res) => {
     // Format date for date input field (YYYY-MM-DD)
     const formattedDate = bill.dueDate.toISOString().split('T')[0];
 
-    res.render("forms/editBill", { 
+    res.render("forms/editBill", {
       bill: {
         ...bill._doc,
         formattedDate
@@ -337,10 +353,10 @@ app.put("/bills/:id", isAdminLoggedIn, async (req, res) => {
     // Update all resident bills
     await ResidentBill.updateMany(
       { billTemplate: req.params.id },
-      { 
+      {
         amount,
         dueDate: new Date(dueDate),
-        penaltyPerDay: penalty 
+        penaltyPerDay: penalty
       }
     );
 
@@ -635,12 +651,12 @@ app.get("/resident-billsPayment", async (req, res) => {
     const pendingTotal = residentBills
       .filter(bill => !bill.isPaid)
       .reduce((sum, bill) => sum + bill.amount, 0);
-      
+
     const paidTotal = residentBills
       .filter(bill => bill.isPaid)
       .reduce((sum, bill) => sum + bill.amount, 0);
 
-    res.render("resident/billsPayment", { 
+    res.render("resident/billsPayment", {
       billDetails: residentBills.map(bill => ({
         _id: bill._id,
         title: bill.billTemplate?.title || "Untitled Bill",
@@ -654,7 +670,7 @@ app.get("/resident-billsPayment", async (req, res) => {
       pendingTotal,
       paidTotal
     });
-    
+
   } catch (err) {
     console.error("Error in /resident-billsPayment:", err);
     res.status(500).send("Error loading bills");
@@ -685,6 +701,7 @@ app.post("/pay-bill/:id", isResidentLoggedIn, async (req, res) => {
 
     // Save Razorpay order ID for verification
     bill.razorpayOrderId = order.id;
+    bill.isPaid = true
     await bill.save();
 
     // Redirect to a payment page (or render a view with Razorpay checkout script)

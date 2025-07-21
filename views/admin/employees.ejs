@@ -20,11 +20,70 @@
   .status-badge {
     font-size: 0.8rem;
   }
+
+
+@media (max-width: 576px) {
+  /* Dashboard card grid responsive */
+  .dash-info {
+    flex-wrap: wrap !important;
+    gap: 1rem !important;
+    justify-content: space-between !important;
+  }
+  .dash-card {
+    width: 48% !important;
+    min-width: 145px;
+    height: auto !important;
+    margin-bottom: 1rem;
+    font-size: 1rem;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 0.2rem !important;
+    padding: 1rem 0.25rem !important;
+    text-align: center;
+  }
+  .dash-card:only-child { 
+    width: 100% !important; 
+  }
+  .dash-card .left,
+  .dash-card .right { 
+    margin: 0 !important; 
+    padding: 0 !important; 
+  }
+  .dash-card .left { 
+    order: 1; 
+    width: 100%; 
+    margin-bottom: 0.15rem; 
+  }
+  .dash-card .right { 
+    order: 2; 
+    width: 100%; 
+    margin-top: 0.2rem; 
+  }
+
+  /* Header stays in single row - just adjust font size */
+  .emp-container h4.fw-bold {
+    font-size: 1.15rem !important;
+  }
+
+  /* Table font and space tweaks */
+  .table { 
+    font-size: 0.92rem !important; 
+  }
+  .table td, .table th {
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+  }
+}
+
+
+
 </style>
 
 <body>
   <div class="emp-container">
-    <div class="d-flex justify-content-between align-items-center mb-4">
+    <div class="empHeader d-flex justify-content-between align-items-center mb-4">
       <h4 class="fw-bold">Employee Management</h4>
       <a href="/addNewEmployee" class="btn btn-primary">
         <i class="bi bi-plus-lg"></i> Add New Employee
@@ -55,7 +114,7 @@
       <div class="dash-card d-flex gap-5 rounded-3 bg-white">
         <div class="left ms-4 mt-4">
           <p>In-active</p>
-          <h3 class="fw-bold"><%= totalEmployees - totalActiveEmployees %></h3>
+          <h3 class="fw-bold text-danger"><%= totalEmployees - totalActiveEmployees %></h3>
         </div>
         <div class="right mt-5 pb-2">
           <i class="bi bi-people text-primary bg-primary bg-opacity-25 p-3 rounded-circle fs-3"></i>

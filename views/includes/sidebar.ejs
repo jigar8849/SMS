@@ -1,109 +1,159 @@
+<!-- includes/sidebar.ejs or similar file -->
 <style>
+  .sidebar-wrapper {
+    position: fixed;
+    top: 0;
+    left: -303px;
+    width: 303px;
+    height: 100vh;
+    background-color: white;
+    border-right: 1px solid #e0e0e0;
+    z-index: 1050;
+    transition: left 0.3s ease;
+  }
+  .sidebar-wrapper.active {
+    left: 0;
+  }
+  /* Overlay for small screens */
+  .sidebar-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0,0,0,0.2);
+    z-index: 1040;
+  }
+  .sidebar-overlay.show {
+    display: block !important;
+  }
+  
+  /* Close button styling */
+  .sidebar-close {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    color: #6c757d;
+    cursor: pointer;
+    padding: 0.25rem;
+    line-height: 1;
+    z-index: 10;
+  }
+  .sidebar-close:hover {
+    color: #495057;
+    background-color: #f8f9fa;
+    border-radius: 50%;
+  }
+  
+  @media (min-width: 577px) {
+    .sidebar-wrapper {
+      position: relative;
+      left: 0 !important;
+      height: auto;
+      z-index: auto;
+      border: none;
+    }
+    .sidebar-overlay {
+      display: none !important;
+    }
+    /* Hide close button on desktop */
+    .sidebar-close {
+      display: none !important;
+    }
+  }
+  
   li a i,
   .logout {
     font-size: 1.5em;
   }
-
   li {
     border-radius: 0.5rem;
   }
-
   li:hover {
     background-color: rgb(240, 239, 239);
   }
 </style>
 
-<div class="d-flex flex-column p-3 bg-white"
-  style="width: 303px; background-color: #ffffff; height: 90vh; border-right: 1px solid #e0e0e0;">
+<!-- Sidebar Overlay for mobile -->
+<div class="sidebar-overlay" id="sidebarOverlay"></div>
 
+<!-- Sidebar -->
+<div id="sidebar" class="sidebar-wrapper d-flex flex-column p-3 bg-white">
+  <!-- Close button (only visible on mobile) -->
+  <button class="sidebar-close" id="sidebarClose" title="Close sidebar">
+    <i class="bi bi-x-lg"></i>
+  </button>
+  
   <ul class="nav nav-pills flex-column mb-auto">
     <% if (user && user.role === "admin") { %>
-      <!-- Admin Sidebar -->
-      <li class="nav-item">
-        <a href="/dashboard" class="nav-link text-dark">
-          <i class="bi bi-house-door me-2"></i> Dashboard
-        </a>
-      </li>
-      <li>
-        <a href="/residents" class="nav-link text-dark">
-          <i class="bi bi-people me-2"></i> Residents
-        </a>
-      </li>
-      <li>
-        <a href="/payments" class="nav-link text-dark">
-          <i class="bi bi-credit-card me-2"></i> Payments
-        </a>
-      </li>
-      <li>
-        <a href="/parking" class="nav-link text-dark">
-          <i class="bi bi-car-front me-2"></i> Parking
-        </a>
-      </li>
-      <li>
-        <a href="/employees" class="nav-link text-dark">
-          <i class="bi bi-person-badge me-2"></i> Employees
-        </a>
-      </li>
-      <li>
-        <a href="/flatList" class="nav-link text-dark">
-          <i class="bi bi-building me-2"></i> Flat List
-        </a>
-      </li>
-      <li>
-        <a href="/complaints" class="nav-link text-dark">
-          <i class="bi bi-chat-dots me-2"></i> Complaints
-        </a>
-      </li>
-
+      <li class="nav-item"><a href="/dashboard" class="nav-link text-dark"><i class="bi bi-house-door me-2"></i> Dashboard</a></li>
+      <li><a href="/residents" class="nav-link text-dark"><i class="bi bi-people me-2"></i> Residents</a></li>
+      <li><a href="/payments" class="nav-link text-dark"><i class="bi bi-credit-card me-2"></i> Payments</a></li>
+      <li><a href="/parking" class="nav-link text-dark"><i class="bi bi-car-front me-2"></i> Parking</a></li>
+      <li><a href="/employees" class="nav-link text-dark"><i class="bi bi-person-badge me-2"></i> Employees</a></li>
+      <li><a href="/flatList" class="nav-link text-dark"><i class="bi bi-building me-2"></i> Flat List</a></li>
+      <li><a href="/complaints" class="nav-link text-dark"><i class="bi bi-chat-dots me-2"></i> Complaints</a></li>
     <% } else if (user && user.role === "resident") { %>
-      <!-- Resident Sidebar -->
-      <li class="nav-item">
-        <a href="/resident-dashboard" class="nav-link text-dark">
-          <i class="bi bi-house-door me-2"></i> Dashboard
-        </a>
-      </li>
-      <li>
-        <a href="/resident-billsPayment" class="nav-link text-dark">
-          <i class="bi bi-credit-card me-2"></i> Bills & Payments
-        </a>
-      </li>
-      <li>
-        <a href="/resident-complaints" class="nav-link text-dark">
-          <i class="bi bi-chat-dots me-2"></i> Complaints
-        </a>
-      </li>
-      <li>
-        <a href="/resident-bookEvent" class="nav-link text-dark">
-          <i class="bi bi-calendar me-2"></i> Book Events
-        </a>
-      </li>
-      <li>
-        <a href="/resident-ownerList" class="nav-link text-dark">
-          <i class="bi bi-file-earmark-text me-2"></i> Owner List
-        </a>
-      </li>
-      <li>
-        <a href="/resident-vehicleSearch" class="nav-link text-dark">
-          <i class="bi bi-car-front me-2"></i> Vehicle Search
-        </a>
-      </li>
-      <li>
-        <a href="/resident-societyStaff" class="nav-link text-dark">
-          <i class="bi bi-clipboard-data me-2"></i> Society Staff
-        </a>
-      </li>
-      <li>
-        <a href="/resident-profile" class="nav-link text-dark">
-          <i class="bi bi-shield me-2"></i> Profile
-        </a>
-      </li>
+      <li class="nav-item"><a href="/resident-dashboard" class="nav-link text-dark"><i class="bi bi-house-door me-2"></i> Dashboard</a></li>
+      <li><a href="/resident-billsPayment" class="nav-link text-dark"><i class="bi bi-credit-card me-2"></i> Bills & Payments</a></li>
+      <li><a href="/resident-complaints" class="nav-link text-dark"><i class="bi bi-chat-dots me-2"></i> Complaints</a></li>
+      <li><a href="/resident-bookEvent" class="nav-link text-dark"><i class="bi bi-calendar me-2"></i> Book Events</a></li>
+      <li><a href="/resident-ownerList" class="nav-link text-dark"><i class="bi bi-file-earmark-text me-2"></i> Owner List</a></li>
+      <li><a href="/resident-vehicleSearch" class="nav-link text-dark"><i class="bi bi-car-front me-2"></i> Vehicle Search</a></li>
+      <li><a href="/resident-societyStaff" class="nav-link text-dark"><i class="bi bi-clipboard-data me-2"></i> Society Staff</a></li>
+      <li><a href="/resident-profile" class="nav-link text-dark"><i class="bi bi-shield me-2"></i> Profile</a></li>
     <% } %>
   </ul>
-
+  
   <div class="pt-1 logout">
-      <a href="/" class="nav-link text-danger fw-bold">
-        <i class="bi bi-box-arrow-right me-2"></i> Logout
-      </a>
-    </div>
-
+    <a href="/" class="nav-link text-danger fw-bold">
+      <i class="bi bi-box-arrow-right me-2"></i> Logout
+    </a>
+  </div>
 </div>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const toggleBtn = document.getElementById("sidebarToggle");
+    const sidebar = document.getElementById("sidebar");
+    const sidebarOverlay = document.getElementById("sidebarOverlay");
+    const sidebarClose = document.getElementById("sidebarClose");
+    
+    function openSidebar() {
+      sidebar.classList.add("active");
+      sidebarOverlay.classList.add("show");
+    }
+    
+    function closeSidebar() {
+      sidebar.classList.remove("active");
+      sidebarOverlay.classList.remove("show");
+    }
+    
+    // Hamburger click
+    if(toggleBtn){
+      toggleBtn.addEventListener("click", openSidebar);
+    }
+    
+    // Close button click
+    if(sidebarClose){
+      sidebarClose.addEventListener("click", closeSidebar);
+    }
+    
+    // Overlay click
+    if(sidebarOverlay){
+      sidebarOverlay.addEventListener("click", closeSidebar);
+    }
+    
+    // On window resize: if width > 576, ensure sidebar is visible and overlay is gone.
+    window.addEventListener('resize', function () {
+      if (window.innerWidth > 576) {
+        sidebar.classList.remove("active");
+        sidebarOverlay.classList.remove("show");
+      }
+    });
+  });
+</script>

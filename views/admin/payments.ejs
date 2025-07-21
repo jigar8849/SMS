@@ -1,137 +1,279 @@
 <%- layout("layouts/boilerplate") %>
 
-    <style>
-        .payment-box {
-            width: 23rem;
-            height: 6.3rem;
-        }
-        .serach-box{
-            height: 5rem;
-        }
-        .select-status{
-            height: 2.9rem;
-            margin-top: 1rem;
-            margin-right: 1rem;
-            width: 12rem;
-        }
-    </style>
+  <style>
+    .payment-box {
+      width: 23rem;
+      height: 6.3rem;
+    }
 
-    <body>
-        <div class="payment-container">
-            <div class="payment-header d-flex justify-content-between">
-                <div class="payment-title">
-                    <h3 class="fw-bold">Payment Management</h3>
-                </div>
-                <div class="export-btn">
-                  <a href="/admin-bill-list" class="p-2 rounded px-4 bg-primary text-white fw-semibold me-3 border-0 text-decoration-none">
-                       Manage Created Bills
-                    </a>
-                    <a href="/createBill" class="p-2 rounded px-4 bg-primary text-white fw-semibold border-0 text-decoration-none">
-                        Create Bills
-                    </a>
-                </div>
-            </div>
+    .serach-box {
+      height: 5rem;
+    }
 
-            <div class="payment-info mt-4 d-flex gap-5">
-                <div class="payment-box d-flex justify-content-between rounded bg-white">
-                    <div class="left mt-3 ms-4">
-                        <p>Total Collected</p>
-                        <h5 class="text-success fs-3 fw-bold">&#8377;2500</h5>
-                    </div>
-                    <div class="right mt-4 me-3">
-                        <i
-                            class="bi bi-currency-dollar text-success bg-success bg-opacity-25 p-2 rounded-circle fs-4"></i>
-                    </div>
-                </div>
-
-                <div class="payment-box d-flex justify-content-between rounded bg-white">
-                    <div class="left mt-3 ms-4">
-                        <p>Pending Amount</p>
-                        <h5 class="text-danger fs-3 fw-bold">&#8377;2000</h5>
-                    </div>
-                    <div class="right mt-4 ms-5 me-3">
-                        <i
-                            class="bi bi-credit-card text-warning text-success bg-warning bg-opacity-25 p-2 rounded-circle fs-4"></i>
-
-                    </div>
-                </div>
-
-                <div class="payment-box d-flex justify-content-between rounded bg-white">
-                    <div class="left mt-3 ms-4">
-                        <p>Collection Rate</p>
-                        <h5 class="text-primary fs-3 fw-bold">56%</h5>
-                    </div>
-                    <div class="right mt-4 ms-5 me-3">
-                        <i
-                            class="bi bi-funnel text-primary text-primary bg-primary bg-opacity-25 p-2 rounded-circle fs-4"></i>
-                    </div>
-                </div>
-            </div>
-
-            <div class="serach-box mt-4  bg-white d-flex gap-2 rounded">
-                <div class="input-group  p-3">
-                    <span class="input-group-text bg-white border-end-0"><i class="bi bi-search"></i></span>
-                    <input type="text" class="form-control border-start-0"
-                        placeholder="Search residents by name, flat number, or block...">
-                </div>
-                <select class="select-status form-select">
-                    <option>All Status</option>
-                    <option>Paid</option>
-                    <option>Pending</option>
-                    <option>Overdue</option>
-                </select>
-            </div>
+    .select-status {
+      height: 2.9rem;
+      margin-top: 1rem;
+      margin-right: 1rem;
+      width: 12rem;
+    }
 
 
-            <div class="table-responsive bg-white rounded shadow-sm mt-3">
-      <table class="table mb-0 align-middle">
-        <thead class="table-light">
-          <tr>
-            <th>RESIDENT DETAILS</th>
-            <th>BILL DETAILS</th>
-            <th>AMOUNT</th>
-            <th>DUE DATE</th>
-            <th>STATUS</th>
-            <th>PAYMENT METHOD</th>
-            <th>ACTIONS</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>
-              <strong>John Doe</strong><br>
-              <small class="text-muted">A-301</small>
-            </td>
-            <td>
-              Maintenance<br>
-              <small class="text-muted">ID:1</small>
-            </td>
-            <td>
-              ₹1,2000<br>
-            </td>
-            <td>
-              2024-01-15<br>
-              <small class="text-muted">Paid: 2024-01-10</small>
-            </td>
-            <td>
-              <span class="status-badge">
-                <div class="text-success fw-bold">Paid</div>   
-              </span>
-            </td>
-            <td class=" fw-bold">
-              Online
-            </td>
-            <td class="d-flex gap-1">
-                <p class="text-success fw-semibold">Mark Paid</p>
-                <p class="text-primary fw-semibold">View Details</p>
-            </td>
-          </tr>
-          
-        </tbody>
-      </table>
+    @media (max-width: 576px) {
+      .payment-header {
+        flex-direction: column !important;
+        gap: 0.75rem !important;
+        align-items: stretch !important;
+      }
+
+      .payment-title h3 {
+        font-size: 1.1rem !important;
+        margin-bottom: 0.5rem;
+      }
+
+      .export-btn {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+        margin-right: 0 !important;
+      }
+
+      .export-btn a {
+        width: 100%;
+        text-align: center;
+      }
+
+      .payment-info {
+        flex-wrap: wrap !important;
+        gap: 1rem !important;
+        justify-content: space-between !important;
+      }
+
+      .payment-box {
+        width: 48% !important;
+        /* two on a row */
+        min-width: 150px;
+        height: auto;
+        margin-bottom: 1rem;
+        font-size: 1rem;
+      }
+
+      /* If only one box on the row, make it full width */
+      .payment-box:only-child {
+        width: 100% !important;
+      }
+
+      .serach-box {
+        /* flex-direction: column !important; */
+        gap: 0.5rem !important;
+        height: auto !important;
+        padding: 1rem 0.5rem !important;
+      }
+
+      .serach-box .input-group{
+        width: 100% !important;
+        /* margin: 0 !important; */
+      }
+
+      .select-status {
+        width: 30% !important;
+        /* margin-top: 0.3rem !important;
+        margin-right: 0 !important; */
+      }
+
+      .table-responsive {
+        width: 100% !important;
+        /* Make it as wide as the parent, not the viewport */
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        border-radius: 6px !important;
+        margin-left: 0 !important;
+        margin-right: 0 !important;
+        background: #fff;
+      }
+
+      table.table {
+        min-width: 650px;
+        font-size: 0.95rem !important;
+      }
+
+      th,
+      td {
+        white-space: nowrap;
+        padding: 0.5rem 0.4rem !important;
+        font-size: 0.97rem !important;
+        min-width: 90px;
+        word-break: break-word;
+      }
+    }
+  </style>
+
+  <body>
+    <div class="payment-container">
+      <div class="payment-header d-flex justify-content-between">
+        <div class="payment-title">
+          <h3 class="fw-bold">Payment Management</h3>
+        </div>
+        <div class="export-btn">
+          <a href="/admin-bill-list"
+            class="p-2 rounded px-4 bg-primary text-white fw-semibold me-3 border-0 text-decoration-none">
+            Manage Created Bills
+          </a>
+          <a href="/createBill"
+            class="p-2 rounded px-4 bg-primary text-white fw-semibold border-0 text-decoration-none">
+            Create Bills
+          </a>
+        </div>
+      </div>
+
+      <div class="payment-info mt-4 d-flex gap-5">
+        <div class="payment-box d-flex justify-content-between rounded bg-white">
+          <div class="left mt-3 ms-4">
+            <p>Total Collected</p>
+            <h5 class="text-success fs-3 fw-bold">&#8377;2500</h5>
+          </div>
+          <div class="right mt-4 me-3">
+            <i class="bi bi-currency-dollar text-success bg-success bg-opacity-25 p-2 rounded-circle fs-4"></i>
+          </div>
+        </div>
+
+        <div class="payment-box d-flex justify-content-between rounded bg-white">
+          <div class="left mt-3 ms-4">
+            <p>Pending Amount</p>
+            <h5 class="text-danger fs-3 fw-bold">&#8377;2000</h5>
+          </div>
+          <div class="right mt-4 ms-5 me-3">
+            <i class="bi bi-credit-card text-warning text-success bg-warning bg-opacity-25 p-2 rounded-circle fs-4"></i>
+
+          </div>
+        </div>
+
+        <div class="payment-box d-flex justify-content-between rounded bg-white">
+          <div class="left mt-3 ms-4">
+            <p>Collection Rate</p>
+            <h5 class="text-primary fs-3 fw-bold"></h5>
+          </div>
+          <div class="right mt-4 ms-5 me-3">
+            <i class="bi bi-funnel text-primary text-primary bg-primary bg-opacity-25 p-2 rounded-circle fs-4"></i>
+          </div>
+        </div>
+      </div>
+
+      <div class="serach-box mt-4  bg-white d-flex gap-2 rounded">
+        <div class="input-group  p-3">
+          <span class="input-group-text bg-white border-end-0"><i class="bi bi-search"></i></span>
+          <input type="text" class="form-control border-start-0"
+            placeholder="Search residents by name, flat number, or block...">
+        </div>
+        <select class="select-status form-select">
+          <option>All Status</option>
+          <option>Paid</option>
+          <option>Pending</option>
+          <option>Overdue</option>
+        </select>
+      </div>
+
+
+      <div class="table-responsive bg-white rounded shadow-sm mt-3">
+        <table class="table mb-0 align-middle">
+          <thead class="table-light">
+            <tr>
+              <th>RESIDENT DETAILS</th>
+              <th>BILL DETAILS</th>
+              <th>AMOUNT</th>
+              <th>DUE DATE</th>
+              <th>STATUS</th>
+              <th>PAYMENT METHOD</th>
+              <th>ACTIONS</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% billDetails.forEach(bill=> { %>
+              <tr>
+                <td>
+                  <strong>
+                    <%= bill.resident.first_name %>
+                      <%= bill.resident.last_name %>
+                  </strong><br>
+                  <small class="text-muted">
+                    <%= bill.resident.block %>-<%= bill.resident.flat_number %>
+                  </small>
+                </td>
+                <td>
+                  <%= bill.billTemplate.title %><br>
+                </td>
+                <td>
+                  ₹<%= bill.billTemplate.amount %><br>
+                </td>
+                <td>
+                  <%= bill.billTemplate.dueDate.toISOString().split('T')[0] %><br>
+                    <small class="text-muted">Paid: <%= bill.createdAt.toISOString().split("T")[0] %></small>
+                </td>
+                <td>
+                  <span class="status-badge">
+                    <% if (bill.isPaid===true) { %>
+                      <div class="text-success fw-bold">Paid</div>
+                      <% }else{ %>
+                        <div class="text-warning fw-bold">Pending</div>
+                        <% } %>
+                  </span>
+                </td>
+                <td class=" fw-bold">
+                  Online
+                </td>
+                <td class="d-flex gap-1">
+                  <% if(bill.isPaid===false){ %>
+                    <a href="/payments/mark/<%= bill._id %>" class="text-success fw-semibold text-decoration-none">Mark
+                      Paid</a>&nbsp;&nbsp;&nbsp;
+                    <% } %>
+                      <a href="" class="text-primary fw-semibold text-decoration-none">View Details</a>
+                </td>
+              </tr>
+              <% }); %>
+
+          </tbody>
+        </table>
+      </div>
+
+
+
     </div>
 
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        let totalPaid = 0;
+        let totalUnpaid = 0;
 
+        // Loop through all rows in the bill table
+        document.querySelectorAll("tbody tr").forEach(row => {
+          const statusEl = row.querySelector(".status-badge div");
+          const amountEl = row.querySelector("td:nth-child(3)");
 
-        </div>
-    </body>
+          if (!statusEl || !amountEl) return;
+
+          const status = statusEl.textContent.trim();
+          const amount = parseFloat(amountEl.textContent.replace(/[₹,]/g, ''));
+
+          if (status === "Paid") {
+            totalPaid += amount;
+          } else if (status === "Pending" || status === "Overdue") {
+            totalUnpaid += amount;
+          }
+        });
+
+        // Update Total Collected
+        const collectedEl = document.querySelector(".payment-info .text-success");
+        if (collectedEl) collectedEl.textContent = `₹${totalPaid}`;
+
+        // Update Pending Amount
+        const pendingEl = document.querySelector(".payment-info .text-danger");
+        if (pendingEl) pendingEl.textContent = `₹${totalUnpaid}`;
+
+        // Update Collection Rate
+        const total = totalPaid + totalUnpaid;
+        const rate = total === 0 ? 0 : Math.round((totalPaid / total) * 100);
+        const rateEl = document.querySelector(".payment-info .text-primary");
+        if (rateEl) rateEl.textContent = `${rate}%`;
+      });
+    </script>
+
+  </body>

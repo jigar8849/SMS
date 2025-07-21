@@ -19,6 +19,56 @@
     border-radius: 10px;
     overflow: hidden;
   }
+
+
+
+  @media (max-width: 576px) {
+  .admin-resident {
+    padding: 0 2vw !important;
+  }
+  /* Stack filter bar vertically */
+  .admin-resident .d-flex.flex-wrap.gap-2.align-items-center,
+  .admin-resident .d-flex.justify-content-between.align-items-center.mb-4 {
+    /* flex-direction: column !important; */
+    align-items: stretch !important;
+    gap: 0.75rem !important;
+  }
+  
+  .admin-resident .btn {
+    width: 40% !important;
+  }
+
+  .searchFilter{
+    width: 5rem !important;
+  }
+
+
+  /* Responsive scroll for table */
+  .table-responsive {
+        width: 100% !important;
+        /* Make it as wide as the parent, not the viewport */
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        border-radius: 6px !important;
+        margin-left: 0 !important;
+        margin-right: 0 !important;
+        background: #fff;
+      }
+ table.table {
+        min-width: 650px;
+        font-size: 0.95rem !important;
+      }
+
+      th,
+      td {
+        white-space: nowrap;
+        padding: 0.5rem 0.4rem !important;
+        font-size: 0.97rem !important;
+        min-width: 90px;
+        word-break: break-word;
+      }
+}
+
 </style>
 
 <body>
@@ -31,11 +81,11 @@
     </div>
 
     <!-- Search & Filters -->
-    <div class="bg-white p-3 rounded mb-3 d-flex flex-wrap gap-2 align-items-center">
+    <div class=" bg-white p-3 rounded mb-3 d-flex flex-wrap gap-2 align-items-center">
       <div class="flex-grow-1">
         <div class="input-group">
           <span class="input-group-text bg-white border-end-0"><i class="bi bi-search"></i></span>
-          <input type="text" id="searchInput" class="form-control border-start-0"
+          <input type="text" id="searchInput" class="searchFilter form-control border-start-0"
             placeholder="Search residents by name, flat number, or block...">
         </div>
       </div>
