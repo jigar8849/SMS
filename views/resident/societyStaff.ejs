@@ -1,4 +1,144 @@
 <%- layout("layouts/boilerplate") %>
+<style>
+@media (max-width: 576px) {
+  /* Container padding and spacing fix */
+  .staff-container {
+    padding: 0 1rem;
+    margin-bottom: 1rem;
+  }
+
+  .owner-list-container {
+    padding: 0;
+    margin-bottom: 1rem;
+  }
+
+  .event-container {
+    padding: 0;
+    margin-bottom: 1rem;
+  }
+
+  /* Header section responsive with proper spacing */
+  .com-header {
+    margin-bottom: 1.5rem;
+  }
+
+  .com-header h2 {
+    font-size: 1.15rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .com-header p {
+    font-size: 0.9rem;
+    margin-bottom: 0;
+  }
+
+  /* Search section - side by side like previous pages */
+  .mt-4.border.rounded.p-3.bg-white {
+    margin-top: 1.5rem !important;
+    margin-bottom: 1.5rem !important;
+  }
+
+  .mt-4.border.rounded.p-3.bg-white .row {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    gap: 0.5rem;
+    margin-left: 0;
+    margin-right: 0;
+  }
+
+  .mt-4.border.rounded.p-3.bg-white .col-md-9 {
+    width: 75%;
+    max-width: 75%;
+    flex: 0 0 75%;
+    padding-left: 0;
+    padding-right: 0;
+    margin-left: 0;
+    margin-right: 0;
+    min-width: 0;
+    box-sizing: border-box;
+  }
+
+  .mt-4.border.rounded.p-3.bg-white .col-md-3 {
+    width: 25%;
+    max-width: 25%;
+    flex: 0 0 25%;
+    padding-left: 0;
+    padding-right: 0;
+    margin-left: 0;
+    margin-right: 0;
+    min-width: 0;
+    box-sizing: border-box;
+  }
+
+  .input-group,
+  #roleFilter {
+    width: 100%;
+    min-width: 0;
+  }
+
+  /* Container spacing fix */
+  .container.mt-4 {
+    margin-top: 1.5rem !important;
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+
+  /* Staff cards - 2 per row on mobile with proper spacing */
+  .container .row.g-4 {
+    --bs-gutter-x: 1rem;
+    --bs-gutter-y: 1rem;
+    margin-left: 0;
+    margin-right: 0;
+  }
+
+  .staff-card {
+    width: 48% !important;
+    max-width: 48% !important;
+    flex: 0 0 48% !important;
+    margin-bottom: 1rem !important;
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+  }
+
+  /* If only one card, make it full width */
+  .staff-card:only-child {
+    width: 100% !important;
+    max-width: 100% !important;
+    flex: 0 0 100% !important;
+  }
+
+  /* Card content adjustments */
+  .card {
+    font-size: 0.85rem;
+    margin-bottom: 0;
+  }
+
+  .card-body {
+    padding: 1rem 0.75rem;
+  }
+
+  .card-title {
+    font-size: 1rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .text-muted {
+    font-size: 0.8rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .card-body p {
+    font-size: 0.8rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .card-body .fs-1 {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+  }
+}
+</style>
 
 <body>
     <div class="staff-container">

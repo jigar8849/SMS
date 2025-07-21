@@ -48,6 +48,304 @@
             height: 61px;
 
         }
+
+
+@media (max-width: 576px) {
+  /* Container with proper padding */
+  .profile-container {
+    padding: 0 1rem;
+  }
+
+  .event-container, .resident-profile-box, .extra {
+    padding: 0;
+    margin: 0;
+  }
+
+  /* Header section - clean alignment */
+  .com-header {
+    margin-bottom: 1.5rem;
+    padding: 1rem 0;
+  }
+
+  .com-header h2 {
+    font-size: 1.25rem;
+    margin-bottom: 0.5rem;
+    text-align: left;
+  }
+
+  .com-header p {
+    font-size: 0.9rem;
+    margin-bottom: 0;
+    text-align: left;
+  }
+
+  /* Edit button proper alignment */
+  .com-header .right a {
+    padding: 0.5rem 1rem;
+    font-size: 0.85rem;
+    display: inline-block;
+  }
+
+  /* Stack main sections vertically with proper spacing */
+  .resident-profile-box {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    margin: 0;
+  }
+
+  /* Left info section - proper centering and padding */
+  .left-info {
+    width: 100%;
+    margin: 0;
+    padding: 1.5rem;
+    text-align: center;
+    background: white;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+  }
+
+  /* Profile icon - centered properly */
+  .profile-icon {
+    width: 80px;
+    height: 80px;
+    font-size: 1.8rem;
+    margin: 0 auto 1rem auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  /* Profile text - centered alignment */
+  .left-info h4 {
+    text-align: center;
+    margin-bottom: 0.5rem;
+    font-size: 1.2rem;
+  }
+
+  .left-info p {
+    text-align: center;
+    margin-bottom: 0.75rem;
+  }
+
+  /* Profile details list - left aligned within centered container */
+  .left-info .mt-3 {
+    text-align: left;
+    margin-top: 1.5rem;
+    padding: 0;
+  }
+
+  .left-info .mt-3 p {
+    text-align: left;
+    margin-bottom: 0.75rem;
+    padding: 0;
+  }
+
+  /* Change password button - full width and centered */
+  .left-info button {
+    width: 100%;
+    padding: 0.75rem;
+    margin-top: 1rem;
+    text-align: center;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    background: white;
+    margin-top: 1rem !important;
+  }
+
+  /* Right info section - proper spacing */
+  .right-info {
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    background: white;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+  }
+
+  /* Personal info header */
+  .personal-info-head {
+    padding: 1.5rem 1.5rem 0 1.5rem;
+    margin: 0;
+  }
+
+  .personal-info-head h3 {
+    margin: 0;
+    font-size: 1.2rem;
+  }
+
+  /* Personal info fields - proper stacking */
+  .personal-info .d-flex {
+    flex-direction: column;
+    padding: 1.5rem;
+    gap: 0;
+  }
+
+  .left-personal-info, .right-personal-info {
+    width: 100%;
+    margin: 0;
+    padding: 0;
+  }
+
+  .personal-info-box {
+    margin: 0 0 1.5rem 0;
+    padding: 0;
+  }
+
+  .personal-info-box p.fw-semibold {
+    margin-bottom: 0.25rem;
+    font-size: 0.9rem;
+  }
+
+  .personal-info-box p.text-muted {
+    margin-bottom: 0;
+    font-size: 0.95rem;
+  }
+
+  /* Extra sections - proper stacking */
+  .extra {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    margin-top: 1.5rem;
+  }
+
+  .extra-left, .extra-right {
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    background: white;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+  }
+
+  /* Section headers - proper alignment */
+  .extra .com-header {
+    margin: 0;
+    padding: 1.5rem;
+    border-bottom: 1px solid #eee;
+    background: white;
+  }
+
+  .extra .com-header h4 {
+    margin: 0;
+    font-size: 1.1rem;
+  }
+
+  .extra .com-header .right button,
+  .extra .com-header .right a {
+    padding: 0.5rem 1rem;
+    font-size: 0.85rem;
+    border-radius: 4px;
+  }
+
+  /* Member info - proper spacing and alignment */
+  .member-info {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 1.5rem;
+    margin: 0;
+    border-bottom: 1px solid #f0f0f0;
+  }
+
+  .member-info:last-child {
+    border-bottom: none;
+  }
+
+  .left-member-box h5 {
+    margin: 0;
+    font-size: 1rem;
+  }
+
+  .member-action-icon {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .member-action-icon form {
+    margin: 0;
+    display: inline;
+  }
+
+  .member-action-icon button {
+    background: none;
+    border: none;
+    padding: 0;
+  }
+
+  /* Vehicle info - proper layout */
+  .vehicle-info-box {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 1.5rem;
+    margin: 0;
+    border-bottom: 1px solid #f0f0f0;
+  }
+
+  .vehicle-info-box:last-child {
+    border-bottom: none;
+  }
+
+  .left-vehicle {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .vehicle-icon {
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #f8f9fa;
+    border-radius: 8px;
+    flex-shrink: 0;
+  }
+
+  .vehicle-detail {
+    flex: 1;
+  }
+
+  .vehicle-detail h6 {
+    margin: 0 0 0.25rem 0;
+    font-size: 0.95rem;
+  }
+
+  .vehicle-detail p {
+    margin: 0;
+    font-size: 0.85rem;
+    line-height: 1.3;
+  }
+
+  .right-vehicle {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    flex-shrink: 0;
+  }
+
+  /* Remove extra margins and ensure proper spacing */
+  .m-3, .ms-3, .mt-3, .mb-3, .me-3 {
+    margin: 0 !important;
+  }
+
+  .p-3 {
+    padding: 1.5rem !important;
+  }
+
+  /* Consistent spacing throughout */
+  hr {
+    margin: 0;
+    border-color: #eee;
+  }
+}
+
     </style>
 
     <body>

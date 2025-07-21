@@ -10,6 +10,65 @@
             height: 8rem;
             width: 16rem;
         }
+
+        @media (max-width: 576px) {
+  /* Container padding adjustment */
+  .owner-list-container {
+    padding: 0 1rem;
+  }
+
+  /* Header section responsive */
+  .event-container {
+    padding: 0 1rem;
+  }
+
+  .com-header h2 {
+    font-size: 1.15rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .com-header p {
+    font-size: 0.9rem;
+    margin-bottom: 1rem;
+  }
+
+  /* Block boxes responsive - 2 per row */
+  .block-box {
+    gap: 1rem;
+    justify-content: space-between;
+    margin-left: 1rem;
+    margin-right: 1rem;
+  }
+
+  .blok {
+    width: 48%;
+    height: 6rem;
+    margin-top: 1rem;
+    min-width: 140px;
+    font-size: 0.95rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .blok a {
+    text-decoration: none;
+    color: inherit;
+    font-weight: bold;
+  }
+
+  
+  /* If only one block, make it full width */
+   .blok:only-child {
+    width: 100%;
+  }
+
+  /* Remove extra margins for better spacing */
+  .block-box {
+    margin-bottom: 2rem;
+  }
+}
+
     </style>
     <body>
         <div class="owner-list-container">

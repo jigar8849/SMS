@@ -27,6 +27,114 @@
         .quick-action {
             background: white;
         }
+
+
+
+@media (max-width: 576px) {
+  /* Container padding and margins adjustment for mobile */
+  .resident-dashboard-container {
+    padding: 0 1rem !important;
+  }
+
+  /* Dash info cards - 2 per row on mobile, flexible width */
+  .dash-info {
+    flex-wrap: wrap !important;
+    gap: 1rem !important;
+    justify-content: space-between !important;
+    margin-left: 0 !important;
+  }
+
+  .dash-card {
+    width: 48% !important;
+    min-width: 140px;
+    height: auto !important;
+    margin-bottom: 1rem;
+    font-size: 0.95rem !important;
+    display: flex !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+    gap: 0.5rem !important;
+    padding: 1rem 0.5rem !important;
+  }
+
+  .dash-card .left {
+    margin-bottom: 0 !important;
+  }
+
+  .dash-card .right {
+    margin-top: 0 !important;
+  }
+
+  /* Dash title text adjustments */
+  .dash-title h1 {
+    font-size: 1.25rem !important;
+    /* padding: 1rem 0 0.5rem 1rem !important; */
+  }
+  .dash-title p {
+    font-size: 0.9rem !important;
+    /* padding-left: 1rem !important; */
+    padding-bottom: 1rem !important;
+  }
+
+  /* Info boxes container stacking on mobile */
+  .info-boxes {
+    flex-wrap: wrap !important;
+    gap: 1rem !important;
+    justify-content: center !important;
+    margin-left: 0 !important;
+  }
+
+  /* Box sizes responsive to width 100% on mobile, smaller height */
+  .box-size {
+    width: 100% !important;
+    min-width: auto !important;
+    margin-bottom: 1rem !important;
+    height: auto !important;
+  }
+
+  /* Payble items adjustment for better spacing and wrapping */
+  .payble-item {
+    flex-wrap: wrap !important;
+    gap: 0.5rem !important;
+  }
+
+  /* Notification list spacing fix */
+  .notific {
+    padding: 0 0.5rem !important;
+  }
+
+  /* Quick Action buttons stack vertically and full width on mobile */
+  .quick-action .shortcuts {
+    flex-direction: column !important;
+    gap: 1rem !important;
+    justify-content: center !important;
+  }
+
+  .shortcut-box {
+    width: 100% !important;
+    min-width: auto !important;
+    justify-content: center !important;
+  }
+
+  /* Icons and text alignment fixes */
+  .shortcut-box a {
+    width: 100% !important;
+    text-align: center !important;
+  }
+
+  /* Reduce font sizes slightly for better mobile fit */
+  p, h3, h5 {
+    font-size: 0.9rem !important;
+  }
+
+  /* Margin reset for sections */
+  .dash-info, .info-boxes, .quick-action {
+    margin-left: 0 !important;
+  }
+}
+
+
+
     </style>
 
     <body>

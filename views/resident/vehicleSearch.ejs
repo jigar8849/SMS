@@ -4,6 +4,149 @@
     .main-card {
       width: 23rem !important;
     }
+
+
+    @media (max-width: 576px) {
+  /* Container padding adjustment */
+  .vehicle-container, .owner-list-container, .event-container {
+    padding: 0 1rem;
+  }
+
+  /* Header section responsive */
+  .com-header h2 {
+    font-size: 1.15rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .com-header p {
+    font-size: 0.9rem;
+    margin-bottom: 1rem;
+  }
+
+  /* Dashboard cards responsive - 2 per row (for 3 cards, 2+1 layout) */
+  .row.g-3 .col-md-4 {
+    width: 48%;
+    flex: 0 0 48%;
+    max-width: 48%;
+    margin-bottom: 1rem;
+  }
+
+  /* Third card takes full width */
+  .row.g-3 .col-md-4:nth-child(3) {
+    width: 100%;
+    flex: 0 0 100%;
+    max-width: 100%;
+  }
+
+  /* Card content adjustment */
+  .card {
+    padding: 0.75rem;
+    font-size: 0.9rem;
+  }
+
+  .card h6 {
+    font-size: 0.8rem;
+    margin-bottom: 0.25rem;
+  }
+
+  .card h3 {
+    font-size: 1.1rem;
+  }
+
+  .card .fs-2 {
+    font-size: 1.5rem;
+  }
+
+  /* Search section - side by side (80% input, 20% filter) */
+  .mt-4.border.rounded.p-3.bg-white .row {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    gap: 0.5rem;
+    margin-left: 0;
+    margin-right: 0;
+  }
+
+  .mt-4.border.rounded.p-3.bg-white .col-md-9 {
+    width: 75%;
+    max-width: 75%;
+    flex: 0 0 75%;
+    padding-left: 0;
+    padding-right: 0;
+    margin-left: 0;
+    margin-right: 0;
+    min-width: 0;
+    box-sizing: border-box;
+  }
+
+  .mt-4.border.rounded.p-3.bg-white .col-md-3 {
+    width: 25%;
+    max-width: 25%;
+    flex: 0 0 25%;
+    padding-left: 0;
+    padding-right: 0;
+    margin-left: 0;
+    margin-right: 0;
+    min-width: 0;
+    box-sizing: border-box;
+  }
+
+  .input-group,
+  #vehicleType {
+    width: 100%;
+    min-width: 0;
+  }
+
+  /* Vehicle cards - 1 per row on mobile */
+  .vehicle-info .row.g-3 > .col-12,
+  .vehicle-info .row.g-3 > .col-sm-6,
+  .vehicle-info .row.g-3 > .col-md-4 {
+    width: 100%;
+    max-width: 100%;
+    flex: 0 0 100%;
+    margin-bottom: 1rem;
+  }
+
+  .vehicle-info .card {
+    margin-bottom: 1rem;
+    font-size: 0.85rem;
+  }
+
+  /* Vehicle card content adjustment */
+  .vehicle-info .card .fs-1 {
+    font-size: 1.5rem;
+  }
+
+  .vehicle-info .card .fs-5 {
+    font-size: 0.9rem;
+  }
+
+  .vehicle-info .card h4 {
+    font-size: 1rem;
+  }
+
+  /* Button adjustments */
+  .d-flex.flex-column.flex-sm-row.gap-3.mt-3 {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .btn, .btn.w-100 {
+    width: 100%;
+  }
+
+  /* Info head adjustment */
+  .info-head h5 {
+    font-size: 1rem;
+  }
+
+  /* Remove extra margins */
+  .container {
+    padding-left: 0;
+    padding-right: 0;
+  }
+}
+
   </style>
 
   <body>
