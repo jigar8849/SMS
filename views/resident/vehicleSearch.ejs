@@ -147,6 +147,150 @@
   }
 }
 
+
+@media (max-width: 768px) {
+  /* Container padding */
+  
+
+  /* Header styles */
+  .com-header h2 {
+    font-size: 1.25rem;
+    margin-bottom: 0.5rem;
+  }
+  .com-header p {
+    font-size: 1rem;
+    margin-bottom: 1rem;
+  }
+
+  /* Dashboard summary cards' layout */
+  .row.g-3 {
+    display: flex !important;
+    flex-wrap: wrap !important;
+    gap: 1rem !important;
+    margin-right: 0 !important;
+    padding-right: 1rem;
+  }
+  /* 1st card: Total Vehicles, full width */
+  .row.g-3 .col-md-4:nth-child(1) {
+    width: 100% !important;
+    flex: 0 0 100% !important;
+    max-width: 100% !important;
+    margin-bottom: 1rem !important;
+  }
+  /* 2nd and 3rd cards: Two/Four Wheelers, 48% each */
+  .row.g-3 .col-md-4:nth-child(2),
+  .row.g-3 .col-md-4:nth-child(3) {
+    width: 48% !important;
+    flex: 0 0 48% !important;
+    max-width: 48% !important;
+    margin-bottom: 1rem !important;
+  }
+  /* Card content adjustments */
+  .card.p-3 {
+    padding: 1rem !important;
+    font-size: 0.95rem;
+  }
+  .card.p-3 h6 {
+    font-size: 0.85rem;
+    margin-bottom: 0.25rem;
+  }
+  .card.p-3 h3 {
+    font-size: 1.15rem;
+  }
+  .card.p-3 .fs-2 {
+    font-size: 1.75rem;
+  }
+
+  /* Search/filter section: input 75%, filter 25%, in single row */
+  .mt-4.border.rounded.p-3.bg-white .row {
+    display: flex !important;
+    flex-direction: row !important;
+    flex-wrap: nowrap !important;
+    gap: 0.5rem !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+  }
+  .mt-4.border.rounded.p-3.bg-white .col-md-9 {
+    flex: 0 0 75% !important;
+    max-width: 75% !important;
+    width: 75% !important;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+    min-width: 0 !important;
+    box-sizing: border-box;
+  }
+  .mt-4.border.rounded.p-3.bg-white .col-md-3 {
+    flex: 0 0 25% !important;
+    max-width: 25% !important;
+    width: 25% !important;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+    min-width: 0 !important;
+    box-sizing: border-box;
+  }
+  .input-group,
+  #vehicleType {
+    width: 100% !important;
+    min-width: 0 !important;
+  }
+  #searchBtn {
+    display: none !important;
+  }
+
+  /* Vehicle cards grid: 2 per row */
+  .vehicle-info .row.g-3 {
+    display: flex !important;
+    flex-wrap: wrap !important;
+    gap: 1rem !important;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+  }
+  .vehicle-info .row.g-3 > .col-12,
+  .vehicle-info .row.g-3 > .col-sm-6,
+  .vehicle-info .row.g-3 > .col-md-4 {
+    flex: 0 0 calc(50% - 0.5rem) !important;
+    max-width: calc(50% - 0.5rem) !important;
+    width: calc(50% - 0.5rem) !important;
+    margin-bottom: 1rem !important;
+  }
+  .vehicle-info .card {
+    margin-bottom: 0;
+    font-size: 0.9rem;
+    padding: 1rem;
+  }
+  .vehicle-info .card .fs-1 { font-size: 1.6rem; }
+  .vehicle-info .card .fs-5 { font-size: 1rem; }
+  .vehicle-info .card h4 { font-size: 1.1rem; }
+
+  /* Button layout in vehicle cards: stack vertically, full width */
+  .d-flex.flex-column.flex-sm-row.gap-3.mt-3 {
+    flex-direction: column !important;
+    gap: 0.5rem !important;
+  }
+  .btn, .btn.w-100 {
+    width: 100% !important;
+  }
+
+  /* Section heading */
+  .info-head h5 {
+    font-size: 1.15rem !important;
+  }
+
+  /* Remove extra side margin/padding from container */
+  .container {
+    padding-left: 0;
+    padding-right: 0;
+  }
+}
+
+
+
   </style>
 
   <body>

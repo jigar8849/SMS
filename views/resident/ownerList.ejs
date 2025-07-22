@@ -69,6 +69,70 @@
   }
 }
 
+@media (max-width: 768px) {
+  /* Container padding */
+  .owner-list-container,
+  .event-container {
+    padding: 0 1rem;
+  }
+
+  /* Header text sizes */
+  .com-header h2 {
+    font-size: 1.3rem;
+    margin-bottom: 0.6rem;
+  }
+  .com-header p {
+    font-size: 1rem;
+    margin-bottom: 1rem;
+  }
+
+  /* Block boxes container */
+  .block-box {
+    display: flex !important;
+    flex-wrap: wrap !important;    /* allows wrapping */
+    gap: 1.5rem !important;         /* space between boxes */
+    justify-content: flex-start !important;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    margin-left: 0;
+    margin-right: 0;
+  }
+
+  /* Each block box - 2 per row */
+ .blok {
+    flex: 0 0 calc(50% - 0.75rem) !important;
+    max-width: calc(50% - 0.75rem);
+    height: 6.5rem !important;
+    margin-top: 1rem !important;
+    font-size: 1rem;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    border-radius: 0.5rem !important;
+    font-weight: 700 !important;
+    background: #fff !important;
+    border: 1px solid #dee2e6 !important;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+    box-sizing: border-box;
+  }
+
+  /* Anchor inside block */
+  .blok a {
+    color: inherit !important;
+    text-decoration: none !important;
+    width: 100%;
+    text-align: center;
+  }
+
+
+  /* If only one block, take full width */
+   .blok:only-child {
+    flex: 0 0 100% !important;
+    max-width: 100% !important;
+  }
+}
+
+
     </style>
     <body>
         <div class="owner-list-container">

@@ -346,6 +346,136 @@
   }
 }
 
+
+
+@media (max-width: 768px) {
+  /* Container padding for all content */
+  .vehicle-container,
+  .owner-list-container,
+  .event-container {
+    padding: 0 1rem;
+    margin-bottom: 1.5rem;
+  }
+
+  /* Header fonts and spacing */
+  .com-header h2 {
+    font-size: 1.3rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .com-header p {
+    font-size: 1rem;
+    margin-bottom: 1rem;
+  }
+
+  /* Search and filter row - no wrap, nicely spaced */
+  .mt-4.border.rounded.p-3.bg-white .row {
+    display: flex !important;
+    flex-wrap: nowrap !important;
+    gap: 0.5rem !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+  }
+
+  .mt-4.border.rounded.p-3.bg-white .col-md-9 {
+    flex: 0 0 75% !important;
+    max-width: 75% !important;
+    width: 75% !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    box-sizing: border-box;
+  }
+
+  .mt-4.border.rounded.p-3.bg-white .col-md-3 {
+    flex: 0 0 25% !important;
+    max-width: 25% !important;
+    width: 25% !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    box-sizing: border-box;
+  }
+
+  .input-group,
+  #vehicleType {
+    width: 100% !important;
+    min-width: 0 !important;
+  }
+
+  #searchBtn {
+    display: none !important;
+  }
+
+  /* Dashboard summary cards container */
+  .row.g-3 {
+    display: flex !important;
+    flex-wrap: wrap !important;
+    gap: 1rem !important;
+    padding: 0 1rem !important;
+    margin: 0 !important;
+    justify-content: flex-start !important;
+  }
+
+  /* First summary card full width */
+  .row.g-3 .col-md-4:nth-child(1) {
+    flex: 0 0 100% !important;
+    max-width: 100% !important;
+    width: 100% !important;
+  }
+
+  /* Second and third cards half width */
+  .row.g-3 .col-md-4:nth-child(2),
+  .row.g-3 .col-md-4:nth-child(3) {
+    flex: 0 0 calc(50% - 0.5rem) !important;
+    max-width: calc(50% - 0.5rem) !important;
+    width: calc(50% - 0.5rem) !important;
+  }
+
+  /* Vehicle result cards container */
+  .vehicle-info .row.g-3 {
+    display: flex !important;
+    flex-wrap: wrap !important;
+    gap: 1rem !important;
+    padding: 0 1rem !important;
+    margin: 0 !important;
+  }
+
+  /* Vehicle cards - 2 per row */
+  .vehicle-info .row.g-3 > .col-12,
+  .vehicle-info .row.g-3 > .col-sm-6,
+  .vehicle-info .row.g-3 > .col-md-4 {
+    flex: 0 0 calc(50% - 0.5rem) !important;
+    max-width: calc(50% - 0.5rem) !important;
+    width: calc(50% - 0.5rem) !important;
+  }
+
+  /* Card styling */
+  .vehicle-info .card {
+    padding: 1rem !important;
+    font-size: 0.9rem;
+    margin-bottom: 0;
+  }
+
+  /* Buttons inside vehicle cards stack vertically */
+  .d-flex.flex-column.flex-sm-row.gap-3.mt-3 {
+    flex-direction: column !important;
+    gap: 0.5rem !important;
+  }
+  .btn, .btn.w-100 {
+    width: 100% !important;
+  }
+
+  /* Section heading */
+  .info-head h5 {
+    font-size: 1.15rem !important;
+  }
+
+  /* Reset container side paddings */
+  .container {
+    padding-left: 0;
+    padding-right: 0;
+  }
+}
+
     </style>
 
     <body>

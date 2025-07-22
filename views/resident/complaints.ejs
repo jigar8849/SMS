@@ -1,5 +1,67 @@
 <%- layout("layouts/boilerplate") %>
 
+<style>
+@media (max-width: 768px) {
+  /* Container padding */
+  .compailin-container {
+    padding: 1rem !important;
+  }
+
+  /* Dashboard cards container - 2 per row */
+  .dash-info {
+    display: flex !important;
+    flex-wrap: wrap !important; /* allow wrapping for 2 per row */
+    gap: 1.2rem !important;
+    justify-content: space-between !important;
+    padding: 0 1rem !important;
+    margin: 0 !important;
+  }
+
+  /* Each card: half width minus half the gap */
+  .dash-card {
+    flex: 0 0 calc(50% - 0.6rem) !important;
+    max-width: calc(50% - 0.6rem);
+    height: auto !important;
+    margin-bottom: 1.2rem !important;
+    font-size: 1rem !important;
+    padding: 1.25rem !important;
+    border-radius: 1rem !important;
+    background: #fff !important;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.07);
+    display: flex !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+    gap: 0.5rem !important;
+    box-sizing: border-box;
+  }
+  .dash-card .left, 
+  .dash-card .right {
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+  .dash-card .right {
+    font-size: 2.2rem !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    flex-shrink: 0;
+  }
+  .dash-card h3 {
+    font-size: 1.25rem !important;
+    margin-bottom: 0 !important;
+    color: #222;
+    font-weight: 700;
+  }
+  .dash-card p {
+    font-size: 0.9rem !important;
+    margin-bottom: 0.3rem !important;
+    color: #555;
+  }
+}
+
+
+</style>
+
     <body>
         <div class="complaints-container">
             <div class="com-header d-flex justify-content-between">

@@ -53,6 +53,77 @@
             text-align: center;
             color: #666;
         }
+
+        @media (max-width: 768px) {
+  /* Container padding & box-sizing fix */
+  body {
+    margin: 0 !important;
+    padding: 0 !important;
+    box-sizing: border-box;
+  }
+
+  /* Dash info container as horizontal scroll */
+  .dash-info {
+    display: flex !important;
+    flex-wrap: nowrap !important; /* No wrap: single row */
+    overflow-x: auto !important;  /* Horizontal scroll */
+    gap: 1rem !important;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    -webkit-overflow-scrolling: touch; /* Smooth scroll on iOS */
+    scrollbar-width: thin;
+  }
+  /* Optional: style scrollbar for WebKit browsers */
+  .dash-info::-webkit-scrollbar {
+    height: 8px;
+  }
+  .dash-info::-webkit-scrollbar-thumb {
+    background: rgba(0,0,0,0.1);
+    border-radius: 4px;
+  }
+  .dash-info::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  /* Cards fixed width and no shrink */
+  .dash-card {
+    flex: 0 0 auto !important; /* No grow, no shrink */
+    width: 16rem !important;    /* Fixed card width */
+    height: auto !important;
+    margin-bottom: 0 !important; /* Remove bottom margin */
+    padding: 1rem !important;
+    border-radius: 1rem !important;
+    background-color: #fff !important;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+    display: flex !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+  }
+
+  /* Left and right sections inside card */
+  .dash-card .left, .dash-card .right {
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
+  .dash-card .left p {
+    font-size: 0.9rem !important;
+    margin-bottom: 0.3rem !important;
+    color: #555;
+  }
+  .dash-card .left h3 {
+    font-size: 1.2rem !important;
+    font-weight: 700 !important;
+    margin: 0 !important;
+    color: #222;
+  }
+
+  .dash-card .right i {
+    font-size: 2.5rem !important;
+  }
+}
+
+        
     </style>
 
     <body>
