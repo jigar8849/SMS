@@ -14,7 +14,8 @@
   .sidebar-wrapper.active {
     left: 0;
   }
-  /* Overlay for small screens */
+  
+  /* Overlay for mobile/tablet screens */
   .sidebar-overlay {
     display: none;
     position: fixed;
@@ -29,7 +30,7 @@
     display: block !important;
   }
   
-  /* Close button styling */
+  /* Close button styling - default visible */
   .sidebar-close {
     position: absolute;
     top: 15px;
@@ -42,14 +43,16 @@
     padding: 0.25rem;
     line-height: 1;
     z-index: 10;
+    display: block;
   }
   .sidebar-close:hover {
     color: #495057;
     background-color: #f8f9fa;
     border-radius: 50%;
   }
-  
-  @media (min-width: 577px) {
+
+  /* Desktop mode - sidebar always visible (992px and above) */
+  @media (min-width: 992px) {
     .sidebar-wrapper {
       position: relative;
       left: 0 !important;
@@ -60,9 +63,41 @@
     .sidebar-overlay {
       display: none !important;
     }
-    /* Hide close button on desktop */
+    /* Hide close button on desktop only */
     .sidebar-close {
       display: none !important;
+    }
+  }
+
+  /* Mobile and Tablet mode (991px and below) */
+  @media (max-width: 991px) {
+    .sidebar-wrapper {
+      position: fixed;
+      top: 0;
+      left: -280px;
+      width: 280px;
+      height: 100vh;
+      background-color: white;
+      border-right: 1px solid #e0e0e0;
+      z-index: 1050;
+      transition: left 0.3s ease;
+      box-shadow: 2px 0 10px rgba(0,0,0,0.1);
+    }
+    
+    .sidebar-wrapper.active {
+      left: 0;
+    }
+    
+    /* Ensure close button is visible on mobile/tablet */
+    .sidebar-close {
+      display: block !important;
+    }
+    
+    /* Navigation links adjustment */
+    .sidebar-wrapper .nav-link {
+      padding: 0.75rem 1rem;
+      font-size: 0.95rem;
+      border-radius: 0.5rem;
     }
   }
   
@@ -78,12 +113,12 @@
   }
 </style>
 
-<!-- Sidebar Overlay for mobile -->
+<!-- Sidebar Overlay for mobile/tablet -->
 <div class="sidebar-overlay" id="sidebarOverlay"></div>
 
 <!-- Sidebar -->
 <div id="sidebar" class="sidebar-wrapper d-flex flex-column p-3 bg-white">
-  <!-- Close button (only visible on mobile) -->
+  <!-- Close button (visible on mobile and tablet) -->
   <button class="sidebar-close" id="sidebarClose" title="Close sidebar">
     <i class="bi bi-x-lg"></i>
   </button>
@@ -133,24 +168,24 @@
       sidebarOverlay.classList.remove("show");
     }
     
-    // Hamburger click
+    // Hamburger click to open sidebar
     if(toggleBtn){
       toggleBtn.addEventListener("click", openSidebar);
     }
     
-    // Close button click
+    // Close button click to close sidebar
     if(sidebarClose){
       sidebarClose.addEventListener("click", closeSidebar);
     }
     
-    // Overlay click
+    // Overlay click to close sidebar
     if(sidebarOverlay){
       sidebarOverlay.addEventListener("click", closeSidebar);
     }
     
-    // On window resize: if width > 576, ensure sidebar is visible and overlay is gone.
+    // On window resize: close sidebar only when switching to desktop mode
     window.addEventListener('resize', function () {
-      if (window.innerWidth > 576) {
+      if (window.innerWidth >= 992) {
         sidebar.classList.remove("active");
         sidebarOverlay.classList.remove("show");
       }

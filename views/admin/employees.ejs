@@ -78,6 +78,134 @@
 }
 
 
+@media (max-width: 768px) {
+  body {
+    margin: 0 !important;
+    padding: 0 !important;
+    width: 100vw;
+    height: 100vh;
+    box-sizing: border-box;
+  }
+
+  /* Header */
+  .empHeader {
+    flex-direction: row !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+    gap: 1rem;
+    padding: 0 1rem;
+  }
+  
+  .empHeader h4.fw-bold {
+    font-size: 1.25rem !important;
+    margin: 0;
+    white-space: nowrap;
+  }
+  
+  .empHeader a.btn {
+    flex-shrink: 0;
+    padding: 0.5rem 1.2rem;
+    font-size: 0.9rem;
+    white-space: nowrap;
+  }
+
+  /* Dashboard cards */
+  .dash-info {
+    flex-wrap: wrap !important;
+    gap: 1.25rem !important;
+    justify-content: space-between !important;
+    padding: 0 1rem;
+  }
+
+  .dash-card {
+    width: 48% !important;
+    min-width: 150px;
+    height: auto !important;
+    font-size: 1rem;
+    margin-bottom: 1.25rem;
+    padding: 1rem;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    gap: 0.5rem !important;
+    border-radius: 1rem;
+    background-color: white;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  }
+
+  .dash-card .left, 
+  .dash-card .right {
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
+  .dash-card .left {
+    width: auto;
+  }
+  .dash-card .right {
+    font-size: 2.5rem !important;
+  }
+
+  /* Search Section: input + filter in one row */
+  .serach-box {
+    display: flex !important;
+    flex-direction: row !important;
+    gap: 0.5rem !important;
+    padding: 0 1rem;
+    align-items: center;
+  }
+  
+  .serach-box .input-group {
+    flex: 0 0 90% !important;
+    width: 90% !important;
+    min-width: 0;
+  }
+  
+  .serach-box .select-status {
+    flex: 0 0 10% !important;
+    width: 10% !important;
+    min-width: 0;
+    margin-top: 0 !important;
+  }
+  
+  /* Table responsiveness and typography */
+  .table-responsive {
+    padding: 0 1rem;
+  }
+
+  .table {
+    font-size: 0.9rem !important;
+  }
+
+  .table th, .table td {
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    vertical-align: middle;
+  }
+
+  .employeeRow {
+    cursor: pointer;
+  }
+
+  .action-icons button {
+    width: 100% !important;
+    padding: 0.3rem 0.5rem !important;
+    font-size: 0.875rem !important;
+  }
+
+  .action-icons button.bg-primary {
+    white-space: nowrap;
+  }
+
+  /* Adjust margins to prevent content overflow */
+  .container, .dash-info, .serach-box {
+    max-width: 100% !important;
+  }
+}
+
+
+
 
 </style>
 

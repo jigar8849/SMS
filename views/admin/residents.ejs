@@ -69,6 +69,145 @@
       }
 }
 
+
+@media (max-width: 768px) {
+  /* Container padding */
+  .compailin-container {
+    padding: 1rem !important;
+  }
+
+  /* Header */
+  .compailin-container h4.fw-bold {
+    font-size: 1.3rem !important;
+    padding-left: 1rem;
+    margin-bottom: 1rem;
+  }
+
+  /* Dash cards: two per row with spacing */
+  .dash-info {
+    display: flex !important;
+    flex-wrap: wrap !important;
+    gap: 1.25rem !important;
+    justify-content: space-between !important;
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+
+  .dash-card {
+    width: 48% !important;
+    min-width: 150px;
+    height: auto !important;
+    margin-bottom: 1.25rem;
+    padding: 1rem !important;
+    border-radius: 1rem !important;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.07);
+    background: #fff;
+    display: flex !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+    gap: 0.5rem !important;
+  }
+
+  /* Dash card content */
+  .dash-card h3 {
+    font-size: 1.4rem !important;
+  }
+  .dash-card p {
+    font-size: 0.9rem !important;
+    margin-bottom: 0.4rem !important;
+  }
+  .dash-card i {
+    font-size: 1.8rem !important;
+    padding: 0.6rem !important;
+  }
+
+  /* Search and filters in single horizontal row */
+  .bg-white.p-3.rounded.mb-3.d-flex {
+    display: flex !important;
+    flex-direction: row !important;
+    flex-wrap: nowrap !important;
+    gap: 0.3rem !important;
+    align-items: center !important;
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+
+  /* Search input takes ~70% */
+  .flex-grow-1 {
+    flex: 0 0 70% !important;
+    width: 70% !important;
+    min-width: 0;
+  }
+
+  /* Filters share 30% (split approx 15% each) */
+  #blockFilter, #statusFilter {
+    flex: 0 0 15% !important;
+    width: 15% !important;
+    min-width: 0 !important;
+  }
+
+  .input-group {
+    width: 100% !important;
+    min-width: 0 !important;
+  }
+
+  /* Hide search button on tablet/mobile */
+  #searchBtn {
+    display: none !important;
+  }
+
+  /* Table responsiveness and typography */
+  .table-responsive {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+
+  .table {
+    font-size: 0.9rem !important;
+    min-width: 650px;
+  }
+
+  /* Table cells with ellipsis and nowrap */
+  .table th,
+  .table td {
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    padding: 0.5rem 0.3rem !important;
+    min-width: 90px;
+    word-break: break-word;
+  }
+  .table th:first-child,
+  .table td:first-child {
+    max-width: 170px;
+    white-space: normal;
+  }
+
+  .table .small {
+    font-size: 0.75rem !important;
+  }
+
+  .badge {
+    font-size: 0.7rem !important;
+    padding: 0.3em 0.5em !important;
+  }
+
+  .btn-sm {
+    font-size: 0.75rem !important;
+    padding: 0.3rem 0.5rem !important;
+  }
+
+  /* Table text formatting */
+  .table td strong {
+    font-size: 0.9rem !important;
+  }
+
+  .table .text-muted.small {
+    font-size: 0.75rem !important;
+    line-height: 1.3;
+  }
+}
+
 </style>
 
 <body>

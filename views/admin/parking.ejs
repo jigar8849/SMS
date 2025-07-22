@@ -116,6 +116,135 @@
   }
 }
 
+@media (max-width: 768px) {
+  body {
+    margin: 0 !important;
+    padding: 0 !important;
+    width: 100vw;
+    height: 100vh;
+    box-sizing: border-box;
+  }
+
+  /* Title Section */
+  .payment-header {
+    flex-direction: column !important;
+    gap: 1rem !important;
+    align-items: flex-start !important;
+    padding-left: 1rem;
+  }
+  .payment-title h3 {
+    font-size: 1.3rem !important;
+    margin-bottom: 0.6rem !important;
+  }
+
+  /* Dashboard Cards */
+  .dash-info {
+    flex-wrap: wrap !important;
+    gap: 1.3rem !important;
+    justify-content: space-between !important;
+    margin-left: 0 !important;
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+  .dash-card {
+    width: 48% !important; /* Two cards per row */
+    min-width: 160px;
+    height: auto !important;
+    margin-bottom: 1.3rem;
+    font-size: 1.05rem;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    gap: 0.3rem !important;
+    padding: 1.2rem 0.5rem !important;
+    text-align: center;
+    border-radius: 1rem !important;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+  }
+  .dash-card .left, .dash-card .right {
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+  .dash-card .left {
+    order: 1;
+    width: 100%;
+    margin-bottom: 0.15rem !important;
+  }
+  .dash-card .right {
+    order: 2;
+    width: 100%;
+    margin-top: 0.2rem !important;
+  }
+
+  /* Search and Filter */
+  .mt-4.border.rounded.p-3.bg-white .row {
+    display: flex !important;
+    flex-direction: row !important;
+    flex-wrap: nowrap !important;
+    gap: 0.6rem !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+  .mt-4.border.rounded.p-3.bg-white .col-md-9 {
+    width: 75% !important;
+    max-width: 75% !important;
+    flex: 0 0 75% !important;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+    min-width: 0;
+    box-sizing: border-box !important;
+  }
+  .mt-4.border.rounded.p-3.bg-white .col-md-3 {
+    width: 25% !important;
+    max-width: 25% !important;
+    flex: 0 0 25% !important;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+    min-width: 0;
+    box-sizing: border-box !important;
+  }
+  .mt-4.border.rounded.p-3.bg-white .input-group,
+  #vehicleFilter {
+    width: 100% !important;
+    min-width: 0 !important;
+  }
+  #searchBtn {
+    display: none !important;
+  }
+
+  /* Vehicle Info Cards — one per row for tablets */
+  .vehicle-info .row.g-3 > .col-12,
+  .vehicle-info .row.g-3 > .col-sm-6,
+  .vehicle-info .row.g-3 > .col-md-4 {
+    width: 100% !important;
+    max-width: 100% !important;
+    flex: 0 0 100% !important;
+    margin-bottom: 1rem;
+  }
+
+  .vehicle-info .card {
+    margin-bottom: 1rem;
+    font-size: 0.95rem;
+    padding: 1rem;
+  }
+  .d-flex.flex-column.flex-sm-row.gap-3.mt-3 {
+    flex-direction: column !important;
+    gap: 0.5rem !important;
+  }
+  .btn, .btn.w-100 {
+    width: 100% !important;
+  }
+  .info-head h5 {
+    font-size: 1.15rem !important;
+    margin-left: 1rem;
+  }
+}
 
 
   

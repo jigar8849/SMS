@@ -85,6 +85,123 @@
 }
 
 
+@media (max-width: 768px) {
+  /* Body and container */
+  body {
+    margin: 0 !important;
+    padding: 0 !important;
+    box-sizing: border-box;
+  }
+
+  /* Header */
+  .flat-container > .d-flex.justify-content-between {
+    flex-direction: row !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    padding: 0 1rem;
+    gap: 1rem;
+  }
+
+  .flat-container > .d-flex.justify-content-between h4.fw-bold {
+    font-size: 1.4rem;
+    margin: 0;
+  }
+
+  /* Dashboard cards container */
+  .dash-info {
+    display: flex !important;
+    flex-wrap: wrap !important;
+    gap: 1.5rem !important;
+    justify-content: space-between !important;
+    padding: 0 1rem;
+  }
+
+  /* Cards: 2 per row with spacing */
+  .dash-card {
+    width: 48% !important;
+    min-width: 160px;
+    margin: 0 0 1.5rem 0 !important;
+    height: auto !important;
+    font-size: 1rem;
+    display: flex !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+    padding: 1rem !important;
+    border-radius: 1rem !important;
+    background-color: #fff;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+    gap: 0.5rem !important;
+  }
+
+  .dash-card .left {
+    width: auto;
+    margin-bottom: 0 !important;
+  }
+
+   .dash-card .right {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    width: 55px;         /* or any size that fits your icon nicely */
+    height: 55px;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+  .dash-card .right i {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    font-size: 2rem !important;  /* or fs-3/4 as needed */
+    width: 100%;
+    height: 100%;
+    margin: 0 auto !important;
+  }
+
+  /* Block boxes container */
+  .block-box {
+    display: flex !important;
+    flex-wrap: wrap !important;
+    gap: 1rem !important;
+    justify-content: space-between !important;
+    padding: 0 1rem;
+  }
+
+  /* Blocks: 2 per row with spacing */
+  .blok {
+    width: 48% !important;
+    height: 6rem !important;
+    margin-top: 1rem !important;
+    min-width: 140px !important;
+    font-size: 1rem !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    border-radius: 1rem !important;
+    background-color: #fff;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.07);
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+
+  .blok a {
+    text-decoration: none;
+    color: #2c3e50;
+    font-weight: 600;
+    width: 100%;
+    text-align: center;
+  }
+
+  .blok:hover {
+    background-color: #f0f4ff;
+  }
+
+  /* If only one block, full width */
+  .blok:only-child {
+    width: 100% !important;
+  }
+}
+
+
     </style>
 
     <body>

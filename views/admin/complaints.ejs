@@ -129,6 +129,143 @@
   }
 }
 
+@media (max-width: 768px) {
+  /* Container padding */
+  .compailin-container {
+    padding: 1rem !important;
+  }
+
+  /* Dashboard cards layout: 2 per row */
+  .dash-info {
+    display: flex !important;
+    flex-wrap: wrap !important;
+    gap: 1.2rem !important;
+    justify-content: space-between !important;
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+
+  .dash-card {
+    width: 48% !important;
+    min-width: 160px;
+    height: auto !important;
+    margin-bottom: 1.2rem !important;
+    font-size: 1rem;
+    padding: 1rem !important;
+    border-radius: 1rem !important;
+    background-color: #fff;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.07);
+    display: flex !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+    gap: 0.3rem !important;
+  }
+  .dash-card h3 {
+    font-size: 1.3rem !important;
+  }
+  .dash-card p {
+    font-size: 0.9rem !important;
+    margin-bottom: 0.3rem !important;
+  }
+  .dash-card i {
+    font-size: 1.7rem !important;
+    padding: 0.6rem !important;
+  }
+
+  /* Header title font adjustment */
+  .compailin-container h4.fw-bold {
+    font-size: 1.25rem !important;
+    padding-left: 1rem;
+  }
+
+  /* Search + Filters in single horizontal row */
+  .bg-white.p-3.rounded.mb-3.d-flex {
+    display: flex !important;
+    flex-direction: row !important;
+    flex-wrap: nowrap !important;
+    gap: 0.3rem !important;
+    align-items: center !important;
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+
+  .flex-grow-1 {
+    flex: 0 0 70% !important;
+    width: 70% !important;
+    min-width: 0;
+  }
+
+  .form-select.w-auto {
+    flex: 0 0 15% !important;
+    width: 15% !important;
+    min-width: 0 !important;
+  }
+  #priorityFilter {
+    flex: 0 0 15% !important;
+    width: 15% !important;
+    min-width: 0 !important;
+  }
+
+  .input-group {
+    width: 100% !important;
+    min-width: 0 !important;
+  }
+
+  /* Hide search button on mobile/tablet */
+  #searchBtn {
+    display: none !important;
+  }
+
+  /* Table styling */
+  .card {
+    font-size: 0.9rem !important;
+  }
+
+  .table {
+    font-size: 0.85rem !important;
+  }
+
+  .table th,
+  .table td {
+    padding: 0.5rem 0.3rem !important;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    max-width: 130px;
+  }
+
+  .table th:first-child,
+  .table td:first-child {
+    max-width: 170px;
+    white-space: normal;
+  }
+
+  .table .small {
+    font-size: 0.75rem !important;
+  }
+
+  .badge {
+    font-size: 0.65rem !important;
+    padding: 0.3em 0.6em !important;
+  }
+
+  .btn-sm {
+    font-size: 0.75rem !important;
+    padding: 0.3rem 0.6rem !important;
+  }
+
+  /* Readability improvements */
+  .table td strong {
+    font-size: 0.9rem !important;
+  }
+
+  .table .text-muted.small {
+    font-size: 0.75rem !important;
+    line-height: 1.3;
+  }
+}
+
+
 
 </style>
 
