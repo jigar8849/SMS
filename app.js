@@ -55,6 +55,9 @@ app.use(
 app.use(passport.initialize());
 app.use(passport.session());
 
+// app.use()
+
+
 // flash massages
 app.use(flash());
 app.use((req, res, next) => {
@@ -623,9 +626,15 @@ app.post("/addNewEmployee", async (req, res) => {
 
 
 app.get("/resident-dashboard", async (req, res) => {
-  const resName = await NewMember.findOne();
-  res.render("resident/dashboard", { resName })
-})
+  const resId = req.session.addNewMember?.id;
+
+  if (!resId) return res.redirect("/login");
+
+  const resName = await NewMember.findById(resId);
+
+  res.render("resident/dashboard", { resName });
+});
+
 
 // Update this route in your server code
 app.get("/resident-billsPayment", async (req, res) => {
@@ -1080,12 +1089,53 @@ app.post("/addFamilyMember/:id/add", async (req, res) => {
 })
 
 
+// app.get("/addVehicle/:id",async(req,res)=>{
+//    const vehicleDetail = await NewMember.findById(req.session.addNewMember.id);
+//   res.render("forms/addVehicles", { vehicleDetail });
+// });
+
+
+
+// // In your routes file (e.g., routes/residents.js)
+// // Add this route to your server code
+
+
+// // delete
+
+// app.delete("/resident-profile/:id/vehicle/:type", async (req, res) => {
+//   const { id, type } = req.params;
+
+//   try {
+//     const resident = await NewMember.findById(id);
+//     if (!resident) return res.status(404).send("Resident not found");
+
+//     if (type === "two_wheeler") {
+//       resident.two_wheeler = "";
+//     } else if (type === "four_wheeler") {
+//       resident.four_wheeler = "";
+//     } else {
+//       return res.status(400).send("Invalid vehicle type");
+//     }
+
+//     await resident.save();
+//     res.redirect(`/resident-profile/${id}`);
+//   } catch (err) {
+//     console.error("Error deleting vehicle:", err);
+//     res.status(500).send("Internal Server Error");
+//   }
+// });
+
+
+
+
 // app.get("addFamilyMember/:id/delete",async(req,res)=>{
 //   const profileInfo = await NewMember.findById(id)
 //   res.redirect("/resident-profile",{profileInfo})
 // })
 
 //2
+
+
 app.get("resident-profile/:id/delete", async (req, res) => {
   const profileInfo = await NewMember.findById(id)
   res.render("resident/profile", { profileInfo })
@@ -1198,6 +1248,36 @@ app.post("/create-account", async (req, res) => {
   } catch (err) {
     console.error("❌ Error while creating account:", err);
     res.send("❌ Failed to create society account. Maybe email is already taken?");
+  }
+});
+
+
+app.get("/resident-profile/:id/change-password", isResidentLoggedIn, async (req, res) => {
+  const profileInfo = await NewMember.findById(req.params.id);
+  if (!profileInfo) return res.status(404).send("User not found");
+  res.render("forms/changePass", { profileInfo });
+});
+
+
+app.post("/resident-profile/:id/change-password", isResidentLoggedIn, async (req, res) => {
+  const { id } = req.params;
+  const { oldPassword, newPassword, confirmPassword } = req.body;
+
+  if (newPassword !== confirmPassword) {
+    return res.send("New password and confirm password do not match");
+  }
+
+  try {
+    const user = await NewMember.findById(id);
+    if (!user) return res.status(404).send("User not found");
+
+    await user.changePassword(oldPassword, newPassword); // from passport-local-mongoose
+    await user.save();
+
+    res.send("Password changed successfully!");
+  } catch (err) {
+    console.error("Password change error:", err);
+    res.send("Failed to change password. Make sure the old password is correct.");
   }
 });
 

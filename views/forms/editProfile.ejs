@@ -44,6 +44,24 @@
         </div>
 
 
+        <div class="row mb-3">
+  <% if (profileInfo.four_wheeler && profileInfo.four_wheeler.trim() !== "") { %>
+    <div class="col-md-6">
+      <label for="fourWheeler" class="form-label">Four Wheeler</label>
+      <input type="text" class="form-control" id="fourWheeler" name="four_wheeler" value="<%= profileInfo.four_wheeler %>" required>
+    </div>
+  <% } %>
+
+  <% if (profileInfo.two_wheeler && profileInfo.two_wheeler.trim() !== "") { %>
+    <div class="col-md-6">
+      <label for="twoWheeler" class="form-label">Two Wheeler</label>
+      <input type="text" class="form-control" id="twoWheeler" name="two_wheeler" value="<%= profileInfo.two_wheeler %>" required>
+    </div>
+  <% } %>
+</div>
+
+
+
         
 
         <div class="row mb-3">

@@ -1,0 +1,24 @@
+<!-- changePassword.ejs -->
+<%- layout("layouts/boilerplate") %>
+
+<div class="container mt-5">
+  <h3 class="mb-4">Change Password</h3>
+  <form action="/resident-profile/<%= profileInfo._id %>/change-password" method="POST">
+    <div class="mb-3">
+      <label for="oldPassword" class="form-label">Current Password</label>
+      <input type="password" class="form-control" id="oldPassword" name="oldPassword" required>
+    </div>
+
+    <div class="mb-3">
+      <label for="newPassword" class="form-label">New Password</label>
+      <input type="password" class="form-control" id="newPassword" name="newPassword" required>
+    </div>
+
+    <div class="mb-3">
+      <label for="confirmPassword" class="form-label">Confirm New Password</label>
+      <input type="password" class="form-control" id="confirmPassword" name="confirmPassword" required>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Update Password</button>
+  </form>
+</div>

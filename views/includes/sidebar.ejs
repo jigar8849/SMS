@@ -52,22 +52,34 @@
   }
 
   /* Desktop mode - sidebar always visible (992px and above) */
-  @media (min-width: 992px) {
-    .sidebar-wrapper {
-      position: relative;
-      left: 0 !important;
-      height: auto;
-      z-index: auto;
-      border: none;
-    }
-    .sidebar-overlay {
-      display: none !important;
-    }
-    /* Hide close button on desktop only */
-    .sidebar-close {
-      display: none !important;
-    }
+ @media (min-width: 992px) {
+  .sidebar-wrapper {
+    position: relative;
+    left: 0 !important;
+    height: 100vh;       /* full viewport height */
+    overflow: hidden;    /* hide overflow except inside content */
+    z-index: auto;
+    border: none;
   }
+
+  /* Allow scrolling inside the sidebar content */
+  .sidebar-wrapper > ul.nav {
+    overflow-y: auto;
+    max-height: calc(100vh - 100px); /* leave space for header/logout */
+    padding-right: 8px;               /* space for scrollbar */
+  }
+
+  /* Fix logout to bottom */
+  .sidebar-wrapper > .pt-1.logout {
+    position: sticky;
+    bottom: 0;
+    background: white;
+    padding: 1rem 1.5rem;
+    border-top: 1px solid #e0e0e0;
+    z-index: 10;
+  }
+}
+
 
   /* Mobile and Tablet mode (991px and below) */
   @media (max-width: 991px) {
@@ -145,7 +157,7 @@
   </ul>
   
   <div class="pt-1 logout">
-    <a href="/" class="nav-link text-danger fw-bold">
+    <a href="/logout" class="nav-link text-danger fw-bold">
       <i class="bi bi-box-arrow-right me-2"></i> Logout
     </a>
   </div>

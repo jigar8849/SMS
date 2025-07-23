@@ -69,7 +69,7 @@
         padding: 1rem 0.5rem !important;
       }
 
-      .serach-box .input-group{
+      .serach-box .input-group {
         width: 100% !important;
         /* margin: 0 !important; */
       }
@@ -107,74 +107,77 @@
     }
 
 
-@media (max-width: 768px) {
-  /* Overall card styles */
-  .dash-card {
-    width: 48% !important;
-    min-width: 150px;
-    margin-bottom: 1.2rem;
-    background: #fff;
-    border-radius: 0.7rem;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.08);
-    padding: 1rem !important;
-    box-sizing: border-box;       /* critical: include padding in width */
-    overflow: hidden;             /* contain floats and content */
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    word-wrap: break-word;        /* wrap long words */
-  }
+    @media (max-width: 768px) {
 
-  .payment-box{
-    height: 8rem !important;
-  }
+      /* Overall card styles */
+      .dash-card {
+        width: 48% !important;
+        min-width: 150px;
+        margin-bottom: 1.2rem;
+        background: #fff;
+        border-radius: 0.7rem;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.08);
+        padding: 1rem !important;
+        box-sizing: border-box;
+        /* critical: include padding in width */
+        overflow: hidden;
+        /* contain floats and content */
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        word-wrap: break-word;
+        /* wrap long words */
+      }
 
-  /* Content inside cards */
-  .dash-card .left, .dash-card .right {
-    flex-shrink: 0;
-  }
+      .payment-box {
+        height: 8rem !important;
+      }
 
-  /* Text in left-side container */
-  .dash-card .left {
-    margin-bottom: 1rem;
-    word-break: break-word; /* Break long text */
-  }
+      /* Content inside cards */
+      .dash-card .left,
+      .dash-card .right {
+        flex-shrink: 0;
+      }
 
-  /* Icon on right side - stay within container */
-  .dash-card .right {
-    display: flex !important;
-    align-items: center;
-    justify-content: center;
-    max-width: 50px;
-    min-width: 40px;
-    flex-shrink: 0;
-  }
+      /* Text in left-side container */
+      .dash-card .left {
+        margin-bottom: 1rem;
+        word-break: break-word;
+        /* Break long text */
+      }
 
-  /* Icon sizing and containment */
-  .dash-card .right i {
-    max-width: 100%;
-    height: auto;
-    font-size: 2rem;
-    overflow: hidden;
-  }
+      /* Icon on right side - stay within container */
+      .dash-card .right {
+        display: flex !important;
+        align-items: center;
+        justify-content: center;
+        max-width: 50px;
+        min-width: 40px;
+        flex-shrink: 0;
+      }
 
-  /* Text styling inside .left */
-  .dash-card .left p {
-    font-size: 0.9rem;
-    margin: 0 0 0.5rem 0;
-    color: #555;
-  }
+      /* Icon sizing and containment */
+      .dash-card .right i {
+        max-width: 100%;
+        height: auto;
+        font-size: 2rem;
+        overflow: hidden;
+      }
 
-  .dash-card .left h3 {
-    font-size: 1.5rem;
-    margin: 0;
-    font-weight: bold;
-    white-space: normal;
-  }
-}
+      /* Text styling inside .left */
+      .dash-card .left p {
+        font-size: 0.9rem;
+        margin: 0 0 0.5rem 0;
+        color: #555;
+      }
 
-
-
+      .dash-card .left h3 {
+        font-size: 1.5rem;
+        margin: 0;
+        font-weight: bold;
+        white-space: normal;
+      }
+    }
   </style>
 
   <body>

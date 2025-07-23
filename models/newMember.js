@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const ResidentBill = require("./residentBill");
 const { Schema } = mongoose;
 const passportLocalMongoose = require("passport-local-mongoose");
 
@@ -80,6 +81,25 @@ const newMemberSchema = new Schema({
 
 newMemberSchema.plugin(passportLocalMongoose, { usernameField: "email" });
 
+
+
+// Middleware hook to delete associated bills
+newMemberSchema.pre("findOneAndDelete", async function (next) {
+  const resident = await this.model.findOne(this.getFilter());
+  if (resident) {
+    await ResidentBill.deleteMany({ resident: resident._id });
+  }
+  next();
+});
+
+// Also handle deleteOne (e.g., when using findByIdAndDelete)
+newMemberSchema.pre("deleteOne", { document: false, query: true }, async function (next) {
+  const resident = await this.model.findOne(this.getFilter());
+  if (resident) {
+    await ResidentBill.deleteMany({ resident: resident._id });
+  }
+  next();
+});
 
 module.exports = mongoose.model("NewMember",newMemberSchema);
 

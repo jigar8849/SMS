@@ -218,47 +218,55 @@
       </a>
     </div>
 
-    <div class="dash-info d-flex gap-5">
-      <div class="dash-card d-flex gap-5 rounded-3 bg-white">
-        <div class="left ms-4 mt-4">
-          <p class="mt-1">Total Employees</p>
-          <h3 class="fw-bold"><%= totalEmployees %></h3>
-        </div>
-        <div class="right mt-5 pb-2">
-          <i class="bi bi-people text-primary bg-primary bg-opacity-25 p-3 rounded-circle fs-3"></i>
-        </div>
-      </div>
+    <!-- Only show on laptop and above -->
+<div class="dash-info d-none d-lg-flex justify-content-between gap-4">
 
-      <div class="dash-card d-flex gap-5 rounded-3 bg-white">
-        <div class="left ms-4 mt-4">
-          <p>Active</p>
-          <h3 class="fw-bold text-success"><%= totalActiveEmployees %></h3>
-        </div>
-        <div class="right mt-5 pb-2">
-          <i class="bi bi-people text-primary bg-success bg-opacity-25 p-3 rounded-circle fs-3"></i>
-        </div>
-      </div>
-
-      <div class="dash-card d-flex gap-5 rounded-3 bg-white">
-        <div class="left ms-4 mt-4">
-          <p>In-active</p>
-          <h3 class="fw-bold text-danger"><%= totalEmployees - totalActiveEmployees %></h3>
-        </div>
-        <div class="right mt-5 pb-2">
-          <i class="bi bi-people text-primary bg-primary bg-opacity-25 p-3 rounded-circle fs-3"></i>
-        </div>
-      </div>
-
-      <div class="dash-card d-flex gap-5 rounded-3 bg-white">
-        <div class="left ms-4 mt-4">
-          <p>Monthly Payroll</p>
-          <h3 class="fw-bold">₹<%= totalSalaryAmount %></h3>
-        </div>
-        <div class="right mt-5 pb-2">
-          <i class="bi bi-people text-primary bg-primary bg-opacity-25 p-3 rounded-circle fs-3"></i>
-        </div>
-      </div>
+  <!-- Total Employees -->
+  <div class="dash-card d-flex justify-content-between align-items-center rounded-3 bg-white shadow-sm p-4 w-100">
+    <div>
+      <p class="mb-1">Total Employees</p>
+      <h3 class="fw-bold"><%= totalEmployees %></h3>
     </div>
+    <div>
+      <i class="bi bi-people text-primary bg-primary bg-opacity-25 p-4 rounded-circle fs-3"></i>
+    </div>
+  </div>
+
+  <!-- Active Employees -->
+  <div class="dash-card d-flex justify-content-between align-items-center rounded-3 bg-white shadow-sm p-4 w-100">
+    <div>
+      <p class="mb-1">Active</p>
+      <h3 class="fw-bold text-success"><%= totalActiveEmployees %></h3>
+    </div>
+    <div>
+      <i class="bi bi-people text-success bg-success bg-opacity-25 p-4 rounded-circle fs-3"></i>
+    </div>
+  </div>
+
+  <!-- Inactive Employees -->
+  <div class="dash-card d-flex justify-content-between align-items-center rounded-3 bg-white shadow-sm p-4 w-100">
+    <div>
+      <p class="mb-1">In-active</p>
+      <h3 class="fw-bold text-danger"><%= totalEmployees - totalActiveEmployees %></h3>
+    </div>
+    <div>
+      <i class="bi bi-people text-danger bg-danger bg-opacity-25 p-4 rounded-circle fs-3"></i>
+    </div>
+  </div>
+
+  <!-- Monthly Payroll -->
+  <div class="dash-card d-flex justify-content-between align-items-center rounded-3 bg-white shadow-sm p-4 w-100">
+    <div>
+      <p class="mb-1">Monthly Payroll</p>
+      <h3 class="fw-bold">₹<%= totalSalaryAmount %></h3>
+    </div>
+    <div>
+      <i class="bi bi-people text-primary bg-primary bg-opacity-25 p-4 rounded-circle fs-3"></i>
+    </div>
+  </div>
+
+</div>
+
 
     <div class="serach-box mt-4 bg-white d-flex gap-2 rounded">
       <div class="input-group p-3">
