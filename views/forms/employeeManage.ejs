@@ -10,13 +10,13 @@
                         <div class="card-body p-5">
                            <div class="update-head d-flex justify-content-between mb-5">
                              <h2 class="mb-4 text-center">Update Employee Details</h2>
-                            <form action="/employees/<%= employee._id %>?_method=DELETE" method="post">
+                            <form action="/admin/employees/<%= employee._id %>?_method=DELETE" method="post">
                                 <button type="submit" class="btn btn-danger fw-bold px-3 ">Delete
                                     Employee</button>
                             </form>
                            </div>
 
-                            <form action="/employees/<%= employee._id %>?_method=PUT" method="post">
+                            <form action="/admin/employees/<%= employee._id %>?_method=PUT" method="post">
                                 <!-- Name -->
                                 <div class="mb-3">
                                     <label for="name" class="form-label fw-semibold">Name</label>

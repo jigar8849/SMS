@@ -137,22 +137,22 @@
   
   <ul class="nav nav-pills flex-column mb-auto">
     <% if (user && user.role === "admin") { %>
-      <li class="nav-item"><a href="/dashboard" class="nav-link text-dark"><i class="bi bi-house-door me-2"></i> Dashboard</a></li>
-      <li><a href="/residents" class="nav-link text-dark"><i class="bi bi-people me-2"></i> Residents</a></li>
-      <li><a href="/payments" class="nav-link text-dark"><i class="bi bi-credit-card me-2"></i> Payments</a></li>
-      <li><a href="/parking" class="nav-link text-dark"><i class="bi bi-car-front me-2"></i> Parking</a></li>
-      <li><a href="/employees" class="nav-link text-dark"><i class="bi bi-person-badge me-2"></i> Employees</a></li>
-      <li><a href="/flatList" class="nav-link text-dark"><i class="bi bi-building me-2"></i> Flat List</a></li>
-      <li><a href="/complaints" class="nav-link text-dark"><i class="bi bi-chat-dots me-2"></i> Complaints</a></li>
+      <li class="nav-item"><a href="/admin/dashboard" class="nav-link text-dark"><i class="bi bi-house-door me-2"></i> Dashboard</a></li>
+      <li><a href="/admin/residents" class="nav-link text-dark"><i class="bi bi-people me-2"></i> Residents</a></li>
+      <li><a href="/admin/payments" class="nav-link text-dark"><i class="bi bi-credit-card me-2"></i> Payments</a></li>
+      <li><a href="/admin/parking" class="nav-link text-dark"><i class="bi bi-car-front me-2"></i> Parking</a></li>
+      <li><a href="/admin/employees" class="nav-link text-dark"><i class="bi bi-person-badge me-2"></i> Employees</a></li>
+      <li><a href="/admin/flatList" class="nav-link text-dark"><i class="bi bi-building me-2"></i> Flat List</a></li>
+      <li><a href="/admin/complaints" class="nav-link text-dark"><i class="bi bi-chat-dots me-2"></i> Complaints</a></li>
     <% } else if (user && user.role === "resident") { %>
-      <li class="nav-item"><a href="/resident-dashboard" class="nav-link text-dark"><i class="bi bi-house-door me-2"></i> Dashboard</a></li>
-      <li><a href="/resident-billsPayment" class="nav-link text-dark"><i class="bi bi-credit-card me-2"></i> Bills & Payments</a></li>
-      <li><a href="/resident-complaints" class="nav-link text-dark"><i class="bi bi-chat-dots me-2"></i> Complaints</a></li>
-      <li><a href="/resident-bookEvent" class="nav-link text-dark"><i class="bi bi-calendar me-2"></i> Book Events</a></li>
-      <li><a href="/resident-ownerList" class="nav-link text-dark"><i class="bi bi-file-earmark-text me-2"></i> Owner List</a></li>
-      <li><a href="/resident-vehicleSearch" class="nav-link text-dark"><i class="bi bi-car-front me-2"></i> Vehicle Search</a></li>
-      <li><a href="/resident-societyStaff" class="nav-link text-dark"><i class="bi bi-clipboard-data me-2"></i> Society Staff</a></li>
-      <li><a href="/resident-profile" class="nav-link text-dark"><i class="bi bi-shield me-2"></i> Profile</a></li>
+      <li class="nav-item"><a href="/resident/dashboard" class="nav-link text-dark"><i class="bi bi-house-door me-2"></i> Dashboard</a></li>
+      <li><a href="/resident/billsPayment" class="nav-link text-dark"><i class="bi bi-credit-card me-2"></i> Bills & Payments</a></li>
+      <li><a href="/resident/complaints" class="nav-link text-dark"><i class="bi bi-chat-dots me-2"></i> Complaints</a></li>
+      <li><a href="/resident/bookEvent" class="nav-link text-dark"><i class="bi bi-calendar me-2"></i> Book Events</a></li>
+      <li><a href="/resident/ownerList" class="nav-link text-dark"><i class="bi bi-file-earmark-text me-2"></i> Owner List</a></li>
+      <li><a href="/resident/vehicleSearch" class="nav-link text-dark"><i class="bi bi-car-front me-2"></i> Vehicle Search</a></li>
+      <li><a href="/resident/societyStaff" class="nav-link text-dark"><i class="bi bi-clipboard-data me-2"></i> Society Staff</a></li>
+      <li><a href="/resident/profile" class="nav-link text-dark"><i class="bi bi-shield me-2"></i> Profile</a></li>
     <% } %>
   </ul>
   

@@ -213,7 +213,7 @@
   <div class="emp-container">
     <div class="empHeader d-flex justify-content-between align-items-center mb-4">
       <h4 class="fw-bold">Employee Management</h4>
-      <a href="/addNewEmployee" class="btn btn-primary">
+      <a href="/admin/addNewEmployee" class="btn btn-primary">
         <i class="bi bi-plus-lg"></i> Add New Employee
       </a>
     </div>
@@ -324,7 +324,7 @@
                 <% } %>
               </td>
               <td class="action-icons text-primary">
-                <form action="/employees/<%= employee._id %>/edit" method="get">
+                <form action="/admin/employees/<%= employee._id %>/edit" method="get">
                   <button class="bg-primary text-white p-1 px-3 rounded fw-bold">Manage</button>
                 </form>
               </td>

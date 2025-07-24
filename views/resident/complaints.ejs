@@ -70,7 +70,7 @@
                     <p class="text-muted ">File and track your complaints</p>
                 </div>
                 <div class="right d-flex align-items-center">
-                    <a href="/newComplain" class="rounded p-2 px-4 text-white bg-primary text-decoration-none fw-bold border-0"><i class="bi bi-plus text-white fw-bold"></i> File
+                    <a href="/resident/newComplain" class="rounded p-2 px-4 text-white bg-primary text-decoration-none fw-bold border-0"><i class="bi bi-plus text-white fw-bold"></i> File
                         Complaint</a>
                 </div>
             </div>
@@ -155,7 +155,7 @@
                     <div class="d-flex flex-row align-items-center gap-2 ms-3">
                         <span class=" text-primary  px-3 py-1 fw-bold"><%= cd.status  %></span>
                         <span class=" text-danger  px-3 py-1 fw-bold"><%= cd.priority %></span>
-                        <form action="/resident-complaints/<%= cd._id %>?_method=DELETE" method="post">
+                        <form action="/resident/complaints/<%= cd._id %>?_method=DELETE" method="post">
                             <button type="submit"><i class="fa-solid fa-trash text-dark fs-3"></i></button>
                         </form>
                     </div>

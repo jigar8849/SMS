@@ -187,7 +187,7 @@
         <p class="text-muted">Book venues for your events and celebrations</p>
       </div>
       <div class="right d-flex align-items-center ">
-        <a href="/resident-bookEvent/book"
+        <a href="/resident/bookEvent/book"
           class="rounded p-2 px-4 text-white bg-primary border-0 text-decoration-none">
           <i class="bi bi-plus text-white"></i> Book Event
         </a>
@@ -367,10 +367,10 @@
             <p class="text-danger fw-bold">Rejected</p>
           <% } %>
           <div class="action-icons d-flex gap-4 mt-3">
-            <a href="/resident-bookEvent/<%= event._id %>/edit" class="text-primary icon-link" title="Edit">
+            <a href="/resident/bookEvent/<%= event._id %>/edit" class="text-primary icon-link" title="Edit">
               <i class="bi bi-pencil fs-5"></i>
             </a>
-            <form action="/resident-bookEvent/<%= event._id %>?_method=DELETE" method="POST" style="display:inline;">
+            <form action="/resident/bookEvent/<%= event._id %>?_method=DELETE" method="POST" style="display:inline;">
               <button type="submit" class="btn p-0 border-0 bg-transparent text-danger icon-link" title="Delete">
                 <i class="bi bi-trash fs-5"></i>
               </button>

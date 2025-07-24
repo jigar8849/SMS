@@ -7,7 +7,7 @@
             <div class="card-header bg-primary text-white">
                 <div class="d-flex justify-content-between align-items-center">
                     <h2 class="mb-0">Bill Management</h2>
-                    <a href="/createBill" class="btn btn-light">
+                    <a href="/admin/createBill" class="btn btn-light">
                         <i class="fas fa-plus"></i> Create New Bill
                     </a>
                 </div>
@@ -35,10 +35,10 @@
                                         <td><%= bill.dueDate.toLocaleDateString() %></td>
                                         <td>
                                             <div class="d-flex gap-2">
-                                                <a href="/bills/<%= bill._id %>/edit" class="btn btn-sm btn-warning">
+                                                <a href="/admin/bills/<%= bill._id %>/edit" class="btn btn-sm btn-warning">
                                                     <i class="fas fa-edit"></i> Edit
                                                 </a>
-                                                <form action="/bills/<%= bill._id %>?_method=DELETE" method="POST">
+                                                <form action="/admin/bills/<%= bill._id %>?_method=DELETE" method="POST">
                                                     <button type="submit" class="btn btn-sm btn-danger">
                                                         <i class="fas fa-trash"></i> Delete
                                                     </button>

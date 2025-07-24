@@ -4,6 +4,7 @@
     height: 4rem;
     padding: 0;
   }
+
   .nav-role-text {
     height: 4rem;
     width: 16rem;
@@ -15,6 +16,7 @@
     align-items: center;
     justify-content: center;
   }
+
   /* Hamburger Button - initially hidden */
   .navbar-hamburger {
     display: none;
@@ -26,114 +28,123 @@
     margin-right: 0.5rem;
     align-items: center;
   }
+
   .navbar-container {
     height: 100%;
     display: flex;
     align-items: stretch;
     width: 100%;
   }
- /* Media query for tablets (768px and below) */
-/* Navbar media query for tablets (768px and below) */
-@media (max-width: 768px) {
-  /* Navbar specific styles */
-  nav.navbar {
-    height: 4rem;
-    padding: 0;
+
+  /* Media query for tablets (768px and below) */
+  /* Navbar media query for tablets (768px and below) */
+  @media (max-width: 768px) {
+
+    /* Navbar specific styles */
+    nav.navbar {
+      height: 4rem;
+      padding: 0;
+    }
+
+    .nav-role-text {
+      display: none !important;
+    }
+
+    .navbar-title {
+      font-size: 1rem !important;
+      margin-left: 0.5rem;
+    }
+
+    .user-info-text {
+      display: none;
+    }
+
+    .bi-person-circle {
+      font-size: 1.5rem !important;
+    }
+
+    .navbar-hamburger {
+      display: flex !important;
+      background: none;
+      border: none;
+      font-size: 1.8rem;
+      color: #0d6efd;
+      margin-left: 0.7rem;
+      margin-right: 0.5rem;
+    }
+
+    .navbar-container {
+      width: 100%;
+      justify-content: space-between;
+    }
+
+    /* Notification bell adjustment */
+    .btn-link .bi-bell {
+      font-size: 1.2rem !important;
+    }
   }
-  
-  .nav-role-text {
-    display: none !important;
-  }
-  
-  .navbar-title {
-    font-size: 1rem !important;
-    margin-left: 0.5rem;
-  }
-  
-  .user-info-text {
-    display: none;
-  }
-  
-  .bi-person-circle {
-    font-size: 1.5rem !important;
-  }
-  
-  .navbar-hamburger {
-    display: flex !important;
-    background: none;
-    border: none;
-    font-size: 1.8rem;
-    color: #0d6efd;
-    margin-left: 0.7rem;
-    margin-right: 0.5rem;
-  }
-  
-  .navbar-container {
-    width: 100%;
-    justify-content: space-between;
-  }
-  
-  /* Notification bell adjustment */
-  .btn-link .bi-bell {
-    font-size: 1.2rem !important;
-  }
-}
 
 
-/* Media query for larger tablets and small desktops (769px and above) */
-@media (min-width: 769px) {
-  .sidebar-wrapper {
-    position: relative;
-    left: 0 !important;
-    width: 303px;
-    height: auto;
-    z-index: auto;
-    border: none;
-  }
-  
-  .sidebar-overlay {
-    display: none !important;
-  }
-  
-  /* Hide close button on larger screens */
-  .sidebar-close {
-    display: none !important;
-  }
-  
-  /* Show hamburger menu only on mobile */
-  .navbar-hamburger {
-    display: none !important;
-  }
-}
+  /* Media query for larger tablets and small desktops (769px and above) */
+  @media (min-width: 769px) {
+    .sidebar-wrapper {
+      position: relative;
+      left: 0 !important;
+      width: 303px;
+      height: auto;
+      z-index: auto;
+      border: none;
+    }
 
-/* Update your existing mobile query to be more specific */
-@media (max-width: 576px) {
-  /* Hide role panel, show hamburger for mobile */
-  .nav-role-text {
-    display: none !important;
-  }
-  .navbar-hamburger {
-    display: flex !important;
-  }
-  nav {
-    width: 100vw;
-  }
-  .navbar-title {
-    font-size: 1rem !important;
-  }
-  .user-info-text {
-    display: none;
-  }
-  .bi-person-circle {
-    font-size: 1.5rem !important;
-  }
-  
-  /* Mobile sidebar adjustments */
-  .sidebar-wrapper {
-    width: 280px; /* Narrower for mobile */
-  }
-}
+    .sidebar-overlay {
+      display: none !important;
+    }
 
+    /* Hide close button on larger screens */
+    .sidebar-close {
+      display: none !important;
+    }
+
+    /* Show hamburger menu only on mobile */
+    .navbar-hamburger {
+      display: none !important;
+    }
+  }
+
+  /* Update your existing mobile query to be more specific */
+  @media (max-width: 576px) {
+
+    /* Hide role panel, show hamburger for mobile */
+    .nav-role-text {
+      display: none !important;
+    }
+
+    .navbar-hamburger {
+      display: flex !important;
+    }
+
+    nav {
+      width: 100vw;
+    }
+
+    .navbar-title {
+      font-size: 1rem !important;
+    }
+
+    .user-info-text {
+      display: none;
+    }
+
+    .bi-person-circle {
+      font-size: 1.5rem !important;
+    }
+
+    /* Mobile sidebar adjustments */
+    .sidebar-wrapper {
+      width: 280px;
+      /* Narrower for mobile */
+    }
+  }
 </style>
 
 <nav class="navbar navbar-expand-lg navbar-light bg-white border-bottom shadow-sm">
@@ -143,11 +154,13 @@
       <i class="bi bi-list"></i>
     </button>
     <!-- Left: Role Panel (hidden on xs) -->
-    <% if (user && user.role === "admin") { %>
-      <div class="nav-role-text">Admin Panel</div>
-    <% } else if (user && user.role === "resident") { %>
-      <div class="nav-role-text">Resident Panel</div>
-    <% } %>
+   <% if (user) { %>
+  <div class="nav-role-text">
+    <%= user.role === "admin" ? "Admin Panel" : "Resident Panel" %>
+  </div>
+<% } %>
+
+
     <!-- Center Title -->
     <div class="flex-grow-1 d-flex align-items-center ms-3 fw-semibold fs-4 navbar-title">
       Society Management

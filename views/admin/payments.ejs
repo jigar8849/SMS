@@ -187,11 +187,11 @@
           <h3 class="fw-bold">Payment Management</h3>
         </div>
         <div class="export-btn">
-          <a href="/admin-bill-list"
+          <a href="/admin/bill-list"
             class="p-2 rounded px-4 bg-primary text-white fw-semibold me-3 border-0 text-decoration-none">
             Manage Created Bills
           </a>
-          <a href="/createBill"
+          <a href="/admin/createBill"
             class="p-2 rounded px-4 bg-primary text-white fw-semibold border-0 text-decoration-none">
             Create Bills
           </a>
@@ -295,7 +295,7 @@
                 </td>
                 <td class="d-flex gap-1">
                   <% if(bill.isPaid===false){ %>
-                    <a href="/payments/mark/<%= bill._id %>" class="text-success fw-semibold text-decoration-none">Mark
+                    <a href="/admin/payments/mark/<%= bill._id %>" class="text-success fw-semibold text-decoration-none">Mark
                       Paid</a>&nbsp;&nbsp;&nbsp;
                     <% } %>
                       <a href="" class="text-primary fw-semibold text-decoration-none">View Details</a>
