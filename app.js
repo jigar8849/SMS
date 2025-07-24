@@ -18,6 +18,9 @@ const crypto = require("crypto");
 const passport = require("passport");
 const LocalStrategy = require("passport-local");
 
+// const adminRoutes = require("./routes/admin");
+
+
 const session = require('express-session');  // require midleware sessions
 const RedisStore = require('connect-redis').default // use to store sessions
 const { createClient } = require('redis');   // use to store sessions
@@ -55,7 +58,7 @@ app.use(
 app.use(passport.initialize());
 app.use(passport.session());
 
-// app.use()
+// app.use("/", adminRoutes);
 
 
 // flash massages
@@ -83,7 +86,7 @@ app.use((req, res, next) => {
 main().catch(err => console.log("MongoDB Connection Error:", err));
 
 async function main() {
-  await mongoose.connect("mongodb://localhost:27017/SMS");
+  await mongoose.connect(process.env.MONGO_URL);
   console.log("MongoDB Connected");
 }
 
