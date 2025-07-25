@@ -311,18 +311,22 @@ app.post("/create-account", async (req, res) => {
   const { password, confirm_password, ...otherFields } = req.body;
 
   if (password !== confirm_password) {
-    return res.send("❌ Passwords do not match");
+    req.flash("error", "❌ Passwords do not match");
+    return res.redirect("/create-account");
   }
 
   try {
-    const newAdmin = new SocitySetUp(otherFields); // create admin without password
-    await SocitySetUp.register(newAdmin, password); // hashes and saves password
+    const newAdmin = new SocitySetUp(otherFields);
+    await SocitySetUp.register(newAdmin, password); // Passport-local-mongoose handles hashing
+    req.flash("success", "✅ Account created successfully!");
     res.redirect("/admin/dashboard");
   } catch (err) {
     console.error("❌ Error while creating account:", err);
-    res.send("❌ Failed to create society account. Maybe email is already taken?");
+    req.flash("error", "❌ Failed to create society account. Email might be already used.");
+    res.redirect("/create-account");
   }
 });
+
 
 app.listen(3000, () => {
   console.log("Server is running on port 3000");
