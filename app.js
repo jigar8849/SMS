@@ -82,7 +82,8 @@ app.use("/resident", residentsRoutes);
 main().catch(err => console.log("MongoDB Connection Error:", err));
 
 async function main() {
-await mongoose.connect("mongodb://127.0.0.1:27017/SMS");
+// await mongoose.connect("mongodb://127.0.0.1:27017/SMS");
+await mongoose.connect(process.env.MONGO_URL);
   console.log("MongoDB Connected");
 }
 
