@@ -4,106 +4,106 @@
   <body>
     <div class="container mt-5">
       <h2 class="mb-4">Add New Member</h2>
-      <form method="post" action="/admin/addNewResident" id="addMemberForm">
+    <form method="post" action="/admin/addNewResident" id="addMemberForm" class="needs-validation" novalidate>
 
-        <div class="row mb-3">
-          <div class="col-md-6">
-            <label for="ownerFirstName" class="form-label">Owner First Name</label>
-            <input type="text" class="form-control" id="ownerFirstName" name="first_name" required>
-          </div>
-          <div class="col-md-6">
-            <label for="ownerLastName" class="form-label">Owner Last Name</label>
-            <input type="text" class="form-control" id="ownerLastName" name="last_name" required>
+      <div class="row mb-3">
+        <div class="col-md-6">
+          <label for="ownerFirstName" class="form-label">Owner First Name</label>
+          <input type="text" class="form-control" id="ownerFirstName" name="first_name" required>
+          <div class="invalid-feedback">First name is required</div>
+        </div>
+        <div class="col-md-6">
+          <label for="ownerLastName" class="form-label">Owner Last Name</label>
+          <input type="text" class="form-control" id="ownerLastName" name="last_name" required>
+          <div class="invalid-feedback">Last name is required</div>
+        </div>
+      </div>
+
+      <div class="row mb-3">
+        <div class="col-md-6">
+          <label for="mobileNumber" class="form-label">Mobile Number</label>
+          <input type="tel" class="form-control" id="mobileNumber" name="mobile_number" pattern="[0-9]{10}" required>
+          <div class="invalid-feedback">Enter a valid 10-digit mobile number</div>
+        </div>
+        <div class="col-md-6">
+          <label for="numberOfMembers" class="form-label">Number of Members</label>
+          <input type="number" class="form-control" id="numberOfMembers" name="number_of_member" min="1" required>
+          <div class="invalid-feedback">Number of members is required</div>
+        </div>
+      </div>
+
+      <div class="row mb-3">
+        <div class="col-md-6">
+          <label for="birthDate" class="form-label">Birth Date</label>
+          <input type="date" class="form-control" id="birthDate" name="birth_date" required>
+          <div class="invalid-feedback">Birth date is required</div>
+        </div>
+        <div class="col-md-6">
+          <label for="emergencyNumber" class="form-label">Emergency Mobile Number</label>
+          <input type="tel" class="form-control" id="emergencyNumber" name="emergency_number" pattern="[0-9]{10}" required>
+          <div class="invalid-feedback">Enter a valid 10-digit emergency number</div>
+        </div>
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label">Name of Each Member</label>
+        <div id="memberNamesContainer">
+          <div class="input-group mb-2">
+            <input type="text" class="form-control member-name-input" name="name_of_each_member[]" placeholder="Member Name" required>
+            <button type="button" class="btn btn-outline-danger" onclick="this.parentElement.remove()">
+              <i class="bi bi-x-lg"></i>
+            </button>
           </div>
         </div>
+        <button type="button" class="btn btn-secondary mt-2 bg-primary border-0" id="addMemberNameBtn">
+          <i class="bi bi-plus-lg"></i> Add Member Name
+        </button>
+      </div>
 
-
-
-
-
-        <div class="row mb-3">
-          <div class="col-md-6">
-            <label for="mobileNumber" class="form-label">Mobile Number</label>
-            <input type="tel" class="form-control" id="mobileNumber" name="mobile_number" required>
-          </div>
-          <div class="col-md-6">
-            <label for="numberOfMembers" class="form-label">Number of Members</label>
-            <input type="number" class="form-control" id="numberOfMembers" name="number_of_member" required>
-          </div>
+      <div class="row mb-3">
+        <div class="col-md-4">
+          <label for="block" class="form-label">Block</label>
+          <input type="text" class="form-control" id="block" name="block" required>
+          <div class="invalid-feedback">Block is required</div>
         </div>
-
-        <div class="row mb-3">
-          <div class="col-md-6">
-            <label for="mobileNumber" class="form-label">Birth Date</label>
-            <input type="date" class="form-control" id="mobileNumber" name="birth_date" required>
-          </div>
-           <div class="col-md-6">
-            <label for="mobileNumber" class="form-label">Emergency Mobile Number</label>
-            <input type="tel" class="form-control" id="mobileNumber" name="emergency_number" required>
-          </div>
+        <div class="col-md-4">
+          <label for="floorNumber" class="form-label">Floor Number</label>
+          <input type="number" class="form-control" id="floorNumber" name="floor_number" required>
+          <div class="invalid-feedback">Floor number is required</div>
         </div>
-
-        <div class="mb-3">
-          <label class="form-label">Name of Each Member</label>
-          <div id="memberNamesContainer">
-            <!-- Initial member name input -->
-            <div class="input-group mb-2">
-              <input type="text" class="form-control member-name-input" name="name_of_each_member[]"
-                placeholder="Member Name" required>
-              <button type="button" class="btn btn-outline-danger" onclick="this.parentElement.remove()">
-                <i class="bi bi-x-lg"></i>
-              </button>
-            </div>
-          </div>
-          <button type="button" class="btn btn-secondary mt-2 bg-primary border-0" id="addMemberNameBtn">
-            <i class="bi bi-plus-lg"></i> Add Member Name
-          </button>
+        <div class="col-md-4">
+          <label for="flatNumber" class="form-label">Flat Number</label>
+          <input type="number" class="form-control" id="flatNumber" name="flat_number" required>
+          <div class="invalid-feedback">Flat number is required</div>
         </div>
+      </div>
 
-
-        <div class="row mb-3">
-          <div class="col-md-4">
-            <label for="block" class="form-label">Block</label>
-            <input type="text" class="form-control" id="block" name="block" required>
-          </div>
-          <div class="col-md-4">
-            <label for="floorNumber" class="form-label">Floor Number</label>
-            <input type="number" class="form-control" id="floorNumber" name="floor_number" required>
-          </div>
-          <div class="col-md-4">
-            <label for="flatNumber" class="form-label">Flat Number</label>
-            <input type="number" class="form-control" id="flatNumber" name="flat_number" required>
-          </div>
+      <div class="row col-12 mb-3">
+        <div class="col-md-6">
+          <label for="fourWheeler" class="form-label">Four wheeler</label>
+          <input type="text" class="form-control" id="fourWheeler" name="four_wheeler" placeholder="GJ-11-XX-1234">
         </div>
-
-
-        <div class="row col-12">
-          <div class="col-6">
-            <label for="block" class="form-label">Four wheeler</label>
-            <input type="text" class="form-control" id="block" name="four_wheeler" placeholder="GJ-11-XX-1234" >
-          </div>
-          <div class="col-6">
-            <label for="floorNumber" class="form-label">Two wheeler</label>
-            <input type="text" class="form-control" id="floorNumber" name="two_wheeler" placeholder="GJ-01-XX-1234" >
-          </div>
+        <div class="col-md-6">
+          <label for="twoWheeler" class="form-label">Two wheeler</label>
+          <input type="text" class="form-control" id="twoWheeler" name="two_wheeler" placeholder="GJ-01-XX-1234">
         </div>
+      </div>
 
-
-
-
-        <div class="row mb-3">
-          <div class="col-md-6">
-            <label for="email" class="form-label">Email</label>
-            <input type="email" class="form-control" id="email" name="email" required>
-          </div>
-          <div class="col-md-6">
-            <label for="createPassword" class="form-label">Create Password</label>
-            <input type="password" class="form-control" id="createPassword" name="create_password" required>
-          </div>
+      <div class="row mb-3">
+        <div class="col-md-6">
+          <label for="email" class="form-label">Email</label>
+          <input type="email" class="form-control" id="email" name="email" required>
+          <div class="invalid-feedback">Valid email is required</div>
         </div>
+        <div class="col-md-6">
+          <label for="createPassword" class="form-label">Create Password</label>
+          <input type="password" class="form-control" id="createPassword" name="create_password" minlength="6" required>
+          <div class="invalid-feedback">Password must be at least 6 characters</div>
+        </div>
+      </div>
 
-        <button type="submit" class="btn btn-success fw-bold fs-5">Submit Form</button>
-      </form>
+      <button type="submit" class="btn btn-success fw-bold fs-5">Submit Form</button>
+    </form>
     </div>
 
     <script>

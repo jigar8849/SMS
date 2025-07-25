@@ -41,6 +41,7 @@ const instance = new Razorpay({
 app.use(express.json());
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
+app.use(express.static('public'));
 app.engine("ejs", ejsMate);
 app.use(express.urlencoded({ extended: true }));
 app.use(methodOverride("_method"))
@@ -230,14 +231,15 @@ app.post("/admin-login", async (req, res) => {
   const { email, create_password } = req.body;
 
   try {
-    // Try to find admin by email
     const admin = await SocitySetUp.findOne({ email });
 
+    // ❌ Not an admin
     if (!admin || admin.role !== "admin") {
-      return res.send("❌ Access denied: Not an admin or user not found");
+      req.flash("error", "Access denied. Admins only.");
+      return res.redirect("/admin-login");
     }
 
-    // Authenticate using passport-local-mongoose
+    // ✅ Try to authenticate
     const authenticatedAdmin = await new Promise((resolve, reject) => {
       SocitySetUp.authenticate()(email, create_password, (err, user, options) => {
         if (err || !user) return reject("❌ Incorrect email or password");
@@ -245,18 +247,21 @@ app.post("/admin-login", async (req, res) => {
       });
     });
 
-    // Set session if authenticated
+    // ✅ Save to session
     req.session.admin = {
       id: authenticatedAdmin._id,
       email: authenticatedAdmin.email,
       role: authenticatedAdmin.role
     };
 
+        req.flash("success", "✅ Logged in successfully!");
     res.redirect("/admin/dashboard");
   } catch (err) {
-    res.send(typeof err === "string" ? err : "❌ Login failed");
+    req.flash("error", typeof err === "string" ? err : "❌ Login failed");
+    res.redirect("/admin-login");
   }
 });
+
 
 
 app.get("/resident-login", (req, res) => {
@@ -270,14 +275,15 @@ app.post("/resident-login", async (req, res) => {
     const resident = await NewMember.findOne({ email });
 
     if (!resident) {
-      return res.send("<h1>Resident not found</h1>");
+      req.flash("error", "❌ Resident not found with that email.");
+      return res.redirect("/resident-login");
     }
 
     if (resident.role !== "resident") {
-      return res.send("❌ Access denied: Not a resident");
+      req.flash("error", "❌ Access denied. This account is not a resident.");
+      return res.redirect("/resident-login");
     }
 
-    // Use passport-local-mongoose's authenticate method
     const authenticatedResident = await new Promise((resolve, reject) => {
       NewMember.authenticate()(email, create_password, (err, user, options) => {
         if (err || !user) return reject("❌ Incorrect email or password");
@@ -285,19 +291,21 @@ app.post("/resident-login", async (req, res) => {
       });
     });
 
-    // Store session data
     req.session.addNewMember = {
       id: authenticatedResident._id,
       email: authenticatedResident.email,
       role: authenticatedResident.role
     };
 
+    req.flash("success", "✅ Logged in successfully!");
     res.redirect("/resident/dashboard");
 
   } catch (err) {
-    res.send(typeof err === "string" ? err : "❌ Login failed");
+    req.flash("error", typeof err === "string" ? err : "❌ Login failed. Please try again.");
+    res.redirect("/resident-login");
   }
 });
+
 
 app.post("/create-account", async (req, res) => {
   const { password, confirm_password, ...otherFields } = req.body;
