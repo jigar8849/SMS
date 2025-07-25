@@ -90,7 +90,6 @@ width: 92vw !important;    margin-left: 0 !important;
   }
 }
 
-
 @media (max-width: 768px) {
     body {
         margin: 0px !important;
@@ -320,6 +319,284 @@ width: 92vw !important;    margin-left: 0 !important;
         line-height: 1.5 !important;
     }
 }
+
+
+@media (max-width: 410px) {
+        body {
+            margin: 0px !important;
+            padding: 0px !important;
+            width: 100vw !important;
+            height: 100vh !important;
+            box-sizing: border-box !important;
+        }
+        
+        /* Admin dashboard container */
+        .admin-dash {
+            padding: 0.5rem !important;
+            width: 100% !important;
+            overflow-x: hidden !important;
+        }
+        
+        /* Dashboard title styling */
+        .dash-title {
+            width: 100% !important;
+            margin: 0 0 1rem 0 !important;
+            padding: 1rem !important;
+            border-radius: 0.75rem !important;
+        }
+        
+        .dash-title h1 {
+            font-size: 1.1rem !important;
+            margin: 0 !important;
+            padding: 0 !important;
+            line-height: 1.3 !important;
+        }
+        
+        .dash-title p {
+            font-size: 0.9rem !important;
+            margin: 0.5rem 0 0 0 !important;
+            padding: 0 !important;
+            line-height: 1.4 !important;
+        }
+
+        /* CRITICAL: Override Bootstrap classes with higher specificity */
+        .dash-info.d-none.d-lg-flex {
+            display: flex !important;
+            flex-direction: column !important;
+            gap: 1rem !important;
+            margin: 0 0 1.5rem 0 !important;
+            padding: 0 !important;
+            width: 100% !important;
+        }
+        
+        /* Alternative approach - target the element more specifically */
+        div.dash-info {
+            display: flex !important;
+            flex-direction: column !important;
+            gap: 1rem !important;
+            margin: 0 0 1.5rem 0 !important;
+            padding: 0 !important;
+            width: 100% !important;
+        }
+        
+        /* Dashboard cards - ONE CARD PER ROW */
+        .dash-card {
+            display: flex !important;
+            width: 100% !important;
+            margin: 0 0 1rem 0 !important;
+            padding: 1rem !important;
+            background: white !important;
+            border-radius: 0.75rem !important;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1) !important;
+            border: 1px solid #e9ecef !important;
+            justify-content: space-between !important;
+            align-items: center !important;
+            flex-shrink: 0 !important;
+            height: auto !important;
+            min-width: unset !important;
+        }
+        
+        /* Left side content of dashboard cards */
+        .dash-card > div:first-child {
+            flex: 1 !important;
+            margin: 0 !important;
+            padding: 0 !important;
+        }
+        
+        .dash-card > div:first-child p {
+            font-size: 0.85rem !important;
+            color: #6c757d !important;
+            margin-bottom: 0.25rem !important;
+            font-weight: 500 !important;
+        }
+        
+        .dash-card > div:first-child h3 {
+            font-size: 1.5rem !important;
+            font-weight: 700 !important;
+            margin: 0 !important;
+            color: #212529 !important;
+        }
+        
+        /* Right side icon of dashboard cards */
+        .dash-card > div:last-child {
+            flex-shrink: 0 !important;
+            margin: 0 !important;
+            padding: 0 !important;
+        }
+        
+        .dash-card > div:last-child i {
+            font-size: 1.5rem !important;
+            padding: 0.75rem !important;
+            border-radius: 50% !important;
+        }
+
+        /* Activity and action boxes container */
+        .active-action-boxes {
+            flex-direction: column !important;
+            gap: 1rem !important;
+            margin: 0 !important;
+            padding: 0 !important;
+            width: 100% !important;
+        }
+        
+        /* Activities and actions boxes */
+        .activities-box, .actions-box {
+            width: 100% !important;
+            margin: 0 !important;
+            padding: 0 !important;
+            border-radius: 0.75rem !important;
+            background: white !important;
+            border: 1px solid #dee2e6 !important;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1) !important;
+        }
+        
+        /* Activities section */
+        .activity-title {
+            padding: 1rem !important;
+        }
+        
+        .activity-title h5 {
+            font-size: 1rem !important;
+            margin: 0 0 1rem 0 !important;
+            font-weight: 600 !important;
+            color: #212529 !important;
+        }
+        
+        .activity-title hr {
+            margin: 0 0 1rem 0 !important;
+        }
+        
+        .activity-title ul {
+            font-size: 0.9rem !important;
+            margin: 0 !important;
+            padding: 0 !important;
+            list-style: none !important;
+        }
+        
+        .activity-title ul li {
+            padding: 0.5rem 0 !important;
+            border-bottom: 1px solid #f8f9fa !important;
+            color: #495057 !important;
+            line-height: 1.4 !important;
+        }
+        
+        .activity-title ul li:last-child {
+            border-bottom: none !important;
+        }
+        
+        /* Actions section */
+        .actions-title {
+            padding: 1rem !important;
+        }
+        
+        .actions-title h5 {
+            font-size: 1rem !important;
+            margin: 0 0 1rem 0 !important;
+            font-weight: 600 !important;
+            color: #212529 !important;
+        }
+        
+        .actions-title hr {
+            margin: 0 0 1rem 0 !important;
+        }
+        
+        /* Action boxes container */
+        .action-boxes {
+            padding: 0 1rem 1rem 1rem !important;
+        }
+        
+        .action-boxes .upper,
+        .action-boxes .lower {
+            flex-direction: column !important;
+            gap: 1rem !important;
+            margin: 0 !important;
+        }
+        
+        .action-boxes .lower {
+            margin-top: 1rem !important;
+        }
+        
+        /* Action cards - full width stacked */
+        .action-card {
+            width: 100% !important;
+            margin: 0 !important;
+            padding: 1rem !important;
+            background: #f8f9fa !important;
+            border: 1px solid #e9ecef !important;
+            border-radius: 0.5rem !important;
+            text-align: center !important;
+            transition: all 0.3s ease !important;
+            min-height: 80px !important;
+            display: flex !important;
+            flex-direction: column !important;
+            align-items: center !important;
+            justify-content: center !important;
+        }
+        
+        .action-card:hover {
+            background: #e9ecef !important;
+            transform: translateY(-2px) !important;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15) !important;
+        }
+        
+        .action-card i {
+            font-size: 1.5rem !important;
+            margin-bottom: 0.5rem !important;
+            color: #0d6efd !important;
+        }
+        
+        .action-card p {
+            margin: 0 !important;
+            font-size: 0.9rem !important;
+            font-weight: 600 !important;
+            color: #495057 !important;
+        }
+        
+        /* Links styling */
+        .action-card a,
+        a.text-decoration-none,
+        a.actionBox {
+            text-decoration: none !important;
+            color: inherit !important;
+            width: 100% !important;
+            height: 100% !important;
+            display: flex !important;
+            flex-direction: column !important;
+            align-items: center !important;
+            justify-content: center !important;
+        }
+
+        /* Bootstrap spacing overrides for small screens */
+        .ms-3, .ms-4 {
+            margin-left: 0 !important;
+        }
+        
+        .my-3, .my-4 {
+            margin-top: 0.5rem !important;
+            margin-bottom: 0.5rem !important;
+        }
+        
+        .gap-3, .gap-4 {
+            gap: 0.75rem !important;
+        }
+        
+        /* Text responsiveness */
+        .fs-2 {
+            font-size: 1.5rem !important;
+        }
+        
+        .fs-3 {
+            font-size: 1.25rem !important;
+        }
+        
+        .fs-4 {
+            font-size: 1.1rem !important;
+        }
+        
+        .fs-5 {
+            font-size: 1rem !important;
+        }
+    }
 
 
 
