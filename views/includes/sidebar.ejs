@@ -30,7 +30,7 @@
     display: block !important;
   }
   
-  /* Close button styling - default visible */
+  /* Close button styling - hidden by default */
   .sidebar-close {
     position: absolute;
     top: 15px;
@@ -43,8 +43,10 @@
     padding: 0.25rem;
     line-height: 1;
     z-index: 10;
-    display: block;
+    display: none; /* Hidden by default */
+    transition: opacity 0.3s ease;
   }
+  
   .sidebar-close:hover {
     color: #495057;
     background-color: #f8f9fa;
@@ -52,34 +54,38 @@
   }
 
   /* Desktop mode - sidebar always visible (992px and above) */
- @media (min-width: 992px) {
-  .sidebar-wrapper {
-    position: relative;
-    left: 0 !important;
-    height: 100vh;       /* full viewport height */
-    overflow: hidden;    /* hide overflow except inside content */
-    z-index: auto;
-    border: none;
-  }
+  @media (min-width: 992px) {
+    .sidebar-wrapper {
+      position: relative;
+      left: 0 !important;
+      height: 100vh;
+      overflow: hidden;
+      z-index: auto;
+      border: none;
+    }
 
-  /* Allow scrolling inside the sidebar content */
-  .sidebar-wrapper > ul.nav {
-    overflow-y: auto;
-    max-height: calc(100vh - 100px); /* leave space for header/logout */
-    padding-right: 8px;               /* space for scrollbar */
-  }
+    /* Hide close button on desktop */
+    .sidebar-close {
+      display: none !important;
+    }
 
-  /* Fix logout to bottom */
-  .sidebar-wrapper > .pt-1.logout {
-    position: sticky;
-    bottom: 0;
-    background: white;
-    padding: 1rem 1.5rem;
-    border-top: 1px solid #e0e0e0;
-    z-index: 10;
-  }
-}
+    /* Allow scrolling inside the sidebar content */
+    .sidebar-wrapper > ul.nav {
+      overflow-y: auto;
+      max-height: calc(100vh - 100px);
+      padding-right: 8px;
+    }
 
+    /* Fix logout to bottom */
+    .sidebar-wrapper > .pt-1.logout {
+      position: sticky;
+      bottom: 0;
+      background: white;
+      padding: 1rem 1.5rem;
+      border-top: 1px solid #e0e0e0;
+      z-index: 10;
+    }
+  }
 
   /* Mobile and Tablet mode (991px and below) */
   @media (max-width: 991px) {
@@ -100,9 +106,10 @@
       left: 0;
     }
     
-    /* Ensure close button is visible on mobile/tablet */
-    .sidebar-close {
+    /* Show close button only when sidebar is active on mobile/tablet */
+    .sidebar-wrapper.active .sidebar-close {
       display: block !important;
+      opacity: 1;
     }
     
     /* Navigation links adjustment */
@@ -130,7 +137,7 @@
 
 <!-- Sidebar -->
 <div id="sidebar" class="sidebar-wrapper d-flex flex-column p-3 bg-white">
-  <!-- Close button (visible on mobile and tablet) -->
+  <!-- Close button (only visible when hamburger is active on mobile/tablet) -->
   <button class="sidebar-close" id="sidebarClose" title="Close sidebar">
     <i class="bi bi-x-lg"></i>
   </button>
