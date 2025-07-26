@@ -1,254 +1,1116 @@
 <%- layout("layouts/boilerplate") %>
 
 <style>
-  .dash-card {
+/* ==========================================================================
+   BASE STYLES
+   ========================================================================== */
+.dash-card {
     width: 17rem;
     height: 8rem;
-  }
-
-@media (max-width: 576px) {
-  .payment-header {
-    flex-direction: column !important;
-    gap: 0.75rem !important;
-    align-items: stretch !important;
-  }
-  .payment-title h3 {
-    font-size: 1.2rem !important;
-    margin-bottom: 0.5rem;
-  }
-
-  .dash-info {
-    flex-wrap: wrap !important;
-    gap: 1rem !important;
-    justify-content: space-between !important;
-  }
-  .dash-card {
-    width: 48% !important;
-    min-width: 145px;
-    height: auto !important;
-    margin-bottom: 1rem;
-    font-size: 1rem;
-    display: flex !important;
-    align-items: center !important;
-    justify-content: center !important;
-    gap: 0.2rem !important;
-    padding: 1rem 0.25rem !important;
-    text-align: center;
-  }
-  .dash-card:only-child {
-    width: 100% !important;
-  }
-  .dash-card .left, .dash-card .right {
-    margin: 0 !important;
-    padding: 0 !important;
-  }
-  .dash-card .left {
-    order: 1;
-    width: 100%;
-    margin-bottom: 0.15rem;
-  }
-  .dash-card .right {
-    order: 2;
-    width: 100%;
-    margin-top: 0.2rem;
-  }
-
-  /* ---- Search & Filter side by side ---- */
-  .mt-4.border.rounded.p-3.bg-white .row {
-    display: flex !important;
-    flex-direction: row !important;
-    flex-wrap: nowrap !important;
-    gap: 0.5rem !important;
-    margin-left: 0 !important;
-    margin-right: 0 !important;
-  }
-  .mt-4.border.rounded.p-3.bg-white .col-md-9 {
-    width: 80% !important;
-    max-width: 80% !important;
-    flex: 0 0 80% !important;
-    padding-left: 0 !important;
-    padding-right: 0 !important;
-    margin-left: 0 !important;
-    margin-right: 0 !important;
-    min-width: 0;
-    box-sizing: border-box !important;
-  }
-  .mt-4.border.rounded.p-3.bg-white .col-md-3 {
-    width: 20% !important;
-    max-width: 20% !important;
-    flex: 0 0 20% !important;
-    padding-left: 0 !important;
-    padding-right: 0 !important;
-    margin-left: 0 !important;
-    margin-right: 0 !important;
-    min-width: 0;
-    box-sizing: border-box !important;
-  }
-  .mt-4.border.rounded.p-3.bg-white .input-group,
-  #vehicleFilter {
-    width: 100% !important;
-    min-width: 0 !important;
-  }
-  #searchBtn {
-    display: none !important;
-  }
-
-  /* ---- Card grid single row on mobile ---- */
-  .vehicle-info .row.g-3>.col-12,
-  .vehicle-info .row.g-3>.col-sm-6,
-  .vehicle-info .row.g-3>.col-md-4 {
-    width: 100% !important;
-    max-width: 100% !important;
-    flex: 0 0 100% !important;
-  }
-  .vehicle-info .card {
-    margin-bottom: 1rem;
-  }
-  .d-flex.flex-column.flex-sm-row.gap-3.mt-3 {
-    flex-direction: column !important;
-    gap: 0.5rem !important;
-  }
-  .btn, .btn.w-100 {
-    width: 100% !important;
-  }
-  .info-head h5 {
-    font-size: 1rem !important;
-  }
 }
 
+/* ==========================================================================
+   COMPREHENSIVE MOBILE & LAPTOP MEDIA QUERIES
+   ========================================================================== */
+
+/* EXTRA LARGE LAPTOPS & DESKTOPS (1920px+) */
+@media only screen and (min-width: 1920px) {
+    .parking-container {
+        max-width: 1800px;
+        margin: 0 auto;
+        padding: 3rem;
+    }
+    
+    .payment-title h3 {
+        font-size: 2.2rem;
+    }
+    
+    .dash-info {
+        gap: 2rem !important;
+    }
+    
+    .dash-card {
+        width: 20rem !important;
+        height: 9rem !important;
+        padding: 1.5rem;
+    }
+    
+    .dash-card h3 {
+        font-size: 2rem;
+    }
+    
+    .dash-card i {
+        font-size: 2rem !important;
+    }
+}
+
+/* LARGE LAPTOPS (1600px - 1919px) */
+@media only screen and (min-width: 1600px) and (max-width: 1919px) {
+    .parking-container {
+        padding: 2.5rem;
+    }
+    
+    .payment-title h3 {
+        font-size: 2rem;
+    }
+    
+    .dash-card {
+        width: 18.5rem !important;
+        height: 8.5rem !important;
+    }
+    
+    .dash-card h3 {
+        font-size: 1.8rem;
+    }
+}
+
+/* MEDIUM LAPTOPS (1440px - 1599px) */
+@media only screen and (min-width: 1440px) and (max-width: 1599px) {
+    .parking-container {
+        padding: 2rem;
+    }
+    
+    .payment-title h3 {
+        font-size: 1.9rem;
+    }
+    
+    .dash-card {
+        width: 18rem !important;
+        height: 8.2rem !important;
+    }
+}
+
+/* SMALL LAPTOPS (1366px - 1439px) */
+@media only screen and (min-width: 1366px) and (max-width: 1439px) {
+    .parking-container {
+        padding: 1.75rem;
+    }
+    
+    .payment-title h3 {
+        font-size: 1.8rem;
+    }
+    
+    .dash-card {
+        width: 17.5rem !important;
+        height: 8rem !important;
+    }
+}
+
+/* STANDARD LAPTOPS (1200px - 1365px) */
+@media only screen and (min-width: 1200px) and (max-width: 1365px) {
+    .parking-container {
+        padding: 1.5rem;
+    }
+    
+    .payment-title h3 {
+        font-size: 1.7rem;
+    }
+    
+    .dash-card {
+        width: 16.5rem !important;
+        height: 7.8rem !important;
+    }
+}
+
+/* LARGE TABLETS LANDSCAPE (1024px - 1199px) */
+@media only screen and (min-width: 1024px) and (max-width: 1199px) {
+    .parking-container {
+        padding: 1.25rem;
+    }
+    
+    .payment-header {
+        flex-direction: row !important;
+        align-items: center;
+    }
+    
+    .payment-title h3 {
+        font-size: 1.6rem;
+    }
+    
+    .dash-info {
+        gap: 1.5rem !important;
+        flex-wrap: wrap !important;
+    }
+    
+    .dash-card {
+        width: 15rem !important;
+        height: 7.5rem !important;
+        min-width: 280px;
+    }
+    
+    .dash-card .left {
+        margin-left: 1rem !important;
+        margin-top: 1rem !important;
+    }
+    
+    .dash-card h3 {
+        font-size: 1.5rem;
+    }
+    
+    .dash-card p {
+        font-size: 0.9rem;
+    }
+    
+    .dash-card i {
+        font-size: 1.5rem !important;
+        padding: 0.75rem !important;
+    }
+    
+    .vehicle-info .card {
+        min-height: 200px;
+    }
+}
+
+/* MEDIUM TABLETS PORTRAIT (834px - 1023px) */
+@media only screen and (min-width: 834px) and (max-width: 1023px) {
+    .parking-container {
+        padding: 1rem;
+    }
+    
+    .payment-header {
+        flex-direction: column !important;
+        gap: 1rem !important;
+        align-items: stretch !important;
+    }
+    
+    .payment-title h3 {
+        font-size: 1.5rem;
+        text-align: center;
+    }
+    
+    .dash-info {
+        gap: 1.25rem !important;
+        flex-wrap: wrap !important;
+        justify-content: space-between !important;
+    }
+    
+    .dash-card {
+        width: 48% !important;
+        min-width: 300px !important;
+        height: 7rem !important;
+    }
+    
+    .dash-card .left {
+        margin-left: 1rem !important;
+        margin-top: 1rem !important;
+    }
+    
+    .dash-card h3 {
+        font-size: 1.4rem;
+    }
+    
+    .dash-card p {
+        font-size: 0.85rem;
+        margin-bottom: 0.5rem;
+    }
+    
+    .dash-card i {
+        font-size: 1.4rem !important;
+        padding: 0.6rem !important;
+    }
+    
+    .row.g-3.align-items-center {
+        flex-direction: column !important;
+        gap: 1rem !important;
+    }
+    
+    .col-md-9, .col-md-3 {
+        width: 100% !important;
+    }
+    
+    .input-group button {
+        font-size: 0.9rem;
+        padding: 0.6rem 1rem !important;
+    }
+    
+    .vehicle-info .row.g-3 .col-md-4 {
+        width: 50% !important;
+    }
+}
+
+/* SMALL TABLETS PORTRAIT (768px - 833px) */
+@media only screen and (min-width: 768px) and (max-width: 833px) {
+    .parking-container {
+        padding: 1rem;
+    }
+    
+    .payment-header {
+        flex-direction: column !important;
+        gap: 1rem !important;
+        align-items: stretch !important;
+    }
+    
+    .payment-title h3 {
+        font-size: 1.4rem;
+        text-align: center;
+        margin-bottom: 0;
+    }
+    
+     .dash-info {
+        gap: 1rem !important;
+        flex-direction: column !important;
+        align-items: center !important; /* Center align cards */
+        justify-content: center !important;
+    }
+    
+    .dash-card {
+        width: 100% !important;
+        max-width: 500px !important; /* Limit max width for better appearance */
+        height: 6.5rem !important;
+        min-height: 6rem;
+        margin: 0 auto !important; /* Center the card */
+        display: flex !important;
+        align-items: center !important;
+        justify-content: space-between !important;
+    }
+    
+    .dash-card .left {
+        margin-left: 1.5rem !important;
+        margin-top: 0 !important;
+        flex: 1 !important;
+        display: flex !important;
+        flex-direction: column !important;
+        justify-content: center !important;
+    }
+    
+    .dash-card .right {
+        margin-top: 0 !important;
+        margin-right: 1.5rem !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+    }
+    
+    .dash-card h3 {
+        font-size: 1.3rem;
+        margin: 0;
+    }
+    
+    .dash-card p {
+        font-size: 0.8rem;
+        margin-bottom: 0.4rem;
+    }
+    
+    .dash-card i {
+        font-size: 1.3rem !important;
+        padding: 0.5rem !important;
+    }
+    
+    .row.g-3.align-items-center {
+        flex-direction: column !important;
+        gap: 1rem !important;
+    }
+    
+    .col-md-9, .col-md-3 {
+        width: 100% !important;
+    }
+    
+    .input-group {
+        flex-wrap: wrap !important;
+        gap: 0.5rem !important;
+    }
+    
+    .input-group input {
+        flex: 1 !important;
+        min-width: 200px !important;
+    }
+    
+    .input-group button {
+        flex: none !important;
+        width: 100px !important;
+        font-size: 0.85rem;
+    }
+    
+    .form-select {
+        font-size: 0.9rem;
+        padding: 0.6rem;
+    }
+    
+    .vehicle-info .row.g-3 .col-md-4 {
+        width: 100% !important;
+    }
+    
+    .vehicle-info .card {
+        margin-bottom: 1rem;
+    }
+}
+
+/* LARGE PHONES & SMALL TABLETS (576px - 767px) */
+@media only screen and (min-width: 576px) and (max-width: 767px) {
+    .parking-container {
+        padding: 0.75rem;
+    }
+    
+    .payment-header {
+        flex-direction: column !important;
+        gap: 1rem !important;
+        align-items: stretch !important;
+    }
+    
+    .payment-title h3 {
+        font-size: 1.3rem;
+        text-align: center;
+        margin-bottom: 0;
+    }
+    
+   .dash-info {
+        gap: 1rem !important;
+        flex-direction: column !important;
+        align-items: center !important;
+        justify-content: center !important;
+        width: 100% !important;
+    }
+    
+    .dash-card {
+        width: 100% !important;
+        max-width: 450px !important;
+        height: 6rem !important;
+        min-height: 5.5rem;
+        margin: 0 auto !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: space-between !important;
+        padding: 1rem !important;
+    }
+    
+     .dash-card .left {
+        margin-left: 0 !important;
+        margin-top: 0 !important;
+        flex: 1 !important;
+        display: flex !important;
+        flex-direction: column !important;
+        justify-content: center !important;
+    }
+    
+    .dash-card .right {
+        margin-top: 0 !important;
+        margin-right: 0 !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+    }
+    
+    .dash-card h3 {
+        font-size: 1.2rem;
+        margin: 0;
+    }
+    
+    .dash-card p {
+        font-size: 0.75rem;
+        margin-bottom: 0.3rem;
+    }
+    
+    .dash-card i {
+        font-size: 1.2rem !important;
+        padding: 0.4rem !important;
+    }
+    
+    .row.g-3.align-items-center {
+        flex-direction: column !important;
+        gap: 0.75rem !important;
+    }
+    
+    .col-md-9, .col-md-3 {
+        width: 100% !important;
+    }
+    
+    .input-group {
+        flex-direction: column !important;
+        gap: 0.5rem !important;
+    }
+    
+    .input-group input {
+        width: 100% !important;
+        font-size: 0.85rem;
+        padding: 0.6rem;
+    }
+    
+    .input-group button {
+        width: 100% !important;
+        font-size: 0.85rem;
+        padding: 0.6rem;
+        min-height: 44px;
+    }
+    
+    .form-select {
+        width: 100% !important;
+        font-size: 0.85rem;
+        padding: 0.6rem;
+        min-height: 44px;
+    }
+    
+    .vehicle-info .row.g-3 .col-sm-6 {
+        width: 100% !important;
+    }
+    
+    .vehicle-info .card {
+        margin-bottom: 0.75rem;
+        font-size: 0.9rem;
+    }
+    
+    .vehicle-info .card h4 {
+        font-size: 1.1rem;
+    }
+    
+    .vehicle-info .card .fs-5 {
+        font-size: 0.85rem !important;
+    }
+    
+    .vehicle-info .card .btn {
+        font-size: 0.8rem;
+        padding: 0.5rem 1rem;
+    }
+}
+
+/* STANDARD MOBILE PHONES (480px - 575px) */
+@media only screen and (min-width: 480px) and (max-width: 575px) {
+    .parking-container {
+        padding: 0.5rem;
+    }
+    
+    .payment-header {
+        flex-direction: column !important;
+        gap: 0.75rem !important;
+        align-items: stretch !important;
+    }
+    
+    .payment-title h3 {
+        font-size: 1.2rem;
+        text-align: center;
+        margin-bottom: 0;
+    }
+    
+    .dash-info {
+        gap: 0.75rem !important;
+        flex-direction: column !important;
+        align-items: center !important;
+        justify-content: center !important;
+        width: 100% !important;
+        padding: 0 1rem !important;
+    }
+    
+     .dash-card {
+        width: 100% !important;
+        max-width: 400px !important;
+        height: 5.5rem !important;
+        min-height: 5rem;
+        margin: 0 auto !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: space-between !important;
+        padding: 0.75rem 1rem !important;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1) !important;
+        border-radius: 0.75rem !important;
+    }
+    
+    .dash-card .left {
+        margin-left: 0 !important;
+        margin-top: 0 !important;
+        flex: 1 !important;
+        display: flex !important;
+        flex-direction: column !important;
+        justify-content: center !important;
+    }
+    
+    .dash-card .right {
+        margin-top: 0 !important;
+        margin-right: 0 !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        flex-shrink: 0 !important;
+    }
+    
+    .dash-card h3 {
+        font-size: 1.1rem !important;
+        margin: 0 !important;
+        text-align: left !important;
+    }
+    
+    .dash-card p {
+        font-size: 0.8rem !important;
+        margin-bottom: 0.25rem !important;
+        text-align: left !important;
+    }
+    
+    .dash-card i {
+        font-size: 1.1rem !important;
+        padding: 0.35rem !important;
+    }
+    
+    .row.g-3.align-items-center {
+        flex-direction: column !important;
+        gap: 0.5rem !important;
+    }
+    
+    .col-md-9, .col-md-3 {
+        width: 100% !important;
+    }
+    
+    .input-group {
+        flex-direction: column !important;
+        gap: 0.5rem !important;
+    }
+    
+    .input-group input {
+        width: 100% !important;
+        font-size: 0.8rem;
+        padding: 0.5rem;
+    }
+    
+    .input-group button {
+        width: 100% !important;
+        font-size: 0.8rem;
+        padding: 0.5rem;
+        min-height: 44px;
+    }
+    
+    .form-select {
+        width: 100% !important;
+        font-size: 0.8rem;
+        padding: 0.5rem;
+        min-height: 44px;
+    }
+    
+    .vehicle-info .info-head h5 {
+        font-size: 1rem;
+    }
+    
+    .vehicle-info .card {
+        margin-bottom: 0.5rem;
+        font-size: 0.85rem;
+        padding: 0.75rem !important;
+    }
+    
+    .vehicle-info .card h4 {
+        font-size: 1rem;
+    }
+    
+    .vehicle-info .card .fs-1 {
+        font-size: 1.5rem !important;
+    }
+    
+    .vehicle-info .card .fs-5 {
+        font-size: 0.8rem !important;
+    }
+    
+    .vehicle-info .card .btn {
+        font-size: 0.75rem;
+        padding: 0.4rem 0.8rem;
+    }
+    
+    .vehicle-info .card .d-flex.gap-3 {
+        gap: 0.5rem !important;
+    }
+}
+
+/* SMALL MOBILE PHONES (410px - 479px) */
+@media only screen and (min-width: 410px) and (max-width: 479px) {
+  .parking-container {
+        padding: 0.5rem !important;
+    }
+    
+    .payment-title h3 {
+        font-size: 1.1rem;
+    }
+
+       .dash-info {
+        gap: 0.5rem !important;
+        flex-direction: column !important;
+        align-items: center !important;
+        justify-content: center !important;
+        width: 100% !important;
+        padding: 0 0.5rem !important;
+    }
+    
+    .dash-card {
+        width: 100% !important;
+        max-width: 350px !important;
+        height: 5rem !important;
+        min-height: 4.5rem;
+        margin: 0 auto !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: space-between !important;
+        padding: 0.75rem !important;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1) !important;
+        border-radius: 0.75rem !important;
+    }
+    
+    .dash-card .left {
+        margin-left: 0 !important;
+        margin-top: 0 !important;
+        flex: 1 !important;
+        display: flex !important;
+        flex-direction: column !important;
+        justify-content: center !important;
+    }
+    
+    .dash-card .right {
+        margin-top: 0 !important;
+        margin-right: 0 !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        flex-shrink: 0 !important;
+    }
+    
+    .dash-card h3 {
+        font-size: 1rem !important;
+        margin: 0 !important;
+        text-align: left !important;
+    }
+    
+    .dash-card p {
+        font-size: 0.75rem !important;
+        margin-bottom: 0.2rem !important;
+        text-align: left !important;
+    }
+    
+    .dash-card i {
+        font-size: 1rem !important;
+        padding: 0.35rem !important;
+    }
+    
+    .input-group input,
+    .input-group button,
+    .form-select {
+        font-size: 0.75rem;
+        padding: 0.45rem;
+    }
+    
+    .vehicle-info .card {
+        font-size: 0.8rem;
+        padding: 0.6rem !important;
+    }
+    
+    .vehicle-info .card h4 {
+        font-size: 0.9rem;
+    }
+    
+    .vehicle-info .card .fs-1 {
+        font-size: 1.3rem !important;
+    }
+    
+    .vehicle-info .card .fs-5 {
+        font-size: 0.75rem !important;
+    }
+    
+    .vehicle-info .card .btn {
+        font-size: 0.7rem;
+        padding: 0.35rem 0.6rem;
+    }
+}
+
+/* VERY SMALL MOBILE PHONES (360px - 409px) */
+@media only screen and (min-width: 360px) and (max-width: 409px) {
+    .parking-container {
+        padding: 0.4rem !important;
+    }
+    
+    .payment-title h3 {
+        font-size: 1rem;
+    }
+    
+    .dash-info {
+        gap: 0.5rem !important;
+        flex-direction: column !important;
+        align-items: center !important;
+        justify-content: center !important;
+        width: 100% !important;
+        padding: 0 0.4rem !important;
+    }
+    
+    .dash-card {
+        width: 100% !important;
+        max-width: 320px !important;
+        height: 4.5rem !important;
+        min-height: 4rem;
+        margin: 0 auto !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: space-between !important;
+        padding: 0.6rem !important;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1) !important;
+        border-radius: 0.6rem !important;
+    }
+    
+    .dash-card .left {
+        margin-left: 0 !important;
+        margin-top: 0 !important;
+        flex: 1 !important;
+        display: flex !important;
+        flex-direction: column !important;
+        justify-content: center !important;
+    }
+    
+    .dash-card .right {
+        margin-top: 0 !important;
+        margin-right: 0 !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        flex-shrink: 0 !important;
+    }
+    
+    .dash-card h3 {
+        font-size: 0.9rem !important;
+        margin: 0 !important;
+        text-align: left !important;
+    }
+    
+    .dash-card p {
+        font-size: 0.7rem !important;
+        margin-bottom: 0.15rem !important;
+        text-align: left !important;
+    }
+    
+    .dash-card i {
+        font-size: 0.9rem !important;
+        padding: 0.3rem !important;
+    }
+    
+    .input-group input,
+    .input-group button,
+    .form-select {
+        font-size: 0.7rem;
+        padding: 0.4rem;
+    }
+    
+    .vehicle-info .info-head h5 {
+        font-size: 0.9rem;
+    }
+    
+    .vehicle-info .card {
+        font-size: 0.75rem;
+        padding: 0.5rem !important;
+    }
+    
+    .vehicle-info .card h4 {
+        font-size: 0.85rem;
+    }
+    
+    .vehicle-info .card .fs-1 {
+        font-size: 1.1rem !important;
+    }
+    
+    .vehicle-info .card .fs-5 {
+        font-size: 0.7rem !important;
+    }
+    
+    .vehicle-info .card .btn {
+        font-size: 0.65rem;
+        padding: 0.3rem 0.5rem;
+    }
+    
+    .vehicle-info .card .badge {
+        font-size: 0.6rem;
+    }
+}
+
+/* EXTRA SMALL MOBILE PHONES (320px - 359px) */
+@media only screen and (max-width: 359px) {
+    .parking-container {
+        padding: 0.3rem !important;
+    }
+    
+    .payment-title h3 {
+        font-size: 0.9rem;
+    }
+    
+     .dash-info {
+        gap: 0.4rem !important;
+        flex-direction: column !important;
+        align-items: center !important;
+        justify-content: center !important;
+        width: 100% !important;
+        padding: 0 0.3rem !important;
+    }
+    
+    .dash-card {
+        width: 100% !important;
+        max-width: 290px !important;
+        height: 4rem !important;
+        min-height: 3.5rem;
+        margin: 0 auto !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: space-between !important;
+        padding: 0.5rem !important;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1) !important;
+        border-radius: 0.5rem !important;
+    }
+    
+    .dash-card .left {
+        margin-left: 0 !important;
+        margin-top: 0 !important;
+        flex: 1 !important;
+        display: flex !important;
+        flex-direction: column !important;
+        justify-content: center !important;
+    }
+    
+    .dash-card .right {
+        margin-top: 0 !important;
+        margin-right: 0 !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        flex-shrink: 0 !important;
+    }
+    
+    .dash-card h3 {
+        font-size: 0.8rem !important;
+        margin: 0 !important;
+        text-align: left !important;
+    }
+    
+    .dash-card p {
+        font-size: 0.65rem !important;
+        margin-bottom: 0.1rem !important;
+        text-align: left !important;
+    }
+    
+    .dash-card i {
+        font-size: 0.8rem !important;
+        padding: 0.25rem !important;
+    }
+    
+    .input-group input,
+    .input-group button,
+    .form-select {
+        font-size: 0.65rem;
+        padding: 0.35rem;
+    }
+    
+    .vehicle-info .card {
+        font-size: 0.7rem;
+        padding: 0.4rem !important;
+    }
+    
+    .vehicle-info .card h4 {
+        font-size: 0.8rem;
+    }
+    
+    .vehicle-info .card .fs-1 {
+        font-size: 1rem !important;
+    }
+    
+    .vehicle-info .card .fs-5 {
+        font-size: 0.65rem !important;
+    }
+    
+    .vehicle-info .card .btn {
+        font-size: 0.6rem;
+        padding: 0.25rem 0.4rem;
+    }
+}
+
+/* LANDSCAPE ORIENTATION FOR MOBILE & TABLETS */
+@media only screen and (max-width: 1023px) and (orientation: landscape) {
+    .parking-container {
+        padding: 0.5rem;
+    }
+    
+    .payment-header {
+        flex-direction: row !important;
+        gap: 1rem !important;
+        align-items: center !important;
+    }
+    
+    .payment-title h3 {
+        font-size: 1.1rem;
+        text-align: left;
+        margin: 0;
+    }
+    
+    .dash-info {
+        flex-direction: row !important;
+        gap: 1rem !important;
+        flex-wrap: wrap !important;
+    }
+    
+    .dash-card {
+        width: 23% !important;
+        min-width: 180px !important;
+        height: 4rem !important;
+    }
+    
+    .dash-card .left {
+        margin-left: 0.5rem !important;
+        margin-top: 0.5rem !important;
+    }
+    
+    .dash-card .right {
+        margin-top: 0.75rem !important;
+        margin-right: 0.5rem !important;
+    }
+    
+    .dash-card h3 {
+        font-size: 0.9rem;
+    }
+    
+    .dash-card p {
+        font-size: 0.65rem;
+    }
+    
+    .dash-card i {
+        font-size: 0.9rem !important;
+        padding: 0.3rem !important;
+    }
+    
+    .row.g-3.align-items-center {
+        flex-direction: row !important;
+        gap: 1rem !important;
+    }
+    
+    .col-md-9 {
+        width: 70% !important;
+    }
+    
+    .col-md-3 {
+        width: 30% !important;
+    }
+    
+    .input-group {
+        flex-direction: row !important;
+    }
+    
+    .vehicle-info .row.g-3 .col-sm-6 {
+        width: 50% !important;
+    }
+}
+
+/* GENERAL MOBILE OPTIMIZATIONS */
 @media (max-width: 768px) {
-  body {
-    margin: 0 !important;
-    padding: 0 !important;
-    width: 100vw;
-    height: 100vh;
-    box-sizing: border-box;
-  }
-
-  /* Title Section */
-  .payment-header {
-    flex-direction: column !important;
-    gap: 1rem !important;
-    align-items: flex-start !important;
-    padding-left: 1rem;
-  }
-  .payment-title h3 {
-    font-size: 1.3rem !important;
-    margin-bottom: 0.6rem !important;
-  }
-
-  /* Dashboard Cards */
-  .dash-info {
-    flex-wrap: wrap !important;
-    gap: 1.3rem !important;
-    justify-content: space-between !important;
-    margin-left: 0 !important;
-    padding-left: 1rem;
-    padding-right: 1rem;
-  }
-  .dash-card {
-    width: 48% !important; /* Two cards per row */
-    min-width: 160px;
-    height: auto !important;
-    margin-bottom: 1.3rem;
-    font-size: 1.05rem;
-    display: flex !important;
-    align-items: center !important;
-    justify-content: space-between !important;
-    gap: 0.3rem !important;
-    padding: 1.2rem 0.5rem !important;
-    text-align: center;
-    border-radius: 1rem !important;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-  }
-  .dash-card .left, .dash-card .right {
-    margin: 0 !important;
-    padding: 0 !important;
-  }
-  .dash-card .left {
-    order: 1;
-    width: 100%;
-    margin-bottom: 0.15rem !important;
-  }
-  .dash-card .right {
-    order: 2;
-    width: 100%;
-    margin-top: 0.2rem !important;
-  }
-
-  /* Search and Filter */
-  .mt-4.border.rounded.p-3.bg-white .row {
-    display: flex !important;
-    flex-direction: row !important;
-    flex-wrap: nowrap !important;
-    gap: 0.6rem !important;
-    margin-left: 0 !important;
-    margin-right: 0 !important;
-    padding-left: 1rem;
-    padding-right: 1rem;
-  }
-  .mt-4.border.rounded.p-3.bg-white .col-md-9 {
-    width: 75% !important;
-    max-width: 75% !important;
-    flex: 0 0 75% !important;
-    padding-left: 0 !important;
-    padding-right: 0 !important;
-    margin-left: 0 !important;
-    margin-right: 0 !important;
-    min-width: 0;
-    box-sizing: border-box !important;
-  }
-  .mt-4.border.rounded.p-3.bg-white .col-md-3 {
-    width: 25% !important;
-    max-width: 25% !important;
-    flex: 0 0 25% !important;
-    padding-left: 0 !important;
-    padding-right: 0 !important;
-    margin-left: 0 !important;
-    margin-right: 0 !important;
-    min-width: 0;
-    box-sizing: border-box !important;
-  }
-  .mt-4.border.rounded.p-3.bg-white .input-group,
-  #vehicleFilter {
-    width: 100% !important;
-    min-width: 0 !important;
-  }
-  #searchBtn {
-    display: none !important;
-  }
-
-  /* Vehicle Info Cards — one per row for tablets */
-  .vehicle-info .row.g-3 > .col-12,
-  .vehicle-info .row.g-3 > .col-sm-6,
-  .vehicle-info .row.g-3 > .col-md-4 {
-    width: 100% !important;
-    max-width: 100% !important;
-    flex: 0 0 100% !important;
-    margin-bottom: 1rem;
-  }
-
-  .vehicle-info .card {
-    margin-bottom: 1rem;
-    font-size: 0.95rem;
-    padding: 1rem;
-  }
-  .d-flex.flex-column.flex-sm-row.gap-3.mt-3 {
-    flex-direction: column !important;
-    gap: 0.5rem !important;
-  }
-  .btn, .btn.w-100 {
-    width: 100% !important;
-  }
-  .info-head h5 {
-    font-size: 1.15rem !important;
-    margin-left: 1rem;
-  }
+    .input-group input,
+    .input-group button,
+    .form-select,
+    .vehicle-info .card .btn {
+        min-height: 44px;
+        cursor: pointer;
+        -webkit-tap-highlight-color: transparent;
+        touch-action: manipulation;
+    }
+    
+    .dash-card {
+        transition: all 0.3s ease;
+        cursor: pointer;
+    }
+    
+    .dash-card:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+    }
+     .vehicle-info .container {
+        padding: 0 1rem !important;
+    }
+    
+    .vehicle-info .row.g-3 {
+        justify-content: center !important;
+        margin: 0 !important;
+    }
+    
+    .vehicle-info .row.g-3 > * {
+        display: flex !important;
+        justify-content: center !important;
+    }
+    
+    .vehicle-info .card {
+        width: 100% !important;
+        max-width: 400px !important;
+        margin: 0 auto 1rem auto !important;
+        display: flex !important;
+        flex-direction: column !important;
+    }
+    
+    .vehicle-info .card .row.align-items-center {
+        margin: 0 !important;
+        width: 100% !important;
+    }
+    
+    .vehicle-info .card .col-auto,
+    .vehicle-info .card .col {
+        padding: 0.25rem !important;
+    }
+    .vehicle-info .card {
+        transition: all 0.3s ease;
+    }
+    
+    .vehicle-info .card:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    }
+    
+    .btn:hover {
+        transform: translateY(-1px);
+    }
+    
+    .btn:active {
+        transform: translateY(1px);
+        transition: transform 0.1s ease;
+    }
+    
+    html, body {
+        overflow-x: hidden;
+        width: 100%;
+    }
+    
+    html {
+        scroll-behavior: smooth;
+    }
+    
+    * {
+        box-sizing: border-box;
+    }
+    
+    .form-control:focus,
+    .form-select:focus {
+        border-color: #0d6efd;
+        box-shadow: 0 0 0 0.2rem rgba(13, 110, 253, 0.25);
+    }
 }
 
+/* HIGH-DPI/RETINA DISPLAYS */
+@media only screen and (-webkit-min-device-pixel-ratio: 2),
+       only screen and (min-resolution: 192dpi),
+       only screen and (min-resolution: 2dppx) {
+    .dash-card i {
+        font-weight: 500;
+    }
+    
+    .vehicle-info .card .bi {
+        font-weight: 400;
+    }
+    
+    .payment-title h3 {
+        font-weight: 700;
+    }
+}
 
-  
+/* PRINT MEDIA QUERIES */
+@media print {
+    .input-group button,
+    .vehicle-info .card .btn {
+        display: none !important;
+    }
+    
+    .parking-container {
+        padding: 0 !important;
+    }
+    
+    .dash-card,
+    .vehicle-info .card {
+        box-shadow: none !important;
+        border: 1px solid #000;
+    }
+    
+    body {
+        background-color: white !important;
+    }
+}
 </style>
+
 
 <body>
   <div class="parking-container">

@@ -1,757 +1,928 @@
 <%- layout("layouts/boilerplate") %>
 
   <style>
-    /* Base Styles */
+/* ==========================================================================
+   BASE STYLES
+   ========================================================================== */
+body {
+    background-color: #f3f4f6;
+}
+
+.payment-box {
+    width: 23rem;
+    height: 6.3rem;
+}
+
+.serach-box {
+    height: 5rem;
+}
+
+.select-status {
+    height: 2.9rem;
+    margin-top: 1rem;
+    margin-right: 1rem;
+    width: 12rem;
+}
+
+/* ==========================================================================
+   COMPREHENSIVE MOBILE & TABLET MEDIA QUERIES
+   ========================================================================== */
+
+/* LARGE TABLETS - iPad Pro, large tablets (1024px) */
+@media (max-width: 1024px) {
+    .payment-container {
+        padding: 1rem;
+    }
+    
+    .payment-header {
+        flex-direction: column !important;
+        gap: 1rem !important;
+        align-items: stretch !important;
+    }
+    
+    .payment-title h3 {
+        font-size: 1.8rem !important;
+        text-align: center !important;
+    }
+    
+    .export-btn {
+        display: flex !important;
+        gap: 1rem !important;
+        justify-content: center !important;
+        flex-wrap: wrap !important;
+    }
+    
+    .export-btn a {
+        flex: 1 !important;
+        text-align: center !important;
+        max-width: 200px !important;
+        min-width: 180px !important;
+        padding: 0.75rem 1rem !important;
+        font-size: 0.95rem !important;
+        white-space: nowrap !important;
+    }
+    
+    .payment-info {
+        gap: 1.5rem !important;
+        flex-wrap: wrap !important;
+    }
+    
     .payment-box {
-        width: 23rem;
-        height: 6.3rem;
+        width: 30% !important;
+        min-width: 280px !important;
+        height: auto !important;
+        min-height: 6rem !important;
+        padding: 1rem !important;
+        box-shadow: 0 3px 12px rgba(0, 0, 0, 0.1) !important;
     }
-
+    
+    .payment-box .left {
+        margin: 0 !important;
+    }
+    
+    .payment-box .right {
+        margin: 0 !important;
+    }
+    
+    .payment-box h5 {
+        font-size: 1.8rem !important;
+    }
+    
+    .payment-box p {
+        font-size: 0.95rem !important;
+        margin-bottom: 0.5rem !important;
+    }
+    
+    .payment-box i {
+        font-size: 1.8rem !important;
+        padding: 0.75rem !important;
+    }
+    
     .serach-box {
-        height: 5rem;
+        height: auto !important;
+        padding: 1rem !important;
     }
-
+    
     .select-status {
-        height: 2.9rem;
-        margin-top: 1rem;
-        margin-right: 1rem;
-        width: 12rem;
+        width: 200px !important;
+        height: auto !important;
+        margin: 0 !important;
     }
+    
+    .table-responsive {
+        margin-top: 1.5rem !important;
+    }
+    
+    .table {
+        font-size: 0.9rem !important;
+        min-width: 800px !important;
+    }
+}
 
-    /* LARGE TABLETS - iPad Pro, large tablets (1024px) */
-    @media (max-width: 1024px) {
-        .payment-container {
-            padding: 1rem;
-        }
-        
-        .payment-header {
-            flex-direction: column !important;
-            gap: 1rem !important;
-            align-items: stretch !important;
-        }
-        
-        .payment-title h3 {
-            font-size: 1.8rem !important;
-            text-align: center !important;
-        }
-        
-        .export-btn {
-            display: flex !important;
-            gap: 1rem !important;
-            justify-content: center !important;
-        }
-        
-        .export-btn a {
-            flex: 1 !important;
-            text-align: center !important;
-            max-width: 200px !important;
-        }
-        
-        .payment-info {
-            gap: 1.5rem !important;
-            flex-wrap: wrap !important;
-        }
-        
-        .payment-box {
-            width: 30% !important;
-            min-width: 280px !important;
-            height: auto !important;
-            min-height: 6rem !important;
-            padding: 1rem !important;
-            box-shadow: 0 3px 12px rgba(0, 0, 0, 0.1) !important;
-        }
-        
-        .payment-box .left {
-            margin: 0 !important;
-        }
-        
-        .payment-box .right {
-            margin: 0 !important;
-        }
-        
-        .payment-box h5 {
-            font-size: 1.8rem !important;
-        }
-        
-        .payment-box p {
-            font-size: 0.95rem !important;
-            margin-bottom: 0.5rem !important;
-        }
-        
-        .payment-box i {
-            font-size: 1.8rem !important;
-            padding: 0.75rem !important;
-        }
-        
-        .serach-box {
-            height: auto !important;
-            padding: 1rem !important;
-        }
-        
-        .select-status {
-            width: 200px !important;
-            height: auto !important;
-            margin: 0 !important;
-        }
-        
-        .table-responsive {
-            margin-top: 1.5rem !important;
-        }
-        
-        .table {
-            font-size: 0.9rem !important;
-            min-width: 800px !important;
-        }
+/* TABLET PORTRAIT - iPad, medium tablets (768px) */
+@media (max-width: 768px) {
+    .payment-container {
+        padding: 1rem;
     }
+    
+    .payment-header {
+        flex-direction: column !important;
+        gap: 1rem !important;
+        align-items: stretch !important;
+    }
+    
+    .payment-title h3 {
+        font-size: 1.6rem !important;
+        text-align: center !important;
+        margin-bottom: 0 !important;
+    }
+    
+    .export-btn {
+        display: flex !important;
+        gap: 0.75rem !important;
+        justify-content: center !important;
+        flex-direction: row !important;
+        flex-wrap: wrap !important;
+    }
+    
+    .export-btn a {
+        flex: 1 !important;
+        text-align: center !important;
+        font-size: 0.9rem !important;
+        padding: 0.75rem 1rem !important;
+        min-width: 160px !important;
+        max-width: 200px !important;
+        margin: 0 !important;
+        border-radius: 0.5rem !important;
+        white-space: nowrap !important;
+        transition: all 0.3s ease !important;
+        min-height: 44px !important;
+    }
+    
+    .export-btn a:hover {
+        transform: translateY(-2px) !important;
+        box-shadow: 0 4px 12px rgba(13, 110, 253, 0.3) !important;
+    }
+    
+    .payment-info {
+        gap: 1.25rem !important;
+        flex-wrap: wrap !important;
+        justify-content: space-between !important;
+    }
+    
+    .payment-box {
+        width: 48% !important;
+        min-width: 250px !important;
+        height: auto !important;
+        min-height: 5.5rem !important;
+        padding: 1rem !important;
+        box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1) !important;
+        border-radius: 0.75rem !important;
+    }
+    
+    .payment-box .left {
+        margin: 0 !important;
+    }
+    
+    .payment-box .right {
+        margin: 0 !important;
+    }
+    
+    .payment-box h5 {
+        font-size: 1.6rem !important;
+        margin: 0 !important;
+    }
+    
+    .payment-box p {
+        font-size: 0.9rem !important;
+        margin-bottom: 0.4rem !important;
+    }
+    
+    .payment-box i {
+        font-size: 1.6rem !important;
+        padding: 0.6rem !important;
+    }
+    
+    .serach-box {
+        height: auto !important;
+        padding: 1rem !important;
+        flex-direction: column !important;
+        gap: 1rem !important;
+    }
+    
+    .input-group {
+        padding: 0 !important;
+        margin: 0 !important;
+    }
+    
+    .select-status {
+        width: 100% !important;
+        height: auto !important;
+        margin: 0 !important;
+        padding: 0.75rem !important;
+    }
+    
+    .table-responsive {
+        margin-top: 1.25rem !important;
+        border-radius: 0.75rem !important;
+    }
+    
+    .table {
+        font-size: 0.85rem !important;
+        min-width: 700px !important;
+    }
+    
+    .table th,
+    .table td {
+        padding: 0.6rem 0.4rem !important;
+        white-space: nowrap !important;
+    }
+    
+    .table th:first-child,
+    .table td:first-child {
+        min-width: 120px !important;
+    }
+}
 
-    /* TABLET PORTRAIT - iPad, medium tablets (768px) */
-    @media (max-width: 768px) {
-        .payment-container {
-            padding: 1rem;
-        }
-        
-        .payment-header {
-            flex-direction: column !important;
-            gap: 1rem !important;
-            align-items: stretch !important;
-        }
-        
-        .payment-title h3 {
-            font-size: 1.6rem !important;
-            text-align: center !important;
-            margin-bottom: 0 !important;
-        }
-        
-        .export-btn {
-            display: flex !important;
-            gap: 0.75rem !important;
-            justify-content: center !important;
-        }
-        
-        .export-btn a {
-            flex: 1 !important;
-            text-align: center !important;
-            font-size: 0.9rem !important;
-            padding: 0.75rem 1rem !important;
-        }
-        
-        .payment-info {
-            gap: 1.25rem !important;
-            flex-wrap: wrap !important;
-            justify-content: space-between !important;
-        }
-        
-        .payment-box {
-            width: 48% !important;
-            min-width: 250px !important;
-            height: auto !important;
-            min-height: 5.5rem !important;
-            padding: 1rem !important;
-            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1) !important;
-            border-radius: 0.75rem !important;
-        }
-        
-        .payment-box .left {
-            margin: 0 !important;
-        }
-        
-        .payment-box .right {
-            margin: 0 !important;
-        }
-        
-        .payment-box h5 {
-            font-size: 1.6rem !important;
-            margin: 0 !important;
-        }
-        
-        .payment-box p {
-            font-size: 0.9rem !important;
-            margin-bottom: 0.4rem !important;
-        }
-        
-        .payment-box i {
-            font-size: 1.6rem !important;
-            padding: 0.6rem !important;
-        }
-        
-        .serach-box {
-            height: auto !important;
-            padding: 1rem !important;
-            flex-direction: column !important;
-            gap: 1rem !important;
-        }
-        
-        .input-group {
-            padding: 0 !important;
-            margin: 0 !important;
-        }
-        
-        .select-status {
-            width: 100% !important;
-            height: auto !important;
-            margin: 0 !important;
-            padding: 0.75rem !important;
-        }
-        
-        .table-responsive {
-            margin-top: 1.25rem !important;
-            border-radius: 0.75rem !important;
-        }
-        
-        .table {
-            font-size: 0.85rem !important;
-            min-width: 700px !important;
-        }
-        
-        .table th,
-        .table td {
-            padding: 0.6rem 0.4rem !important;
-            white-space: nowrap !important;
-        }
-        
-        .table th:first-child,
-        .table td:first-child {
-            min-width: 120px !important;
-        }
+/* SMALL TABLETS & LARGE PHONES (576px) */
+@media (max-width: 576px) {
+    .payment-container {
+        padding: 0.75rem !important;
     }
+    
+    .payment-header {
+        flex-direction: column !important;
+        gap: 1rem !important;
+        align-items: stretch !important;
+    }
+    
+    .payment-title h3 {
+        font-size: 1.4rem !important;
+        text-align: center !important;
+        margin-bottom: 0 !important;
+    }
+    
+     .export-btn {
+        display: flex !important;
+        flex-direction: column !important;
+        gap: 0.75rem !important;
+        width: 100% !important;
+    }
+    
+     .export-btn a {
+        width: 100% !important;
+        text-align: center !important;
+        font-size: 0.9rem !important;
+        padding: 0.75rem !important;
+        border-radius: 0.5rem !important;
+        margin: 0 !important;
+        min-height: 44px !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        white-space: nowrap !important;
+        flex: none !important; /* Remove flex grow */
+        max-width: none !important; /* Remove max-width restriction */
+    }
+    
+    .export-btn a:first-child {
+        order: 1;
+    }
+    
+    .export-btn a:last-child {
+        order: 2;
+    }
+    
+    .payment-info {
+        gap: 1rem !important;
+        flex-direction: column !important;
+    }
+    
+    .payment-box {
+        width: 100% !important;
+        height: auto !important;
+        min-height: 5rem !important;
+        padding: 1rem !important;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1) !important;
+        border-radius: 0.75rem !important;
+    }
+    
+    .payment-box .left {
+        margin: 0 !important;
+    }
+    
+    .payment-box .right {
+        margin: 0 !important;
+    }
+    
+    .payment-box h5 {
+        font-size: 1.4rem !important;
+        margin: 0 !important;
+    }
+    
+    .payment-box p {
+        font-size: 0.85rem !important;
+        margin-bottom: 0.3rem !important;
+    }
+    
+    .payment-box i {
+        font-size: 1.4rem !important;
+        padding: 0.5rem !important;
+    }
+    
+    .serach-box {
+        height: auto !important;
+        padding: 0.75rem !important;
+        flex-direction: column !important;
+        gap: 0.75rem !important;
+    }
+    
+    .input-group {
+        padding: 0 !important;
+        margin: 0 !important;
+    }
+    
+    .input-group input {
+        font-size: 0.9rem !important;
+    }
+    
+    .select-status {
+        width: 100% !important;
+        height: auto !important;
+        margin: 0 !important;
+        padding: 0.75rem !important;
+        font-size: 0.9rem !important;
+    }
+    
+    .table-responsive {
+        margin-top: 1rem !important;
+        border-radius: 0.5rem !important;
+        overflow-x: auto !important;
+        -webkit-overflow-scrolling: touch !important;
+    }
+    
+    .table {
+        font-size: 0.8rem !important;
+        min-width: 650px !important;
+    }
+    
+    .table th,
+    .table td {
+        padding: 0.5rem 0.3rem !important;
+        white-space: nowrap !important;
+        text-overflow: ellipsis !important;
+        overflow: hidden !important;
+    }
+    
+    .table td a {
+        font-size: 0.75rem !important;
+    }
+    
+    .status-badge div {
+        font-size: 0.75rem !important;
+    }
+}
 
-    /* SMALL TABLETS & LARGE PHONES (576px) */
-    @media (max-width: 576px) {
-        .payment-container {
-            padding: 0.75rem !important;
-        }
-        
-        .payment-header {
-            flex-direction: column !important;
-            gap: 1rem !important;
-            align-items: stretch !important;
-        }
-        
-        .payment-title h3 {
-            font-size: 1.4rem !important;
-            text-align: center !important;
-            margin-bottom: 0 !important;
-        }
-        
-        .export-btn {
-            display: flex !important;
-            flex-direction: column !important;
-            gap: 0.75rem !important;
-        }
-        
-        .export-btn a {
-            width: 100% !important;
-            text-align: center !important;
-            font-size: 0.9rem !important;
-            padding: 0.75rem !important;
-            border-radius: 0.5rem !important;
-        }
-        
-        .payment-info {
-            gap: 1rem !important;
-            flex-direction: column !important;
-        }
-        
-        .payment-box {
-            width: 100% !important;
-            height: auto !important;
-            min-height: 5rem !important;
-            padding: 1rem !important;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1) !important;
-            border-radius: 0.75rem !important;
-        }
-        
-        .payment-box .left {
-            margin: 0 !important;
-        }
-        
-        .payment-box .right {
-            margin: 0 !important;
-        }
-        
-        .payment-box h5 {
-            font-size: 1.4rem !important;
-            margin: 0 !important;
-        }
-        
-        .payment-box p {
-            font-size: 0.85rem !important;
-            margin-bottom: 0.3rem !important;
-        }
-        
-        .payment-box i {
-            font-size: 1.4rem !important;
-            padding: 0.5rem !important;
-        }
-        
-        .serach-box {
-            height: auto !important;
-            padding: 0.75rem !important;
-            flex-direction: column !important;
-            gap: 0.75rem !important;
-        }
-        
-        .input-group {
-            padding: 0 !important;
-            margin: 0 !important;
-        }
-        
-        .input-group input {
-            font-size: 0.9rem !important;
-        }
-        
-        .select-status {
-            width: 100% !important;
-            height: auto !important;
-            margin: 0 !important;
-            padding: 0.75rem !important;
-            font-size: 0.9rem !important;
-        }
-        
-        .table-responsive {
-            margin-top: 1rem !important;
-            border-radius: 0.5rem !important;
-            overflow-x: auto !important;
-            -webkit-overflow-scrolling: touch !important;
-        }
-        
-        .table {
-            font-size: 0.8rem !important;
-            min-width: 650px !important;
-        }
-        
-        .table th,
-        .table td {
-            padding: 0.5rem 0.3rem !important;
-            white-space: nowrap !important;
-            text-overflow: ellipsis !important;
-            overflow: hidden !important;
-        }
-        
-        .table td a {
-            font-size: 0.75rem !important;
-        }
-        
-        .status-badge div {
-            font-size: 0.75rem !important;
-        }
+/* STANDARD MOBILE PHONES (480px) */
+@media (max-width: 480px) {
+    .payment-container {
+        padding: 0.5rem !important;
     }
+    
+    .payment-header {
+        flex-direction: column !important;
+        gap: 0.75rem !important;
+        align-items: stretch !important;
+    }
+    
+    .payment-title h3 {
+        font-size: 1.2rem !important;
+        text-align: center !important;
+        margin-bottom: 0 !important;
+    }
+    
+    .export-btn {
+        display: flex !important;
+        flex-direction: column !important;
+        gap: 0.5rem !important;
+        width: 100% !important;
+    }
+    
+    .export-btn a {
+        width: 100% !important;
+        text-align: center !important;
+        font-size: 0.85rem !important;
+        padding: 0.6rem !important;
+        border-radius: 0.5rem !important;
+        margin: 0 !important;
+        min-height: 44px !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        white-space: nowrap !important;
+        font-weight: 600 !important;
+    }
+    
+    /* Specific button styling */
+    .export-btn a:first-child {
+        background-color: #198754 !important; /* Green for manage */
+    }
+    
+    .export-btn a:last-child {
+        background-color: #0d6efd !important; /* Blue for create */
+    }
+    
+    .export-btn a:first-child:hover {
+        background-color: #157347 !important;
+    }
+    
+    .export-btn a:last-child:hover {
+        background-color: #0b5ed7 !important;
+    }
+    
+    .payment-info {
+        gap: 0.75rem !important;
+        flex-direction: column !important;
+    }
+    
+    .payment-box {
+        width: 100% !important;
+        height: auto !important;
+        min-height: 4.5rem !important;
+        padding: 0.75rem !important;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1) !important;
+        border-radius: 0.75rem !important;
+    }
+    
+    .payment-box .left {
+        margin: 0 !important;
+    }
+    
+    .payment-box .right {
+        margin: 0 !important;
+    }
+    
+    .payment-box h5 {
+        font-size: 1.2rem !important;
+        margin: 0 !important;
+    }
+    
+    .payment-box p {
+        font-size: 0.8rem !important;
+        margin-bottom: 0.25rem !important;
+    }
+    
+    .payment-box i {
+        font-size: 1.2rem !important;
+        padding: 0.4rem !important;
+    }
+    
+    .serach-box {
+        height: auto !important;
+        padding: 0.5rem !important;
+        flex-direction: column !important;
+        gap: 0.5rem !important;
+    }
+    
+    .input-group {
+        padding: 0 !important;
+        margin: 0 !important;
+    }
+    
+    .input-group input {
+        font-size: 0.85rem !important;
+        padding: 0.6rem !important;
+    }
+    
+    .input-group-text {
+        padding: 0.6rem !important;
+    }
+    
+    .select-status {
+        width: 100% !important;
+        height: auto !important;
+        margin: 0 !important;
+        padding: 0.6rem !important;
+        font-size: 0.85rem !important;
+    }
+    
+    .table-responsive {
+        margin-top: 0.75rem !important;
+        border-radius: 0.5rem !important;
+    }
+    
+    .table {
+        font-size: 0.75rem !important;
+        min-width: 600px !important;
+    }
+    
+    .table th,
+    .table td {
+        padding: 0.4rem 0.25rem !important;
+        font-size: 0.75rem !important;
+    }
+    
+    .table td strong {
+        font-size: 0.75rem !important;
+    }
+    
+    .table td small {
+        font-size: 0.65rem !important;
+    }
+    
+    .table td a {
+        font-size: 0.7rem !important;
+    }
+    
+    .status-badge div {
+        font-size: 0.7rem !important;
+    }
+}
 
-    /* STANDARD MOBILE PHONES (480px) */
-    @media (max-width: 480px) {
-        .payment-container {
-            padding: 0.5rem !important;
-        }
-        
-        .payment-header {
-            flex-direction: column !important;
-            gap: 0.75rem !important;
-        }
-        
-        .payment-title h3 {
-            font-size: 1.2rem !important;
-            text-align: center !important;
-            margin-bottom: 0 !important;
-        }
-        
-        .export-btn {
-            display: flex !important;
-            flex-direction: column !important;
-            gap: 0.5rem !important;
-        }
-        
-        .export-btn a {
-            width: 100% !important;
-            text-align: center !important;
-            font-size: 0.85rem !important;
-            padding: 0.6rem !important;
-            border-radius: 0.5rem !important;
-        }
-        
-        .payment-info {
-            gap: 0.75rem !important;
-            flex-direction: column !important;
-        }
-        
-        .payment-box {
-            width: 100% !important;
-            height: auto !important;
-            min-height: 4.5rem !important;
-            padding: 0.75rem !important;
-            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1) !important;
-            border-radius: 0.75rem !important;
-        }
-        
-        .payment-box .left {
-            margin: 0 !important;
-        }
-        
-        .payment-box .right {
-            margin: 0 !important;
-        }
-        
-        .payment-box h5 {
-            font-size: 1.2rem !important;
-            margin: 0 !important;
-        }
-        
-        .payment-box p {
-            font-size: 0.8rem !important;
-            margin-bottom: 0.25rem !important;
-        }
-        
-        .payment-box i {
-            font-size: 1.2rem !important;
-            padding: 0.4rem !important;
-        }
-        
-        .serach-box {
-            height: auto !important;
-            padding: 0.5rem !important;
-            flex-direction: column !important;
-            gap: 0.5rem !important;
-        }
-        
-        .input-group {
-            padding: 0 !important;
-            margin: 0 !important;
-        }
-        
-        .input-group input {
-            font-size: 0.85rem !important;
-            padding: 0.6rem !important;
-        }
-        
-        .input-group-text {
-            padding: 0.6rem !important;
-        }
-        
-        .select-status {
-            width: 100% !important;
-            height: auto !important;
-            margin: 0 !important;
-            padding: 0.6rem !important;
-            font-size: 0.85rem !important;
-        }
-        
-        .table-responsive {
-            margin-top: 0.75rem !important;
-            border-radius: 0.5rem !important;
-        }
-        
-        .table {
-            font-size: 0.75rem !important;
-            min-width: 600px !important;
-        }
-        
-        .table th,
-        .table td {
-            padding: 0.4rem 0.25rem !important;
-            font-size: 0.75rem !important;
-        }
-        
-        .table td strong {
-            font-size: 0.75rem !important;
-        }
-        
-        .table td small {
-            font-size: 0.65rem !important;
-        }
-        
-        .table td a {
-            font-size: 0.7rem !important;
-        }
-        
-        .status-badge div {
-            font-size: 0.7rem !important;
-        }
+/* SMALL MOBILE PHONES (410px) */
+@media (max-width: 410px) {
+    .payment-container {
+        padding: 0.5rem !important;
     }
+    
+    .payment-header {
+        flex-direction: column !important;
+        gap: 0.75rem !important;
+        align-items: stretch !important;
+    }
+    
+    .payment-title h3 {
+        font-size: 1.1rem !important;
+        text-align: center !important;
+        margin-bottom: 0 !important;
+    }
+    
+    .export-btn {
+        display: flex !important;
+        flex-direction: column !important;
+        gap: 0.5rem !important;
+        width: 100% !important;
+    }
+    
+    .export-btn a {
+        width: 100% !important;
+        text-align: center !important;
+        font-size: 0.8rem !important;
+        padding: 0.6rem 0.5rem !important;
+        border-radius: 0.5rem !important;
+        margin: 0 !important;
+        min-height: 44px !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        white-space: nowrap !important;
+        font-weight: 600 !important;
+        line-height: 1.2 !important;
+    }
+    
+    /* Add icons for smaller screens */
+    .export-btn a:first-child::before {
+        content: "📋 ";
+        margin-right: 4px;
+    }
+    
+    .export-btn a:last-child::before {
+        content: "➕ ";
+        margin-right: 4px;
+    }
+    
+    .payment-info {
+        gap: 0.75rem !important;
+        flex-direction: column !important;
+    }
+    
+    .payment-box {
+        width: 100% !important;
+        height: auto !important;
+        min-height: 4rem !important;
+        padding: 0.75rem !important;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1) !important;
+        border-radius: 0.75rem !important;
+    }
+    
+    .payment-box .left {
+        margin: 0 !important;
+    }
+    
+    .payment-box .right {
+        margin: 0 !important;
+    }
+    
+    .payment-box h5 {
+        font-size: 1.1rem !important;
+        margin: 0 !important;
+    }
+    
+    .payment-box p {
+        font-size: 0.75rem !important;
+        margin-bottom: 0.2rem !important;
+    }
+    
+    .payment-box i {
+        font-size: 1.1rem !important;
+        padding: 0.4rem !important;
+    }
+    
+    .serach-box {
+        height: auto !important;
+        padding: 0.5rem !important;
+        flex-direction: column !important;
+        gap: 0.5rem !important;
+    }
+    
+    .input-group {
+        padding: 0 !important;
+        margin: 0 !important;
+    }
+    
+    .input-group input {
+        font-size: 0.8rem !important;
+        padding: 0.5rem !important;
+    }
+    
+    .input-group-text {
+        padding: 0.5rem !important;
+    }
+    
+    .select-status {
+        width: 100% !important;
+        height: auto !important;
+        margin: 0 !important;
+        padding: 0.5rem !important;
+        font-size: 0.8rem !important;
+    }
+    
+    .table-responsive {
+        margin-top: 0.75rem !important;
+        border-radius: 0.5rem !important;
+    }
+    
+    .table {
+        font-size: 0.7rem !important;
+        min-width: 580px !important;
+    }
+    
+    .table th,
+    .table td {
+        padding: 0.35rem 0.2rem !important;
+        font-size: 0.7rem !important;
+    }
+    
+    .table td strong {
+        font-size: 0.7rem !important;
+    }
+    
+    .table td small {
+        font-size: 0.6rem !important;
+    }
+    
+    .table td a {
+        font-size: 0.65rem !important;
+    }
+    
+    .status-badge div {
+        font-size: 0.65rem !important;
+    }
+    
+    .table-responsive::after {
+        content: "← Scroll horizontally to view more →";
+        display: block;
+        text-align: center;
+        font-size: 0.65rem;
+        color: #6c757d;
+        padding: 0.4rem;
+        background-color: #f8f9fa;
+        border-top: 1px solid #dee2e6;
+    }
+}
 
-    /* SMALL MOBILE PHONES (410px) */
-    @media (max-width: 410px) {
-        .payment-container {
-            padding: 0.5rem !important;
-        }
-        
-        .payment-header {
-            flex-direction: column !important;
-            gap: 0.75rem !important;
-        }
-        
-        .payment-title h3 {
-            font-size: 1.1rem !important;
-            text-align: center !important;
-            margin-bottom: 0 !important;
-        }
-        
-        .export-btn {
-            display: flex !important;
-            flex-direction: column !important;
-            gap: 0.5rem !important;
-        }
-        
-        .export-btn a {
-            width: 100% !important;
-            text-align: center !important;
-            font-size: 0.8rem !important;
-            padding: 0.6rem !important;
-            border-radius: 0.5rem !important;
-        }
-        
-        .payment-info {
-            gap: 0.75rem !important;
-            flex-direction: column !important;
-        }
-        
-        .payment-box {
-            width: 100% !important;
-            height: auto !important;
-            min-height: 4rem !important;
-            padding: 0.75rem !important;
-            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1) !important;
-            border-radius: 0.75rem !important;
-        }
-        
-        .payment-box .left {
-            margin: 0 !important;
-        }
-        
-        .payment-box .right {
-            margin: 0 !important;
-        }
-        
-        .payment-box h5 {
-            font-size: 1.1rem !important;
-            margin: 0 !important;
-        }
-        
-        .payment-box p {
-            font-size: 0.75rem !important;
-            margin-bottom: 0.2rem !important;
-        }
-        
-        .payment-box i {
-            font-size: 1.1rem !important;
-            padding: 0.4rem !important;
-        }
-        
-        .serach-box {
-            height: auto !important;
-            padding: 0.5rem !important;
-            flex-direction: column !important;
-            gap: 0.5rem !important;
-        }
-        
-        .input-group {
-            padding: 0 !important;
-            margin: 0 !important;
-        }
-        
-        .input-group input {
-            font-size: 0.8rem !important;
-            padding: 0.5rem !important;
-        }
-        
-        .input-group-text {
-            padding: 0.5rem !important;
-        }
-        
-        .select-status {
-            width: 100% !important;
-            height: auto !important;
-            margin: 0 !important;
-            padding: 0.5rem !important;
-            font-size: 0.8rem !important;
-        }
-        
-        .table-responsive {
-            margin-top: 0.75rem !important;
-            border-radius: 0.5rem !important;
-        }
-        
-        .table {
-            font-size: 0.7rem !important;
-            min-width: 580px !important;
-        }
-        
-        .table th,
-        .table td {
-            padding: 0.35rem 0.2rem !important;
-            font-size: 0.7rem !important;
-        }
-        
-        .table td strong {
-            font-size: 0.7rem !important;
-        }
-        
-        .table td small {
-            font-size: 0.6rem !important;
-        }
-        
-        .table td a {
-            font-size: 0.65rem !important;
-        }
-        
-        .status-badge div {
-            font-size: 0.65rem !important;
-        }
-        
-        .table-responsive::after {
-            content: "← Scroll horizontally to view more →";
-            display: block;
-            text-align: center;
-            font-size: 0.65rem;
-            color: #6c757d;
-            padding: 0.4rem;
-            background-color: #f8f9fa;
-            border-top: 1px solid #dee2e6;
-        }
+/* VERY SMALL MOBILE PHONES (360px) */
+@media (max-width: 360px) {
+    .payment-container {
+        padding: 0.25rem !important;
     }
+    
+    .payment-header {
+        flex-direction: column !important;
+        gap: 0.5rem !important;
+        align-items: stretch !important;
+    }
+    
+    .payment-title h3 {
+        font-size: 1rem !important;
+        text-align: center !important;
+        margin-bottom: 0 !important;
+    }
+    
+    .export-btn {
+        display: flex !important;
+        flex-direction: column !important;
+        gap: 0.4rem !important;
+        width: 100% !important;
+    }
+    
+    .export-btn a {
+        width: 100% !important;
+        text-align: center !important;
+        font-size: 0.7rem !important;
+        padding: 0.5rem 0.4rem !important;
+        border-radius: 0.4rem !important;
+        margin: 0 !important;
+        min-height: 42px !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        white-space: nowrap !important;
+        font-weight: 600 !important;
+        line-height: 1.1 !important;
+    }
+    
+    .payment-box {
+        min-height: 3.5rem !important;
+        padding: 0.5rem !important;
+    }
+    
+    .payment-box h5 {
+        font-size: 1rem !important;
+    }
+    
+    .payment-box p {
+        font-size: 0.7rem !important;
+    }
+    
+    .payment-box i {
+        font-size: 1rem !important;
+        padding: 0.3rem !important;
+    }
+    
+    .serach-box {
+        padding: 0.4rem !important;
+    }
+    
+    .input-group input,
+    .select-status {
+        font-size: 0.75rem !important;
+        padding: 0.4rem !important;
+    }
+    
+    .table {
+        font-size: 0.65rem !important;
+        min-width: 550px !important;
+    }
+    
+    .table th,
+    .table td {
+        padding: 0.3rem 0.15rem !important;
+        font-size: 0.65rem !important;
+    }
+}
 
-    /* VERY SMALL MOBILE PHONES (360px) */
-    @media (max-width: 360px) {
-        .payment-container {
-            padding: 0.25rem !important;
-        }
-        
-        .payment-title h3 {
-            font-size: 1rem !important;
-        }
-        
-        .export-btn a {
-            font-size: 0.75rem !important;
-            padding: 0.5rem !important;
-        }
-        
-        .payment-box {
-            min-height: 3.5rem !important;
-            padding: 0.5rem !important;
-        }
-        
-        .payment-box h5 {
-            font-size: 1rem !important;
-        }
-        
-        .payment-box p {
-            font-size: 0.7rem !important;
-        }
-        
-        .payment-box i {
-            font-size: 1rem !important;
-            padding: 0.3rem !important;
-        }
-        
-        .serach-box {
-            padding: 0.4rem !important;
-        }
-        
-        .input-group input,
-        .select-status {
-            font-size: 0.75rem !important;
-            padding: 0.4rem !important;
-        }
-        
-        .table {
-            font-size: 0.65rem !important;
-            min-width: 550px !important;
-        }
-        
-        .table th,
-        .table td {
-            padding: 0.3rem 0.15rem !important;
-            font-size: 0.65rem !important;
-        }
+/* LANDSCAPE ORIENTATION FOR MOBILE */
+@media (max-width: 896px) and (orientation: landscape) {
+    .payment-container {
+        padding: 0.5rem !important;
     }
+    
+    .payment-header {
+        flex-direction: row !important;
+        gap: 1rem !important;
+        align-items: center !important;
+        justify-content: space-between !important;
+    }
+    
+    .export-btn {
+        flex-direction: row !important;
+        gap: 0.5rem !important;
+        flex-shrink: 0 !important;
+    }
+    
+    .export-btn a {
+        width: auto !important;
+        min-width: 120px !important;
+        font-size: 0.8rem !important;
+        padding: 0.5rem 0.75rem !important;
+        white-space: nowrap !important;
+    }
+    
+    .payment-title h3 {
+        font-size: 1.1rem !important;
+        margin: 0 !important;
+    }
+    
+    .payment-info {
+        flex-direction: row !important;
+        gap: 1rem !important;
+    }
+    
+    .payment-box {
+        width: 32% !important;
+        min-height: 3.5rem !important;
+    }
+    
+    .serach-box {
+        flex-direction: row !important;
+        gap: 1rem !important;
+    }
+    
+    .select-status {
+        width: 200px !important;
+    }
+}
 
-    /* LANDSCAPE ORIENTATION FOR MOBILE */
-    @media (max-width: 896px) and (orientation: landscape) {
-        .payment-container {
-            padding: 0.5rem !important;
-        }
-        
-        .payment-header {
-            flex-direction: row !important;
-            gap: 1rem !important;
-        }
-        
-        .export-btn {
-            flex-direction: row !important;
-            gap: 0.5rem !important;
-        }
-        
-        .payment-info {
-            flex-direction: row !important;
-            gap: 1rem !important;
-        }
-        
-        .payment-box {
-            width: 32% !important;
-            min-height: 3.5rem !important;
-        }
-        
-        .serach-box {
-            flex-direction: row !important;
-            gap: 1rem !important;
-        }
-        
-        .select-status {
-            width: 200px !important;
-        }
+/* GENERAL MOBILE OPTIMIZATIONS */
+@media (max-width: 768px) {
+    .export-btn a,
+    .select-status,
+    .input-group input {
+        min-height: 44px !important;
+        cursor: pointer !important;
+        -webkit-tap-highlight-color: transparent !important;
+        touch-action: manipulation !important;
     }
+    
+    .payment-box {
+        transition: all 0.3s ease !important;
+    }
+    
+    .payment-box:hover {
+        transform: translateY(-2px) !important;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15) !important;
+    }
+    
+    .export-btn a:hover {
+        background-color: #0b5ed7 !important;
+        transform: translateY(-1px) !important;
+    }
+    
+    .export-btn a:active {
+        transform: translateY(1px) !important;
+        transition: transform 0.1s ease !important;
+    }
+    
+    .export-btn a:focus {
+        outline: 2px solid #0d6efd !important;
+        outline-offset: 2px !important;
+        box-shadow: 0 0 0 3px rgba(13, 110, 253, 0.25) !important;
+    }
+    
+    .export-btn a:focus:not(:focus-visible) {
+        outline: none !important;
+        box-shadow: none !important;
+    }
+    
+    .table td a {
+        padding: 0.25rem 0.5rem !important;
+        border-radius: 0.25rem !important;
+        transition: all 0.2s ease !important;
+    }
+    
+    .table td a:hover {
+        background-color: rgba(13, 110, 253, 0.1) !important;
+    }
+    
+    html, body {
+        overflow-x: hidden !important;
+        width: 100% !important;
+    }
+    
+    html {
+        scroll-behavior: smooth !important;
+    }
+    
+    * {
+        box-sizing: border-box !important;
+    }
+    
+    .form-control:focus,
+    .form-select:focus {
+        border-color: #0d6efd !important;
+        box-shadow: 0 0 0 0.2rem rgba(13, 110, 253, 0.25) !important;
+    }
+}
 
-    /* GENERAL MOBILE OPTIMIZATIONS */
-    @media (max-width: 768px) {
-        .export-btn a,
-        .select-status,
-        .input-group input {
-            min-height: 44px !important;
-            cursor: pointer !important;
-        }
-        
-        .payment-box {
-            transition: all 0.3s ease !important;
-        }
-        
-        .payment-box:hover {
-            transform: translateY(-2px) !important;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15) !important;
-        }
-        
-        .export-btn a:hover {
-            background-color: #0b5ed7 !important;
-            transform: translateY(-1px) !important;
-        }
-        
-        .table td a {
-            padding: 0.25rem 0.5rem !important;
-            border-radius: 0.25rem !important;
-            transition: all 0.2s ease !important;
-        }
-        
-        .table td a:hover {
-            background-color: rgba(13, 110, 253, 0.1) !important;
-        }
-        
-        html, body {
-            overflow-x: hidden !important;
-            width: 100% !important;
-        }
-        
-        html {
-            scroll-behavior: smooth !important;
-        }
-        
-        * {
-            box-sizing: border-box !important;
-        }
-        
-        .form-control:focus,
-        .form-select:focus {
-            border-color: #0d6efd !important;
-            box-shadow: 0 0 0 0.2rem rgba(13, 110, 253, 0.25) !important;
-        }
+/* HIGH-DPI/RETINA DISPLAYS */
+@media only screen and (-webkit-min-device-pixel-ratio: 2) and (max-width: 768px) {
+    .export-btn a {
+        font-weight: 600 !important;
+        letter-spacing: 0.025em !important;
     }
+}
+
+/* PREVENT BUTTON TEXT OVERFLOW */
+@media (max-width: 576px) {
+    .export-btn a {
+        overflow: hidden !important;
+        text-overflow: ellipsis !important;
+        white-space: nowrap !important;
+    }
+}
 </style>
+
 
 
   <body>
