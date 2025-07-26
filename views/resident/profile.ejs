@@ -1,706 +1,174 @@
 <%- layout("layouts/boilerplate") %>
 
-  <style>
-    .profile-icon {
-      background: linear-gradient(to bottom, #2a6ef0, #1976f2);
-      width: 100px;
-      height: 100px;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: white;
-      font-size: 2rem;
+<style>
+  /* Custom styles */
+  .profile-icon {
+    background: linear-gradient(to bottom, #2a6ef0, #1976f2);
+    color: white;
+    box-shadow: 0 4px 8px rgba(42, 110, 240, 0.3);
+    transition: box-shadow 0.3s ease;
+    width: 100px;
+    height: 100px;
+  }
+
+  .profile-icon:hover,
+  .profile-icon:focus {
+    box-shadow: 0 6px 14px rgba(42, 110, 240, 0.5);
+  }
+
+  .vehicle-icon {
+    background-color: #e6f0ff;
+    border-radius: 12px;
+    color: #0d6efd;
+  }
+
+  /* Fix wrapping of .com-header on desktop */
+  .com-header {
+    flex-wrap: nowrap !important;
+  }
+  @media (max-width: 767.98px) {
+    .com-header {
+      flex-wrap: wrap !important;
     }
-
-    .left-info {
-      width: 40%;
-    }
-
-    .right-info {
-      width: 60%;
-    }
-
-    .left-personal-info {
-      width: 50%;
-    }
-
-    .right-personal-info {
-      width: 50%;
-    }
-
-    .extra-left {
-      width: 50%;
-    }
-
-    .extra-right {
-      width: 50%;
-    }
-
-    .vehicle-icon {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      background-color: #e6f0ff;
-      /* light blue */
-      border-radius: 12px;
-      width: 58px;
-      height: 61px;
-
-    }
-
-
-    @media (max-width: 576px) {
-
-      /* Container with proper padding */
-      .profile-container {
-        padding: 0 1rem;
-      }
-
-      .event-container,
-      .resident-profile-box,
-      .extra {
-        padding: 0;
-        margin: 0;
-      }
-
-      /* Header section - clean alignment */
-      .com-header {
-        margin-bottom: 1.5rem;
-        padding: 1rem 0;
-      }
-
-      .com-header h2 {
-        font-size: 1.25rem;
-        margin-bottom: 0.5rem;
-        text-align: left;
-      }
-
-      .com-header p {
-        font-size: 0.9rem;
-        margin-bottom: 0;
-        text-align: left;
-      }
-
-      /* Edit button proper alignment */
-      .com-header .right a {
-        padding: 0.5rem 1rem;
-        font-size: 0.85rem;
-        display: inline-block;
-      }
-
-      /* Stack main sections vertically with proper spacing */
-      .resident-profile-box {
-        display: flex;
-        flex-direction: column;
-        gap: 1.5rem;
-        margin: 0;
-      }
-
-      /* Left info section - proper centering and padding */
-      .left-info {
-        width: 100%;
-        margin: 0;
-        padding: 1.5rem;
-        text-align: center;
-        background: white;
-        border: 1px solid #e0e0e0;
-        border-radius: 8px;
-      }
-
-      /* Profile icon - centered properly */
-      .profile-icon {
-        width: 80px;
-        height: 80px;
-        font-size: 1.8rem;
-        margin: 0 auto 1rem auto;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-      }
-
-      /* Profile text - centered alignment */
-      .left-info h4 {
-        text-align: center;
-        margin-bottom: 0.5rem;
-        font-size: 1.2rem;
-      }
-
-      .left-info p {
-        text-align: center;
-        margin-bottom: 0.75rem;
-      }
-
-      /* Profile details list - left aligned within centered container */
-      .left-info .mt-3 {
-        text-align: left;
-        margin-top: 1.5rem;
-        padding: 0;
-      }
-
-      .left-info .mt-3 p {
-        text-align: left;
-        margin-bottom: 0.75rem;
-        padding: 0;
-      }
-
-      /* Change password button - full width and centered */
-      .left-info button {
-        width: 100%;
-        padding: 0.75rem;
-        margin-top: 1rem;
-        text-align: center;
-        border: 1px solid #ddd;
-        border-radius: 6px;
-        background: white;
-        margin-top: 1rem !important;
-      }
-
-      /* Right info section - proper spacing */
-      .right-info {
-        width: 100%;
-        margin: 0;
-        padding: 0;
-        background: white;
-        border: 1px solid #e0e0e0;
-        border-radius: 8px;
-      }
-
-      /* Personal info header */
-      .personal-info-head {
-        padding: 1.5rem 1.5rem 0 1.5rem;
-        margin: 0;
-      }
-
-      .personal-info-head h3 {
-        margin: 0;
-        font-size: 1.2rem;
-      }
-
-      /* Personal info fields - proper stacking */
-      .personal-info .d-flex {
-        flex-direction: column;
-        padding: 1.5rem;
-        gap: 0;
-      }
-
-      .left-personal-info,
-      .right-personal-info {
-        width: 100%;
-        margin: 0;
-        padding: 0;
-      }
-
-      .personal-info-box {
-        margin: 0 0 1.5rem 0;
-        padding: 0;
-      }
-
-      .personal-info-box p.fw-semibold {
-        margin-bottom: 0.25rem;
-        font-size: 0.9rem;
-      }
-
-      .personal-info-box p.text-muted {
-        margin-bottom: 0;
-        font-size: 0.95rem;
-      }
-
-      /* Extra sections - proper stacking */
-      .extra {
-        display: flex;
-        flex-direction: column;
-        gap: 1.5rem;
-        margin-top: 1.5rem;
-      }
-
-      .extra-left,
-      .extra-right {
-        width: 100%;
-        margin: 0;
-        padding: 0;
-        background: white;
-        border: 1px solid #e0e0e0;
-        border-radius: 8px;
-      }
-
-      /* Section headers - proper alignment */
-      .extra .com-header {
-        margin: 0;
-        padding: 1.5rem;
-        border-bottom: 1px solid #eee;
-        background: white;
-      }
-
-      .extra .com-header h4 {
-        margin: 0;
-        font-size: 1.1rem;
-      }
-
-      .extra .com-header .right button,
-      .extra .com-header .right a {
-        padding: 0.5rem 1rem;
-        font-size: 0.85rem;
-        border-radius: 4px;
-      }
-
-      /* Member info - proper spacing and alignment */
-      .member-info {
-        display: flex;
-        flex-direction: row;
-        justify-content: space-between;
-        align-items: center;
-        padding: 1rem 1.5rem;
-        margin: 0;
-        border-bottom: 1px solid #f0f0f0;
-      }
-
-      .member-info:last-child {
-        border-bottom: none;
-      }
-
-      .left-member-box h5 {
-        margin: 0;
-        font-size: 1rem;
-      }
-
-      .member-action-icon {
-        display: flex;
-        align-items: center;
-        gap: 0.5rem;
-      }
-
-      .member-action-icon form {
-        margin: 0;
-        display: inline;
-      }
-
-      .member-action-icon button {
-        background: none;
-        border: none;
-        padding: 0;
-      }
-
-      /* Vehicle info - proper layout */
-      .vehicle-info-box {
-        display: flex;
-        flex-direction: row;
-        justify-content: space-between;
-        align-items: center;
-        padding: 1rem 1.5rem;
-        margin: 0;
-        border-bottom: 1px solid #f0f0f0;
-      }
-
-      .vehicle-info-box:last-child {
-        border-bottom: none;
-      }
-
-      .left-vehicle {
-        display: flex;
-        align-items: center;
-        gap: 1rem;
-      }
-
-      .vehicle-icon {
-        width: 50px;
-        height: 50px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        background-color: #f8f9fa;
-        border-radius: 8px;
-        flex-shrink: 0;
-      }
-
-      .vehicle-detail {
-        flex: 1;
-      }
-
-      .vehicle-detail h6 {
-        margin: 0 0 0.25rem 0;
-        font-size: 0.95rem;
-      }
-
-      .vehicle-detail p {
-        margin: 0;
-        font-size: 0.85rem;
-        line-height: 1.3;
-      }
-
-      .right-vehicle {
-        display: flex;
-        align-items: center;
-        gap: 0.75rem;
-        flex-shrink: 0;
-      }
-
-      /* Remove extra margins and ensure proper spacing */
-      .m-3,
-      .ms-3,
-      .mt-3,
-      .mb-3,
-      .me-3 {
-        margin: 0 !important;
-      }
-
-      .p-3 {
-        padding: 1.5rem !important;
-      }
-
-      /* Consistent spacing throughout */
-      hr {
-        margin: 0;
-        border-color: #eee;
-      }
-    }
-
-
-
-    @media (max-width: 768px) {
-
-      /* Container padding for all content */
-      .vehicle-container,
-      .owner-list-container,
-      .event-container {
-        padding: 0 1rem;
-        margin-bottom: 1.5rem;
-      }
-
-      /* Header fonts and spacing */
-      .com-header h2 {
-        font-size: 1.3rem;
-        margin-bottom: 0.5rem;
-      }
-
-      .com-header p {
-        font-size: 1rem;
-        margin-bottom: 1rem;
-      }
-
-      /* Search and filter row - no wrap, nicely spaced */
-      .mt-4.border.rounded.p-3.bg-white .row {
-        display: flex !important;
-        flex-wrap: nowrap !important;
-        gap: 0.5rem !important;
-        margin-left: 0 !important;
-        margin-right: 0 !important;
-      }
-
-      .mt-4.border.rounded.p-3.bg-white .col-md-9 {
-        flex: 0 0 75% !important;
-        max-width: 75% !important;
-        width: 75% !important;
-        margin: 0 !important;
-        padding: 0 !important;
-        box-sizing: border-box;
-      }
-
-      .mt-4.border.rounded.p-3.bg-white .col-md-3 {
-        flex: 0 0 25% !important;
-        max-width: 25% !important;
-        width: 25% !important;
-        margin: 0 !important;
-        padding: 0 !important;
-        box-sizing: border-box;
-      }
-
-      .input-group,
-      #vehicleType {
-        width: 100% !important;
-        min-width: 0 !important;
-      }
-
-      #searchBtn {
-        display: none !important;
-      }
-
-      /* Dashboard summary cards container */
-      .row.g-3 {
-        display: flex !important;
-        flex-wrap: wrap !important;
-        gap: 1rem !important;
-        padding: 0 1rem !important;
-        margin: 0 !important;
-        justify-content: flex-start !important;
-      }
-
-      /* First summary card full width */
-      .row.g-3 .col-md-4:nth-child(1) {
-        flex: 0 0 100% !important;
-        max-width: 100% !important;
-        width: 100% !important;
-      }
-
-      /* Second and third cards half width */
-      .row.g-3 .col-md-4:nth-child(2),
-      .row.g-3 .col-md-4:nth-child(3) {
-        flex: 0 0 calc(50% - 0.5rem) !important;
-        max-width: calc(50% - 0.5rem) !important;
-        width: calc(50% - 0.5rem) !important;
-      }
-
-      /* Vehicle result cards container */
-      .vehicle-info .row.g-3 {
-        display: flex !important;
-        flex-wrap: wrap !important;
-        gap: 1rem !important;
-        padding: 0 1rem !important;
-        margin: 0 !important;
-      }
-
-      /* Vehicle cards - 2 per row */
-      .vehicle-info .row.g-3>.col-12,
-      .vehicle-info .row.g-3>.col-sm-6,
-      .vehicle-info .row.g-3>.col-md-4 {
-        flex: 0 0 calc(50% - 0.5rem) !important;
-        max-width: calc(50% - 0.5rem) !important;
-        width: calc(50% - 0.5rem) !important;
-      }
-
-      /* Card styling */
-      .vehicle-info .card {
-        padding: 1rem !important;
-        font-size: 0.9rem;
-        margin-bottom: 0;
-      }
-
-      /* Buttons inside vehicle cards stack vertically */
-      .d-flex.flex-column.flex-sm-row.gap-3.mt-3 {
-        flex-direction: column !important;
-        gap: 0.5rem !important;
-      }
-
-      .btn,
-      .btn.w-100 {
-        width: 100% !important;
-      }
-
-      /* Section heading */
-      .info-head h5 {
-        font-size: 1.15rem !important;
-      }
-
-      /* Reset container side paddings */
-      .container {
-        padding-left: 0;
-        padding-right: 0;
-      }
-    }
-  </style>
-
-  <body>
-    <div class="profile-container">
-      <div class="event-container">
-        <div class="com-header d-flex justify-content-between">
-          <div class="left">
-            <h2 class="fw-bold">My Profile</h2>
-            <p class="text-muted ">Manage your personal information and family details</p>
-          </div>
-          <div class="right d-flex align-items-center">
-            <a href="/resident/profile/<%= profileInfo._id %>/edit"
-              class="rounded p-2 px-4 text-white bg-primary border-0 text-decoration-none"> <i class="fas fa-pen"></i>
-              Edit
-              Profile
-            </a>
-          </div>
+  }
+</style>
+
+<body>
+  <div class="profile-container container py-3">
+    <div class="event-container">
+      <div class="com-header d-flex justify-content-between align-items-center flex-wrap flex-md-nowrap gap-2">
+        <div class="left flex-grow-1 min-w-0">
+          <h2 class="fw-bold mb-0 text-truncate">My Profile</h2>
+          <p class="text-muted mb-0">Manage your personal information and family details</p>
         </div>
-      </div>
-
-      <div class="resident-profile-box d-flex ">
-        <div class="border left-info rounded m-3 p-3 bg-white">
-          <div
-            class="profile-icon d-flex align-items-center justify-content-center rounded-circle bg-primary text-white mx-auto mb-2">
-            <i class="fas fa-user"></i>
-          </div>
-          <h4 class="mb-1 fw-bold text-center">
-            <%= profileInfo.first_name %>
-              <%= profileInfo.last_name %>
-          </h4>
-          <p class="mb-0 text-primary fw-bold text-center">Home <%= profileInfo.block %>-<%= profileInfo.flat_number %>
-          </p>
-          <p class="text-center"> <i class="fas fa-home "></i> Owner</p>
-
-          <div class="mt-3 ms-0">
-            <p class="mb-2 text-muted">
-              <i class="fas fa-envelope me-2"></i>
-              <%= profileInfo.email %>
-            </p>
-            <p class="mb-2 text-muted">
-              <i class="fas fa-phone me-2"></i>
-              <%= profileInfo.mobile_number %>
-            </p>
-            <p class="mb-2 text-muted">
-              <i class="fas fa-users me-2"></i>
-              <%= profileInfo.name_of_each_member.length %> family members
-            </p>
-            <p class="mb-2 text-muted">
-              <i class="fas fa-car me-2"></i> 2 vehicles
-            </p>
-            <p class="mb-0 text-muted">
-              <i class="fas fa-calendar-alt me-2"></i> Resident since Jan 2023
-            </p>
-          </div>
-          <a href="/resident/profile/<%= profileInfo._id %>/change-password"
-            class="btn mt-3 rounded bg-white w-100 text-muted border">
-            <i class="fas fa-key py-2 me-2"></i>Change Password
+        <div class="right d-flex align-items-center flex-nowrap ms-3">
+          <a href="/resident/profile/<%= profileInfo._id %>/edit" 
+             class="btn btn-primary rounded px-4 d-inline-flex align-items-center flex-nowrap">
+            <i class="fas fa-pen me-2"></i> Edit Profile
           </a>
-
-
-        </div>
-
-        <div class="right-info border m-3 rounded bg-white">
-          <div class="personal-info">
-            <div class="personal-info-head m-3">
-              <h3>Personal Information</h3>
-            </div>
-            <hr>
-            <div class="d-flex">
-              <div class="left-personal-info ">
-                <div class="personal-info-box ms-3 mt-3">
-                  <p class="fw-semibold mb-0">First Name</p>
-                  <p class="text-muted">
-                    <%= profileInfo.first_name %>
-                  </p>
-                </div>
-
-
-                <div class="personal-info-box ms-3 ">
-                  <p class="fw-semibold mb-0">Email Address</p>
-                  <p class="text-muted">
-                    <%= profileInfo.email %>
-                  </p>
-                </div>
-
-
-                <div class="personal-info-box ms-3">
-                  <p class="fw-semibold mb-0">Date of Birth</p>
-                  <p class="text-muted">
-                    <%= profileInfo.birth_date.toISOString().split('T')[0] %>
-                  </p>
-                </div>
-                <div class="personal-info-box ms-3">
-                  <p class="fw-semibold mb-0">Family member</p>
-                  <p class="text-muted">
-                    <%= profileInfo.name_of_each_member.length %>
-                  </p>
-                </div>
-              </div>
-              <div class="right-personal-info ">
-                <div class="personal-info-box ms-3 mt-3">
-                  <p class="fw-semibold mb-0">Last Name</p>
-                  <p class="text-muted">
-                    <%= profileInfo.last_name %>
-                  </p>
-                </div>
-
-
-                <div class="personal-info-box ms-3">
-                  <p class="fw-semibold mb-0">Phone Number</p>
-                  <p class="text-muted">
-                    <%= profileInfo.mobile_number %>
-                  </p>
-                </div>
-
-
-                <div class="personal-info-box ms-3">
-                  <p class="fw-semibold mb-0">emergency Contact</p>
-                  <p class="text-muted">
-                    <%= profileInfo.emergency_number %>
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
         </div>
       </div>
-
-      <div class="extra d-flex">
-        <div class="extra-left border rounded p-3 m-3 bg-white">
-          <div class="extra-head ">
-            <div class="com-header d-flex justify-content-between">
-              <div class="left">
-                <h4 class="fw-bold">Family Members</h4>
-              </div>
-              <div class="right d-flex align-items-center">
-                <a href="/resident/addFamilyMember/<%= profileInfo._id %>/add"
-                  class="rounded p-2 px-4 text-white bg-primary text-decoration-none border-0">
-                  <i class="fas fa-plus"></i>
-                  Add Member
-                </a>
-              </div>
-            </div>
-          </div>
-          <hr>
-          <% profileInfo.name_of_each_member.forEach(member=> { %>
-
-            <div class="member-info d-flex justify-content-between mt-3">
-              <div class="left-member-box">
-                <h5>
-                  <%= member %>
-                </h5>
-              </div>
-              <!-- <div class="member-action-icon">
-                            <a href=""><i class="fas fa-pen text-primary"></i> &nbsp;&nbsp;</a>
-                            <form>
-                                <button><i class="fa-solid fa-trash text-danger"></i></button>
-                            </form>
-                        </div> -->
-            </div>
-            <% }) %>
-
-
-
-        </div>
-
-
-        <div class="extra-right border rounded p-3 m-3 bg-white">
-          <div class="extra-head ">
-            <div class="com-header d-flex justify-content-between">
-              <div class="left">
-                <h4 class="fw-bold">Registered Vehicles</h4>
-              </div>
-            </div>
-          </div>
-          <hr>
-
-          <% const vehicles=[ { type: 'four_wheeler' , label: '4-wheeler' , data: profileInfo.four_wheeler }, {
-            type: 'two_wheeler' , label: '2-wheeler' , data: profileInfo.two_wheeler } ]; %>
-
-            <% vehicles.forEach(vehicle=> { %>
-              <% if (vehicle.data && vehicle.data.trim() !=="" ) { %>
-                <div class="vehicle-info-box d-flex justify-content-between mb-3">
-                  <div class="left-vehicle d-flex">
-                    <div class="vehicle-icon text-primary">
-                      <i class="bi bi-car-front fs-2"></i>
-                    </div>
-                    <div class="vehicle-detail ms-3">
-                      <h6 class="mb-0">
-                        <%= vehicle.data %>
-                      </h6>
-                      <p
-                        class="border rounded d-flex align-items-center justify-content-center bg-success bg-opacity-25">
-                        <%= vehicle.label %>
-                      </p>
-                    </div>
-                  </div>
-                  <div class="right-vehicle d-flex align-items-center justify-content-center me-4">
-                    <a href="/resident/profile/<%= profileInfo._id %>/edit" class="btn btn-link text-primary p-1 me-2"
-                      aria-label="Edit <%= vehicle.label %>">
-                      <i class="fas fa-pen"></i>
-                    </a>
-
-                  </div>
-                </div>
-                <% } %>
-                  <% }); %>
-
-
-
-
-
-        </div>
-      </div>
-
     </div>
-  </body>
+
+    <div class="resident-profile-box d-flex flex-column flex-lg-row gap-3 my-4">
+      <div class="left-info bg-white rounded border p-3 flex-shrink-0" style="flex-basis:40%">
+        <div
+          class="profile-icon rounded-circle bg-primary text-white mx-auto mb-3 d-flex align-items-center justify-content-center"
+          style="font-size:2rem;">
+          <i class="fas fa-user"></i>
+        </div>
+        <h4 class="fw-bold text-center mb-1 text-truncate"><%= profileInfo.first_name %> <%= profileInfo.last_name %></h4>
+        <p class="text-primary fw-bold text-center mb-1 text-truncate">Home <%= profileInfo.block %>-<%= profileInfo.flat_number %></p>
+        <p class="text-center mb-3"><i class="fas fa-home"></i> Owner</p>
+        <div>
+          <p class="text-muted mb-2"><i class="fas fa-envelope me-2"></i><%= profileInfo.email %></p>
+          <p class="text-muted mb-2"><i class="fas fa-phone me-2"></i><%= profileInfo.mobile_number %></p>
+          <p class="text-muted mb-2"><i class="fas fa-users me-2"></i><%= profileInfo.name_of_each_member.length %> family members</p>
+          <p class="text-muted mb-2"><i class="fas fa-car me-2"></i>2 vehicles</p>
+          <p class="text-muted mb-0"><i class="fas fa-calendar-alt me-2"></i>Resident since Jan 2023</p>
+        </div>
+        <a href="/resident/profile/<%= profileInfo._id %>/change-password" class="btn btn-outline-secondary w-100 mt-3">
+          <i class="fas fa-key me-2"></i>Change Password
+        </a>
+      </div>
+
+      <div class="right-info bg-white rounded border p-3 flex-grow-1">
+        <div class="personal-info-head mb-3">
+          <h3>Personal Information</h3>
+        </div>
+        <hr>
+        <div class="row g-3">
+          <div class="col-6">
+            <div>
+              <p class="fw-semibold mb-1">First Name</p>
+              <p class="text-muted mb-0"><%= profileInfo.first_name %></p>
+            </div>
+          </div>
+          <div class="col-6">
+            <div>
+              <p class="fw-semibold mb-1">Last Name</p>
+              <p class="text-muted mb-0"><%= profileInfo.last_name %></p>
+            </div>
+          </div>
+
+          <div class="col-6">
+            <div>
+              <p class="fw-semibold mb-1">Email Address</p>
+              <p class="text-muted mb-0"><%= profileInfo.email %></p>
+            </div>
+          </div>
+          <div class="col-6">
+            <div>
+              <p class="fw-semibold mb-1">Phone Number</p>
+              <p class="text-muted mb-0"><%= profileInfo.mobile_number %></p>
+            </div>
+          </div>
+
+          <div class="col-6">
+            <div>
+              <p class="fw-semibold mb-1">Date of Birth</p>
+              <p class="text-muted mb-0"><%= profileInfo.birth_date.toISOString().split('T')[0] %></p>
+            </div>
+          </div>
+          <div class="col-6">
+            <div>
+              <p class="fw-semibold mb-1">Emergency Contact</p>
+              <p class="text-muted mb-0"><%= profileInfo.emergency_number %></p>
+            </div>
+          </div>
+
+          <div class="col-12">
+            <div>
+              <p class="fw-semibold mb-1">Family Members</p>
+              <p class="text-muted mb-0"><%= profileInfo.name_of_each_member.length %></p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="extra d-flex flex-column flex-md-row gap-3">
+      <div class="extra-left bg-white rounded border p-3 flex-fill">
+        <div class="extra-head d-flex justify-content-between align-items-center mb-3">
+          <h4 class="fw-bold mb-0">Family Members</h4>
+          <a href="/resident/addFamilyMember/<%= profileInfo._id %>/add" class="btn btn-primary rounded px-3">
+            <i class="fas fa-plus me-1"></i> Add Member
+          </a>
+        </div>
+        <hr>
+        <% profileInfo.name_of_each_member.forEach(member => { %>
+          <div class="member-info d-flex justify-content-between align-items-center py-2 border-bottom last-child:border-0">
+            <h5 class="mb-0"><%= member %></h5>
+            <!-- Optionally add edit/delete icons here -->
+          </div>
+        <% }) %>
+      </div>
+
+      <div class="extra-right bg-white rounded border p-3 flex-fill">
+        <div class="extra-head d-flex justify-content-between align-items-center mb-3">
+          <h4 class="fw-bold mb-0">Registered Vehicles</h4>
+        </div>
+        <hr>
+        <% const vehicles=[ { type: 'four_wheeler' , label: '4-wheeler' , data: profileInfo.four_wheeler }, { type: 'two_wheeler' , label: '2-wheeler' , data: profileInfo.two_wheeler } ]; %>
+        <% vehicles.forEach(vehicle => { if (vehicle.data && vehicle.data.trim() !== "") { %>
+          <div class="vehicle-info-box d-flex justify-content-between align-items-center mb-3">
+            <div class="left-vehicle d-flex align-items-center gap-3">
+              <div class="vehicle-icon d-flex align-items-center justify-content-center rounded-3" style="width:58px; height:61px; font-size:1.5rem;">
+                <i class="bi bi-car-front"></i>
+              </div>
+              <div>
+                <h6 class="mb-0"><%= vehicle.data %></h6>
+                <p class="bg-success bg-opacity-25 border rounded px-2 py-1 text-success d-inline-block small mb-0"><%= vehicle.label %></p>
+              </div>
+            </div>
+            <div class="right-vehicle d-flex align-items-center justify-content-center">
+              <a href="/resident/profile/<%= profileInfo._id %>/edit" class="btn btn-link text-primary p-1" aria-label="Edit <%= vehicle.label %>">
+                <i class="fas fa-pen"></i>
+              </a>
+            </div>
+          </div>
+        <% }}) %>
+      </div>
+    </div>
+  </div>
+</body>

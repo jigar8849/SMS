@@ -1,326 +1,558 @@
 <%- layout("layouts/boilerplate") %>
 
-    <style>
-        p {
-            margin-bottom: 0rem !important;
-        }
+<style>
+    p {
+        margin-bottom: 0rem !important;
+    }
 
+    .dash-card {
+        width: 15rem;
+        height: 8rem;
+    }
+
+    .payble-item {
+        background-color: rgb(243, 241, 241);
+    }
+
+    .box-size {
+        width: 23rem;
+        height: auto;
+        background-color: white;
+    }
+
+    .shortcut-box {
+        width: 15rem;
+    }
+
+    .quick-action {
+        background: white;
+    }
+
+    /* ==== LARGE DESKTOP (1400px and above) ==== */
+    @media screen and (min-width: 1400px) {
+        .resident-dashboard-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 30px;
+        }
+        
+        .dash-card {
+            width: 18rem;
+            height: 9rem;
+        }
+        
+        .box-size {
+            width: 26rem;
+        }
+    }
+
+    /* ==== STANDARD DESKTOP (1200px to 1399px) ==== */
+    @media screen and (min-width: 1200px) and (max-width: 1399px) {
+        .resident-dashboard-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 25px;
+        }
+        
+        .dash-info {
+            flex-wrap: nowrap;
+            gap: 20px;
+        }
+        
         .dash-card {
             width: 15rem;
             height: 8rem;
         }
-
-        .payble-item {
-            background-color: rgb(243, 241, 241);
+        
+        .info-boxes {
+            flex-direction: row;
+            gap: 20px;
         }
-
+        
         .box-size {
-            width: 23rem;
-            height: auto;
-            background-color: white;
+            width: calc(33.33% - 15px);
+            min-width: 22rem;
         }
-
+        
+        .shortcuts {
+            flex-wrap: nowrap;
+            gap: 20px;
+        }
+        
         .shortcut-box {
-            width: 15rem;
+            width: calc(25% - 15px);
+            min-width: 13rem;
         }
+    }
 
-        .quick-action {
-            background: white;
+    /* ==== SMALL LAPTOP/LARGE TABLET (1024px to 1199px) ==== */
+    @media screen and (min-width: 1024px) and (max-width: 1199px) {
+        .resident-dashboard-container {
+            padding: 0 20px;
         }
+        
+        .dash-title {
+            margin: 0 10px !important;
+        }
+        
+        .dash-info {
+            flex-wrap: wrap;
+            gap: 15px;
+            margin: 20px 10px !important;
+            justify-content: center;
+        }
+        
+        .dash-card {
+            width: calc(50% - 10px);
+            height: 7.5rem;
+            min-width: 200px;
+            max-width: 280px;
+        }
+        
+        /* Protect card icons */
+        .dash-card .right {
+            margin-top: 20px !important;
+            padding-bottom: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .dash-card .right i {
+            font-size: 2rem !important;
+            padding: 10px !important;
+            min-width: 50px;
+            min-height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .info-boxes {
+            flex-direction: row;
+            flex-wrap: wrap;
+            gap: 15px;
+            justify-content: space-between;
+        }
+        
+        .box-size {
+            width: calc(50% - 10px);
+            min-width: 300px;
+            margin-bottom: 20px;
+        }
+        
+        .shortcuts {
+            flex-wrap: wrap;
+            gap: 12px;
+            justify-content: space-between;
+        }
+        
+        .shortcut-box {
+            width: calc(50% - 8px);
+            min-width: 180px;
+        }
+    }
+
+    /* ==== TABLET (768px to 1023px) ==== */
+    @media screen and (min-width: 768px) and (max-width: 1023px) {
+        .resident-dashboard-container {
+            padding: 0 15px;
+        }
+        
+        .dash-title {
+            margin: 0 5px !important;
+        }
+        
+        .dash-title h1 {
+            font-size: 1.8rem;
+            padding: 15px 0 !important;
+        }
+        
+        .dash-info {
+            flex-wrap: wrap;
+            gap: 12px;
+            margin: 20px 5px !important;
+            justify-content: space-between;
+        }
+        
+        .dash-card {
+            width: calc(50% - 8px);
+            height: 7rem;
+            min-width: 170px;
+        }
+        
+        /* Enhanced icon protection for tablets */
+        .dash-card .left {
+            margin: 12px !important;
+            flex: 1;
+        }
+        
+        .dash-card .right {
+            margin: 12px 8px !important;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-width: 60px;
+        }
+        
+        .dash-card .right i {
+            font-size: 1.8rem !important;
+            padding: 8px !important;
+            min-width: 45px;
+            min-height: 45px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 8px !important;
+        }
+        
+        .info-boxes {
+            flex-direction: column;
+            gap: 20px;
+        }
+        
+        .box-size {
+            width: 100%;
+            max-width: none;
+        }
+        
+        .shortcuts {
+            flex-wrap: wrap;
+            gap: 12px;
+            justify-content: space-between;
+        }
+        
+        .shortcut-box {
+            width: calc(50% - 8px);
+            min-width: 150px;
+        }
+        
+        .shortcut-box a {
+            padding: 12px !important;
+            font-size: 0.9rem;
+        }
+    }
+
+    /* ==== MOBILE LARGE (481px to 767px) ==== */
+    @media screen and (min-width: 481px) and (max-width: 767px) {
+        .resident-dashboard-container {
+            padding: 0 10px;
+        }
+        
+        .dash-title {
+            margin: 0 !important;
+            padding: 15px;
+        }
+        
+        .dash-title h1 {
+            font-size: 1.5rem;
+            margin: 0;
+            padding: 10px 0 !important;
+        }
+        
+        .dash-title p {
+            font-size: 0.9rem;
+            margin: 0;
+            padding-bottom: 10px !important;
+        }
+        
+        .dash-info {
+            flex-direction: column;
+            gap: 12px;
+            margin: 20px 0 !important;
+        }
+        
+        .dash-card {
+            width: 100%;
+            height: 6rem;
+            display: flex;
+            align-items: center;
+        }
+        
+        .dash-card .left {
+            margin: 15px !important;
+            flex: 1;
+        }
+        
+        .dash-card .right {
+            margin: 15px !important;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-width: 70px;
+        }
+        
+        .dash-card .right i {
+            font-size: 2rem !important;
+            padding: 10px !important;
+            min-width: 50px;
+            min-height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .info-boxes {
+            flex-direction: column;
+            gap: 20px;
+        }
+        
+        .box-size {
+            width: 100%;
+        }
+        
+        .shortcuts {
+            flex-direction: column;
+            gap: 12px;
+        }
+        
+        .shortcut-box {
+            width: 100%;
+        }
+        
+        .shortcut-box a {
+            display: block;
+            padding: 15px !important;
+            text-align: center;
+        }
+    }
+
+    /* ==== MOBILE SMALL (320px to 480px) ==== */
+    @media screen and (min-width: 320px) and (max-width: 480px) {
+        .resident-dashboard-container {
+            padding: 0 8px;
+        }
+        
+        .dash-title {
+            margin: 0 !important;
+            padding: 12px;
+        }
+        
+        .dash-title h1 {
+            font-size: 1.3rem;
+            margin: 0;
+            padding: 8px 0 !important;
+        }
+        
+        .dash-title p {
+            font-size: 0.85rem;
+            margin: 0;
+            padding-bottom: 8px !important;
+        }
+        
+        .dash-info {
+            flex-direction: column;
+            gap: 10px;
+            margin: 15px 0 !important;
+        }
+        
+        .dash-card {
+            width: 100%;
+            height: 5.5rem;
+            display: flex;
+            align-items: center;
+        }
+        
+        .dash-card .left {
+            margin: 12px !important;
+            flex: 1;
+        }
+        
+        .dash-card .left h3 {
+            font-size: 1.5rem;
+            margin: 5px 0;
+        }
+        
+        .dash-card .right {
+            margin: 12px !important;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-width: 60px;
+        }
+        
+        .dash-card .right i {
+            font-size: 1.5rem !important;
+            padding: 8px !important;
+            min-width: 40px;
+            min-height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 6px !important;
+        }
+        
+        .info-boxes {
+            flex-direction: column;
+            gap: 15px;
+        }
+        
+        .box-size {
+            width: 100%;
+            padding: 12px !important;
+        }
+        
+        .bill-head {
+            margin-bottom: 12px;
+        }
+        
+        .bill-title {
+            font-size: 1rem !important;
+        }
+        
+        .payble-item {
+            margin: 8px 0 !important;
+            padding: 10px !important;
+        }
+        
+        .shortcuts {
+            flex-direction: column;
+            gap: 10px;
+        }
+        
+        .shortcut-box {
+            width: 100%;
+        }
+        
+        .shortcut-box a {
+            display: block;
+            padding: 15px !important;
+            font-size: 0.9rem;
+            text-align: center;
+        }
+        
+        .notific {
+            margin-bottom: 12px;
+        }
+        
+        .icon-para {
+            gap: 5px;
+            align-items: center;
+            margin-top: 5px;
+        }
+        
+        .icon-para p {
+            margin: 0;
+            font-size: 0.8rem;
+        }
+    }
+
+    /* ==== EXTRA SMALL MOBILE (below 320px) ==== */
+    @media screen and (max-width: 319px) {
+        .resident-dashboard-container {
+            padding: 0 5px;
+        }
+        
+        .dash-title h1 {
+            font-size: 1.1rem;
+        }
+        
+        .dash-title p {
+            font-size: 0.75rem;
+        }
+        
+        .dash-card {
+            height: 5rem;
+        }
+        
+        .dash-card .left h3 {
+            font-size: 1.3rem;
+        }
+        
+        .dash-card .right i {
+            font-size: 1.3rem !important;
+            padding: 6px !important;
+            min-width: 35px;
+            min-height: 35px;
+        }
+        
+        .box-size {
+            padding: 10px !important;
+        }
+        
+        .bill-title {
+            font-size: 0.9rem !important;
+        }
+        
+        .shortcut-box a {
+            font-size: 0.8rem;
+            padding: 12px !important;
+        }
+    }
+
+    /* ==== LANDSCAPE ORIENTATION FOR MOBILE ==== */
+    @media screen and (orientation: landscape) and (max-height: 600px) and (max-width: 1023px) {
+        .dash-title {
+            padding: 8px !important;
+        }
+        
+        .dash-title h1 {
+            font-size: 1.2rem;
+            padding: 5px 0 !important;
+        }
+        
+        .dash-title p {
+            font-size: 0.8rem;
+            padding-bottom: 5px !important;
+        }
+        
+        .dash-card {
+            height: 4.5rem;
+        }
+        
+        .dash-card .right i {
+            font-size: 1.3rem !important;
+            padding: 6px !important;
+        }
+        
+        .box-size {
+            padding: 8px !important;
+        }
+        
+        .info-boxes {
+            gap: 10px;
+        }
+    }
+
+    /* ==== UNIVERSAL ICON PROTECTION ==== */
+    @media screen and (max-width: 1199px) {
+        .dash-card {
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .dash-card .right {
+            flex-shrink: 0;
+            overflow: visible;
+        }
+        
+        .dash-card .right i {
+            white-space: nowrap;
+            overflow: visible;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+    }
+
+    /* ==== HIGH DPI SCREENS ==== */
+    @media screen and (-webkit-min-device-pixel-ratio: 2),
+           screen and (min-resolution: 192dpi) {
+        .dash-card .right i {
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+    }
+
+    /* ==== PRINT STYLES ==== */
+    @media print {
+        .dash-card .right i {
+            color: #000 !important;
+            background: transparent !important;
+        }
+    }
+</style>
 
 
-
-@media (max-width: 576px) {
-  /* Container padding and margins adjustment for mobile */
-  .resident-dashboard-container {
-    padding: 0 1rem !important;
-  }
-
-  /* Dash info cards - 2 per row on mobile, flexible width */
-  .dash-info {
-    flex-wrap: wrap !important;
-    gap: 1rem !important;
-    justify-content: space-between !important;
-    margin-left: 0 !important;
-  }
-
-  .dash-card {
-    width: 48% !important;
-    min-width: 140px;
-    height: auto !important;
-    margin-bottom: 1rem;
-    font-size: 0.95rem !important;
-    display: flex !important;
-    justify-content: space-between !important;
-    align-items: center !important;
-    gap: 0.5rem !important;
-    padding: 1rem 0.5rem !important;
-  }
-
-  .dash-card .left {
-    margin-bottom: 0 !important;
-  }
-
-  .dash-card .right {
-    margin-top: 0 !important;
-  }
-
-  /* Dash title text adjustments */
-  .dash-title h1 {
-    font-size: 1.25rem !important;
-    /* padding: 1rem 0 0.5rem 1rem !important; */
-  }
-  .dash-title p {
-    font-size: 0.9rem !important;
-    /* padding-left: 1rem !important; */
-    padding-bottom: 1rem !important;
-  }
-
-  /* Info boxes container stacking on mobile */
-  .info-boxes {
-    flex-wrap: wrap !important;
-    gap: 1rem !important;
-    justify-content: center !important;
-    margin-left: 0 !important;
-  }
-
-  /* Box sizes responsive to width 100% on mobile, smaller height */
-  .box-size {
-    width: 100% !important;
-    min-width: auto !important;
-    margin-bottom: 1rem !important;
-    height: auto !important;
-  }
-
-  /* Payble items adjustment for better spacing and wrapping */
-  .payble-item {
-    flex-wrap: wrap !important;
-    gap: 0.5rem !important;
-  }
-
-  /* Notification list spacing fix */
-  .notific {
-    padding: 0 0.5rem !important;
-  }
-
-  /* Quick Action buttons stack vertically and full width on mobile */
-  .quick-action .shortcuts {
-    flex-direction: column !important;
-    gap: 1rem !important;
-    justify-content: center !important;
-  }
-
-  .shortcut-box {
-    width: 100% !important;
-    min-width: auto !important;
-    justify-content: center !important;
-  }
-
-  /* Icons and text alignment fixes */
-  .shortcut-box a {
-    width: 100% !important;
-    text-align: center !important;
-  }
-
-  /* Reduce font sizes slightly for better mobile fit */
-  p, h3, h5 {
-    font-size: 0.9rem !important;
-  }
-
-  /* Margin reset for sections */
-  .dash-info, .info-boxes, .quick-action {
-    margin-left: 0 !important;
-  }
-}
-
-
-@media (max-width: 768px) {
-  /* Body padding */
-  .resident-dashboard-container {
-    padding: 0 1rem !important;
-  }
-
-  /* Title (Welcome) section */
-  .dash-title {
-    width: 100% !important;
-    /* padding: 1rem 0 !important; */
-    /* margin-left: 0 !important; */
-    border-radius: 0.7rem !important;
-    background: #1976f2;
-    color: #fff;
-    text-align: left;
-    margin-bottom: 1.5rem !important;
-  }
-  .dash-title h1 {
-    font-size: 1.4rem !important;
-    margin-left: 1rem !important;
-    margin-bottom: 0.7rem;
-    color: #fff !important;
-  }
-  .dash-title p {
-    font-size: 1.05rem !important;
-    margin-left: 1rem !important;
-    margin-bottom: 0;
-    color: #e8eefc !important;
-  }
-
-  /* Dashboard cards container */
-  .dash-info {
-    display: flex !important;
-    flex-wrap: wrap !important;
-    gap: 1.4rem !important;
-    justify-content: space-between !important;
-    padding: 0 1rem !important;
-    margin: 0 !important;
-  }
-  .dash-card {
-    width: 48% !important;
-    min-width: 145px !important;
-    height: auto !important;
-    margin-bottom: 1.2rem !important;
-    font-size: 1rem !important;
-    padding: 1.25rem !important;
-    border-radius: 0.9rem !important;
-    background: #fff !important;
-    box-shadow: 0 4px 12px rgba(25,118,242,.07);
-    display: flex !important;
-    justify-content: space-between !important;
-    align-items: center !important;
-    gap: 0.5rem !important;
-  }
-  .dash-card .left {
-    margin-bottom: 0 !important;
-  }
-  .dash-card .right {
-    margin-top: 0 !important;
-    font-size: 2.2rem !important;
-    display: flex !important;
-    align-items: center !important;
-    justify-content: center !important;
-  }
-  .dash-card .right i {
-    font-size: 2rem !important;
-    margin: 0;
-  }
-  .dash-card p {
-    font-size: 0.93rem !important;
-    margin-bottom: 0.3rem !important;
-    color: #666;
-  }
-  .dash-card h3 {
-    font-size: 1.15rem !important;
-    margin-bottom: 0 !important;
-    color: #222;
-    font-weight: bold;
-  }
-
-  /* Info boxes layout: cards stack vertically, full width */
-  .info-boxes {
-    flex-direction: column !important;
-    gap: 1.5rem !important;
-    justify-content: flex-start !important;
-    margin: 0 !important;
-    padding: 0 1rem !important;
-  }
-  .box-size {
-    width: 100% !important;
-    min-width: 0 !important;
-    margin-bottom: 1.5rem !important;
-    height: auto !important;
-    background: #fff !important;
-    border-radius: 1rem !important;
-    box-shadow: 0 4px 12px rgba(25,118,242,0.07);
-    padding: 0 !important;
-  }
-  .bill-head,
-  .bill-title,
-  .bill-icon {
-    display: flex;
-    align-items: center;
-  }
-  .bill-title {
-    font-size: 1rem;
-    font-weight: bold;
-    color: #222;
-    margin-left: 0.5rem;
-  }
-  .bill-icon {
-    margin-right: 0.5rem;
-    font-size: 1.4rem;
-    color: #1976f2;
-  }
-
-  /* Payble items spacing */
-  .payble-item {
-    flex-wrap: wrap !important;
-    gap: 0.75rem !important;
-    padding: 0 1rem;
-    margin: 1rem !important;
-    margin: 1rem 0 !important;
-    background: #f5f6fa;
-    border-radius: 0.6rem;
-  }
-  .payble-item .left, .payble-item .right {
-    padding: 0.7rem 0;
-  }
-  .payble-item .right {
-    text-align: right;
-  }
-  .payble-item p {
-    margin-bottom: 0.25rem !important;
-    font-size: 0.95rem !important;
-  }
-  .payble-item .amount-status {
-    font-size: 0.86rem !important;
-  }
-
-  /* Notifications & Events section */
-  .notific {
-    padding: 0 1rem !important;
-  }
-
-  /* Quick Action area: items stacked, full width */
-  .quick-action .shortcuts {
-    flex-direction: column !important;
-    gap: 1.1rem !important;
-    align-items: stretch !important;
-    justify-content: center !important;
-    padding: 0 1rem !important;
-  }
-  .shortcut-box {
-    width: 100% !important;
-    min-width: 0 !important;
-    justify-content: center !important;
-    margin-bottom: 0;
-    border-radius: 0.7rem !important;
-    box-shadow: 0 1px 6px rgba(25,118,242,0.05);
-  }
-  .shortcut-box a {
-    width: 100% !important;
-    text-align: center !important;
-    padding: 1.1rem 0 !important;
-    font-weight: 700 !important;
-    font-size: 1rem !important;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 0.7rem;
-  }
-  .shortcut-box i {
-    font-size: 1.25rem !important;
-  }
-
-  /* Section title font size improvement */
-  h3, h5, p {
-    font-size: 1rem !important;
-  }
-}
-
-
-
-
-
-    </style>
 
     <body>
         <div class="resident-dashboard-container">

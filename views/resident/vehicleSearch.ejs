@@ -1,462 +1,706 @@
 <%- layout("layouts/boilerplate") %>
 
-  <style>
+<style>
     .main-card {
-      width: 23rem !important;
+        width: 23rem !important;
     }
 
+    /* Default styles for desktop */
+    .vehicle-container {
+        padding: 1rem;
+    }
 
-    @media (max-width: 576px) {
-  /* Container padding adjustment */
-  .vehicle-container, .owner-list-container, .event-container {
-    padding: 0 1rem;
-  }
+    /* Large Desktop Screens */
+    @media screen and (min-width: 1400px) {
+        .main-card {
+            width: 25rem !important;
+        }
+        .vehicle-container {
+            padding: 2rem;
+        }
+        .card {
+            padding: 1.5rem !important;
+        }
+        .fs-1 {
+            font-size: 3rem !important;
+        }
+    }
 
-  /* Header section responsive */
-  .com-header h2 {
-    font-size: 1.15rem;
-    margin-bottom: 0.5rem;
-  }
+    /* Desktop */
+    @media screen and (max-width: 1199px) {
+        .main-card {
+            width: 21rem !important;
+        }
+        .vehicle-container {
+            padding: 1.5rem;
+        }
+    }
 
-  .com-header p {
-    font-size: 0.9rem;
-    margin-bottom: 1rem;
-  }
+    /* Large Tablets (iPad Pro) */
+    @media screen and (max-width: 1024px) {
+        .main-card {
+            width: 18rem !important;
+        }
+        .vehicle-container {
+            padding: 1rem;
+        }
+        .com-header h2 {
+            font-size: 1.6rem;
+        }
+        .card {
+            padding: 1rem !important;
+        }
+        .fs-1 {
+            font-size: 2.5rem !important;
+        }
+        .col-md-4 {
+            margin-bottom: 1rem;
+        }
+    }
 
-  /* Dashboard cards responsive - 2 per row (for 3 cards, 2+1 layout) */
-  .row.g-3 .col-md-4 {
-    width: 48%;
-    flex: 0 0 48%;
-    max-width: 48%;
-    margin-bottom: 1rem;
-  }
+    /* Standard Tablets (iPad) */
+    @media screen and (max-width: 768px) {
+        .main-card {
+            width: 100% !important;
+            max-width: 100%;
+        }
+        
+        .vehicle-container {
+            padding: 0.8rem;
+        }
 
-  /* Third card takes full width */
-  .row.g-3 .col-md-4:nth-child(3) {
-    width: 100%;
-    flex: 0 0 100%;
-    max-width: 100%;
-  }
+        .com-header {
+            flex-direction: column;
+            text-align: center;
+            margin-bottom: 1rem;
+        }
 
-  /* Card content adjustment */
-  .card {
-    padding: 0.75rem;
-    font-size: 0.9rem;
-  }
+        .com-header h2 {
+            font-size: 1.4rem;
+            margin-bottom: 0.5rem;
+        }
 
-  .card h6 {
-    font-size: 0.8rem;
-    margin-bottom: 0.25rem;
-  }
+        .com-header p {
+            font-size: 0.9rem;
+        }
 
-  .card h3 {
-    font-size: 1.1rem;
-  }
+        /* Statistics cards */
+        .row.g-3 .card {
+            padding: 0.8rem !important;
+            margin-bottom: 0.5rem;
+        }
 
-  .card .fs-2 {
-    font-size: 1.5rem;
-  }
+        .row.g-3 .card h3 {
+            font-size: 1.5rem;
+        }
 
-  /* Search section - side by side (80% input, 20% filter) */
-  .mt-4.border.rounded.p-3.bg-white .row {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: nowrap;
-    gap: 0.5rem;
-    margin-left: 0;
-    margin-right: 0;
-  }
+        .row.g-3 .card .fs-2 {
+            font-size: 1.8rem !important;
+        }
 
-  .mt-4.border.rounded.p-3.bg-white .col-md-9 {
-    width: 75%;
-    max-width: 75%;
-    flex: 0 0 75%;
-    padding-left: 0;
-    padding-right: 0;
-    margin-left: 0;
-    margin-right: 0;
-    min-width: 0;
-    box-sizing: border-box;
-  }
+        /* Search section */
+        .col-md-9, .col-md-3 {
+            margin-bottom: 0.8rem;
+        }
 
-  .mt-4.border.rounded.p-3.bg-white .col-md-3 {
-    width: 25%;
-    max-width: 25%;
-    flex: 0 0 25%;
-    padding-left: 0;
-    padding-right: 0;
-    margin-left: 0;
-    margin-right: 0;
-    min-width: 0;
-    box-sizing: border-box;
-  }
+        .input-group {
+            margin-bottom: 0.5rem;
+        }
 
-  .input-group,
-  #vehicleType {
-    width: 100%;
-    min-width: 0;
-  }
+        /* Vehicle cards */
+        .col-md-4 {
+            flex: 0 0 100%;
+            max-width: 100%;
+        }
 
-  /* Vehicle cards - 1 per row on mobile */
-  .vehicle-info .row.g-3 > .col-12,
-  .vehicle-info .row.g-3 > .col-sm-6,
-  .vehicle-info .row.g-3 > .col-md-4 {
-    width: 100%;
-    max-width: 100%;
-    flex: 0 0 100%;
-    margin-bottom: 1rem;
-  }
+        .vehicleCard .card {
+            padding: 1rem !important;
+        }
 
-  .vehicle-info .card {
-    margin-bottom: 1rem;
-    font-size: 0.85rem;
-  }
+        .fs-1 {
+            font-size: 2rem !important;
+        }
 
-  /* Vehicle card content adjustment */
-  .vehicle-info .card .fs-1 {
-    font-size: 1.5rem;
-  }
+        .vehicleCard h4 {
+            font-size: 1.1rem;
+        }
 
-  .vehicle-info .card .fs-5 {
-    font-size: 0.9rem;
-  }
+        .fs-5 {
+            font-size: 0.9rem !important;
+        }
 
-  .vehicle-info .card h4 {
-    font-size: 1rem;
-  }
+        .d-flex.gap-3 {
+            gap: 0.5rem !important;
+        }
+    }
 
-  /* Button adjustments */
-  .d-flex.flex-column.flex-sm-row.gap-3.mt-3 {
-    flex-direction: column;
-    gap: 0.5rem;
-  }
+    /* Small Tablets and Large Phones */
+    @media screen and (max-width: 600px) {
+        .vehicle-container {
+            padding: 0.5rem;
+        }
 
-  .btn, .btn.w-100 {
-    width: 100%;
-  }
+        .com-header h2 {
+            font-size: 1.2rem;
+        }
 
-  /* Info head adjustment */
-  .info-head h5 {
-    font-size: 1rem;
-  }
+        .com-header p {
+            font-size: 0.8rem;
+        }
 
-  /* Remove extra margins */
-  .container {
-    padding-left: 0;
-    padding-right: 0;
-  }
-}
+        /* Statistics cards - stack vertically */
+        .row.g-3 .card {
+            padding: 0.6rem !important;
+            flex-direction: column;
+            text-align: center;
+        }
 
+        .row.g-3 .card h6 {
+            font-size: 0.8rem;
+        }
 
-@media (max-width: 768px) {
-  /* Container padding */
-  
+        .row.g-3 .card h3 {
+            font-size: 1.3rem;
+            margin-top: 0.3rem;
+        }
 
-  /* Header styles */
-  .com-header h2 {
-    font-size: 1.25rem;
-    margin-bottom: 0.5rem;
-  }
-  .com-header p {
-    font-size: 1rem;
-    margin-bottom: 1rem;
-  }
+        .row.g-3 .card .fs-2 {
+            font-size: 1.5rem !important;
+            margin-top: 0.5rem;
+        }
 
-  /* Dashboard summary cards' layout */
-  .row.g-3 {
-    display: flex !important;
-    flex-wrap: wrap !important;
-    gap: 1rem !important;
-    margin-right: 0 !important;
-    padding-right: 1rem;
-  }
-  /* 1st card: Total Vehicles, full width */
-  .row.g-3 .col-md-4:nth-child(1) {
-    width: 100% !important;
-    flex: 0 0 100% !important;
-    max-width: 100% !important;
-    margin-bottom: 1rem !important;
-  }
-  /* 2nd and 3rd cards: Two/Four Wheelers, 48% each */
-  .row.g-3 .col-md-4:nth-child(2),
-  .row.g-3 .col-md-4:nth-child(3) {
-    width: 48% !important;
-    flex: 0 0 48% !important;
-    max-width: 48% !important;
-    margin-bottom: 1rem !important;
-  }
-  /* Card content adjustments */
-  .card.p-3 {
-    padding: 1rem !important;
-    font-size: 0.95rem;
-  }
-  .card.p-3 h6 {
-    font-size: 0.85rem;
-    margin-bottom: 0.25rem;
-  }
-  .card.p-3 h3 {
-    font-size: 1.15rem;
-  }
-  .card.p-3 .fs-2 {
-    font-size: 1.75rem;
-  }
+        /* Search section */
+        .border.rounded.p-3 {
+            padding: 0.8rem !important;
+        }
 
-  /* Search/filter section: input 75%, filter 25%, in single row */
-  .mt-4.border.rounded.p-3.bg-white .row {
-    display: flex !important;
-    flex-direction: row !important;
-    flex-wrap: nowrap !important;
-    gap: 0.5rem !important;
-    margin-left: 0 !important;
-    margin-right: 0 !important;
-  }
-  .mt-4.border.rounded.p-3.bg-white .col-md-9 {
-    flex: 0 0 75% !important;
-    max-width: 75% !important;
-    width: 75% !important;
-    padding-left: 0 !important;
-    padding-right: 0 !important;
-    margin-left: 0 !important;
-    margin-right: 0 !important;
-    min-width: 0 !important;
-    box-sizing: border-box;
-  }
-  .mt-4.border.rounded.p-3.bg-white .col-md-3 {
-    flex: 0 0 25% !important;
-    max-width: 25% !important;
-    width: 25% !important;
-    padding-left: 0 !important;
-    padding-right: 0 !important;
-    margin-left: 0 !important;
-    margin-right: 0 !important;
-    min-width: 0 !important;
-    box-sizing: border-box;
-  }
-  .input-group,
-  #vehicleType {
-    width: 100% !important;
-    min-width: 0 !important;
-  }
-  #searchBtn {
-    display: none !important;
-  }
+        .form-control, .form-select {
+            font-size: 0.9rem;
+            padding: 0.5rem;
+        }
 
-  /* Vehicle cards grid: 2 per row */
-  .vehicle-info .row.g-3 {
-    display: flex !important;
-    flex-wrap: wrap !important;
-    gap: 1rem !important;
-    padding-left: 1rem;
-    padding-right: 1rem;
-    margin-left: 0 !important;
-    margin-right: 0 !important;
-  }
-  .vehicle-info .row.g-3 > .col-12,
-  .vehicle-info .row.g-3 > .col-sm-6,
-  .vehicle-info .row.g-3 > .col-md-4 {
-    flex: 0 0 calc(50% - 0.5rem) !important;
-    max-width: calc(50% - 0.5rem) !important;
-    width: calc(50% - 0.5rem) !important;
-    margin-bottom: 1rem !important;
-  }
-  .vehicle-info .card {
-    margin-bottom: 0;
-    font-size: 0.9rem;
-    padding: 1rem;
-  }
-  .vehicle-info .card .fs-1 { font-size: 1.6rem; }
-  .vehicle-info .card .fs-5 { font-size: 1rem; }
-  .vehicle-info .card h4 { font-size: 1.1rem; }
+        /* Vehicle cards */
+        .vehicleCard .card {
+            padding: 0.8rem !important;
+        }
 
-  /* Button layout in vehicle cards: stack vertically, full width */
-  .d-flex.flex-column.flex-sm-row.gap-3.mt-3 {
-    flex-direction: column !important;
-    gap: 0.5rem !important;
-  }
-  .btn, .btn.w-100 {
-    width: 100% !important;
-  }
+        .vehicleCard .row.align-items-center {
+            flex-direction: column;
+            text-align: center;
+        }
 
-  /* Section heading */
-  .info-head h5 {
-    font-size: 1.15rem !important;
-  }
+        .fs-1 {
+            font-size: 1.8rem !important;
+        }
 
-  /* Remove extra side margin/padding from container */
-  .container {
-    padding-left: 0;
-    padding-right: 0;
-  }
-}
+        .vehicleCard h4 {
+            font-size: 1rem;
+            margin-top: 0.5rem;
+        }
 
+        .badge {
+            font-size: 0.7rem;
+        }
 
+        .fs-5 {
+            font-size: 0.8rem !important;
+            line-height: 1.4;
+        }
 
-  </style>
+        .btn {
+            font-size: 0.8rem;
+            padding: 0.4rem 0.8rem;
+        }
+    }
 
-  <body>
+    /* Standard Mobile Phones */
+    @media screen and (max-width: 480px) {
+        .vehicle-container {
+            padding: 0.3rem;
+        }
+
+        .owner-list-container {
+            padding: 0.3rem;
+        }
+
+        .event-container {
+            padding: 0.5rem;
+        }
+
+        .com-header h2 {
+            font-size: 1.1rem;
+        }
+
+        .com-header p {
+            font-size: 0.75rem;
+        }
+
+        /* Statistics cards */
+        .mt-4 {
+            margin-top: 1rem !important;
+        }
+
+        .row.g-3 {
+            gap: 0.5rem !important;
+        }
+
+        .row.g-3 .card {
+            padding: 0.5rem !important;
+            margin-bottom: 0.3rem;
+        }
+
+        .row.g-3 .card h6 {
+            font-size: 0.7rem;
+            margin-bottom: 0.2rem;
+        }
+
+        .row.g-3 .card h3 {
+            font-size: 1.1rem;
+        }
+
+        .row.g-3 .card .fs-2 {
+            font-size: 1.3rem !important;
+        }
+
+        /* Search section */
+        .border.rounded.p-3 {
+            padding: 0.6rem !important;
+            margin: 0.5rem 0;
+        }
+
+        .input-group-text {
+            padding: 0.4rem 0.6rem;
+        }
+
+        .form-control, .form-select {
+            font-size: 0.8rem;
+            padding: 0.4rem;
+        }
+
+        /* Vehicle info section */
+        .vehicle-info {
+            margin: 0.5rem 0 !important;
+        }
+
+        .info-head {
+            margin: 0.8rem !important;
+        }
+
+        .info-head h5 {
+            font-size: 1rem;
+        }
+
+        /* Vehicle cards */
+        .container.mb-3.mt-4 {
+            padding: 0.5rem;
+            margin: 0.5rem 0 !important;
+        }
+
+        .vehicleCard .card {
+            padding: 0.6rem !important;
+            margin-bottom: 0.8rem;
+        }
+
+        .vehicleCard .row.align-items-center {
+            margin-bottom: 0.5rem !important;
+        }
+
+        .fs-1 {
+            font-size: 1.5rem !important;
+        }
+
+        .vehicleCard h4 {
+            font-size: 0.9rem;
+            margin-top: 0.3rem;
+        }
+
+        .badge {
+            font-size: 0.6rem;
+            padding: 0.2rem 0.4rem;
+        }
+
+        .mb-2.fs-5 {
+            font-size: 0.75rem !important;
+            line-height: 1.3;
+        }
+
+        .mb-2.fs-5 strong {
+            font-size: 0.7rem;
+        }
+
+        .d-flex.gap-3 {
+            flex-direction: column;
+            gap: 0.4rem !important;
+        }
+
+        .btn {
+            font-size: 0.75rem;
+            padding: 0.4rem 0.6rem;
+        }
+    }
+
+    /* Small Mobile Phones */
+    @media screen and (max-width: 390px) {
+        .vehicle-container {
+            padding: 0.2rem;
+        }
+
+        .com-header h2 {
+            font-size: 1rem;
+        }
+
+        .com-header p {
+            font-size: 0.7rem;
+        }
+
+        /* Statistics cards */
+        .row.g-3 .card {
+            padding: 0.4rem !important;
+        }
+
+        .row.g-3 .card h6 {
+            font-size: 0.65rem;
+        }
+
+        .row.g-3 .card h3 {
+            font-size: 1rem;
+        }
+
+        .row.g-3 .card .fs-2 {
+            font-size: 1.2rem !important;
+        }
+
+        /* Search section */
+        .border.rounded.p-3 {
+            padding: 0.5rem !important;
+        }
+
+        .form-control, .form-select {
+            font-size: 0.75rem;
+        }
+
+        /* Vehicle cards */
+        .vehicleCard .card {
+            padding: 0.5rem !important;
+        }
+
+        .fs-1 {
+            font-size: 1.3rem !important;
+        }
+
+        .vehicleCard h4 {
+            font-size: 0.8rem;
+        }
+
+        .mb-2.fs-5 {
+            font-size: 0.7rem !important;
+        }
+
+        .btn {
+            font-size: 0.7rem;
+            padding: 0.3rem 0.5rem;
+        }
+    }
+
+    /* Extra Small Mobile Phones */
+    @media screen and (max-width: 320px) {
+        .vehicle-container {
+            padding: 0.1rem;
+        }
+
+        .com-header h2 {
+            font-size: 0.9rem;
+        }
+
+        .com-header p {
+            font-size: 0.65rem;
+        }
+
+        /* Statistics cards */
+        .row.g-3 .card {
+            padding: 0.3rem !important;
+        }
+
+        .row.g-3 .card h6 {
+            font-size: 0.6rem;
+        }
+
+        .row.g-3 .card h3 {
+            font-size: 0.9rem;
+        }
+
+        .row.g-3 .card .fs-2 {
+            font-size: 1.1rem !important;
+        }
+
+        /* Vehicle cards */
+        .vehicleCard .card {
+            padding: 0.4rem !important;
+        }
+
+        .fs-1 {
+            font-size: 1.2rem !important;
+        }
+
+        .vehicleCard h4 {
+            font-size: 0.75rem;
+        }
+
+        .mb-2.fs-5 {
+            font-size: 0.65rem !important;
+        }
+
+        .btn {
+            font-size: 0.65rem;
+            padding: 0.3rem 0.4rem;
+        }
+    }
+
+    /* Landscape orientation for mobile devices */
+    @media screen and (max-height: 500px) and (orientation: landscape) {
+        .vehicle-container {
+            padding: 0.3rem;
+        }
+
+        .com-header {
+            margin-bottom: 0.5rem;
+        }
+
+        .mt-4 {
+            margin-top: 0.8rem !important;
+        }
+
+        .vehicleCard .card {
+            padding: 0.5rem !important;
+        }
+
+        .row.g-3 .card {
+            padding: 0.4rem !important;
+        }
+    }
+
+    /* High DPI displays */
+    @media screen and (-webkit-min-device-pixel-ratio: 2),
+           screen and (min-resolution: 192dpi) {
+        .card {
+            border-width: 0.5px;
+        }
+        
+        .border {
+            border-width: 0.5px !important;
+        }
+    }
+
+    /* Specific device optimizations */
+    
+    /* iPhone 14 Pro Max, iPhone 13 Pro Max, iPhone 12 Pro Max */
+    @media screen and (max-width: 430px) {
+        .container {
+            max-width: 400px;
+        }
+    }
+
+    /* iPhone 14, iPhone 13, iPhone 12 */
+    @media screen and (max-width: 390px) {
+        .container {
+            max-width: 360px;
+        }
+    }
+
+    /* iPhone SE, iPhone 8 */
+    @media screen and (max-width: 375px) {
+        .container {
+            max-width: 345px;
+        }
+    }
+
+    /* Samsung Galaxy S series, Google Pixel */
+    @media screen and (max-width: 360px) {
+        .container {
+            max-width: 330px;
+        }
+    }
+
+    /* Print styles */
+    @media print {
+        .btn {
+            display: none;
+        }
+        
+        .vehicle-container {
+            padding: 0;
+        }
+        
+        .card {
+            border: 1px solid #000 !important;
+            box-shadow: none !important;
+        }
+    }
+</style>
+
+<body>
     <div class="vehicle-container">
-      <div class="owner-list-container">
-        <div class="event-container">
-          <div class="com-header d-flex justify-content-between">
-            <div class="left">
-              <h2 class="fw-bold">Vehicle Search</h2>
-              <p class="text-muted">Find vehicle owners for complaints or inquiries</p>
-            </div>
-          </div>
-        </div>
-
-
-        <div class="mt-4">
-          <div class="row g-3">
-            <!-- Total Vehicles -->
-            <div class="col-md-4 col-sm-12">
-              <div class="card p-3 d-flex justify-content-between align-items-center flex-row">
-                <div>
-                  <h6 class="text-muted">Total Vehicles</h6>
-                  <h3 class="text-primary fw-bold">
-                    <%= twoWheeler + fourWheeler %>
-                  </h3>
+        <div class="owner-list-container">
+            <div class="event-container">
+                <div class="com-header d-flex justify-content-between">
+                    <div class="left">
+                        <h2 class="fw-bold">Vehicle Search</h2>
+                        <p class="text-muted">Find vehicle owners for complaints or inquiries</p>
+                    </div>
                 </div>
-                <i class="bi bi-car-front text-primary fs-2"></i>
-              </div>
             </div>
 
-            <!-- Two Wheelers -->
-            <div class="col-md-4 col-sm-12">
-              <div class="card p-3 d-flex justify-content-between align-items-center flex-row">
-                <div>
-                  <h6 class="text-muted">Two Wheelers</h6>
-                  <h3 class="text-success fw-bold">
-                    <%= twoWheeler %>
-                  </h3>
-                </div>
-                <i class="bi bi-bicycle text-primary fs-2"></i>
-              </div>
-            </div>
-
-            <!-- Four Wheelers -->
-            <div class="col-md-4 col-sm-12">
-              <div class="card p-3 d-flex justify-content-between align-items-center flex-row">
-                <div>
-                  <h6 class="text-muted">Four Wheelers</h6>
-                  <h3 class="text-warning fw-bold">
-                    <%= fourWheeler %>
-                  </h3>
-                </div>
-                <i class="bi bi-car-front text-primary fs-2"></i>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="mt-4 border rounded p-3 bg-white">
-          <div class="row g-3 align-items-center">
-            <!-- Search Box -->
-            <div class="col-md-9 col-sm-12">
-              <div class="input-group">
-                <span class="input-group-text bg-white border-end-0">
-                  <i class="bi bi-search text-muted"></i>
-                </span>
-                <input type="text" id="searchInput" class="form-control border-start-0"
-                  placeholder="Search by registration number, owner name, or flat...">
-              </div>
-            </div>
-
-            <!-- Filter Dropdown -->
-            <div class="col-md-3 col-sm-12">
-              <select id="vehicleType" class="form-select border-primary text-dark fw-semibold">
-                <option selected>All Vehicles</option>
-                <option>Two Wheelers</option>
-                <option>Four Wheelers</option>
-              </select>
-            </div>
-          </div>
-        </div>
-
-        <div class="vehicle-info mt-4 border rounded bg-white">
-          <div class="info-head m-4">
-            <h5 class="fw-bold">Search Results</h5>
-          </div>
-          <hr>
-
-          <div class="container mb-3 mt-4">
-            <div class="row g-3">
-              <% allParkingDetails.forEach(pDetail=> { %>
-                <div class="col-12 col-sm-6 col-md-4 vehicleCard"
-                  data-four_wheeler="<%= pDetail.four_wheeler ? pDetail.four_wheeler : '' %>"
-                  data-two_wheeler="<%= pDetail.two_wheeler ? pDetail.two_wheeler : '' %>"
-                  data-owner="<%= (pDetail.first_name + ' ' + pDetail.last_name).toLowerCase() %>"
-                  data-flat="<%= (pDetail.block + '-' + pDetail.flat_number).toLowerCase() %>">
-                  <div class="card p-3 shadow-sm h-100">
-                    <div class="row align-items-center mb-3">
-                      <div class="col-auto">
-                        <% if (pDetail.four_wheeler) { %>
-                          <i class="bi bi-car-front fs-1 text-primary"></i>
-                          <h4 class="mb-0">
-                            <%= pDetail.four_wheeler %>
-                              <span class="badge bg-light text-primary">4-wheeler</span>
-                          </h4>
-                          <% } %>
-                            <% if (pDetail.two_wheeler) { %>
-                              <i class="bi bi-bicycle fs-1 text-success"></i>
-                              <h4 class="mb-0">
-                                <%= pDetail.two_wheeler %>
-                                  <span class="badge bg-light text-success">2-wheeler</span>
-                              </h4>
-                              <% } %>
-                      </div>
+            <div class="mt-4">
+                <div class="row g-3">
+                    <!-- Total Vehicles -->
+                    <div class="col-md-4 col-sm-12">
+                        <div class="card p-3 d-flex justify-content-between align-items-center flex-row">
+                            <div>
+                                <h6 class="text-muted">Total Vehicles</h6>
+                                <h3 class="text-primary fw-bold">
+                                    <%= twoWheeler + fourWheeler %>
+                                </h3>
+                            </div>
+                            <i class="bi bi-car-front text-primary fs-2"></i>
+                        </div>
                     </div>
 
-                    <div class="mb-2 fs-5">
-                      <strong>Owner :</strong>
-                      <%= pDetail.first_name %>
-                        <%= pDetail.last_name %> <br />
-                          <strong>Flat :</strong> Block <%= pDetail.block %> - <%= pDetail.flat_number %> <br />
-                              <strong>Phone :</strong> +91 <%= pDetail.mobile_number %> <br />
+                    <!-- Two Wheelers -->
+                    <div class="col-md-4 col-sm-12">
+                        <div class="card p-3 d-flex justify-content-between align-items-center flex-row">
+                            <div>
+                                <h6 class="text-muted">Two Wheelers</h6>
+                                <h3 class="text-success fw-bold">
+                                    <%= twoWheeler %>
+                                </h3>
+                            </div>
+                            <i class="bi bi-bicycle text-primary fs-2"></i>
+                        </div>
                     </div>
 
-                    <div class="d-flex flex-column flex-sm-row gap-3 mt-3">
-                      <button class="btn btn-primary w-100 w-sm-auto">Contact Owner</button>
-                      <button class="btn btn-outline-secondary w-100 w-sm-auto">Report Issue</button>
+                    <!-- Four Wheelers -->
+                    <div class="col-md-4 col-sm-12">
+                        <div class="card p-3 d-flex justify-content-between align-items-center flex-row">
+                            <div>
+                                <h6 class="text-muted">Four Wheelers</h6>
+                                <h3 class="text-warning fw-bold">
+                                    <%= fourWheeler %>
+                                </h3>
+                            </div>
+                            <i class="bi bi-car-front text-primary fs-2"></i>
+                        </div>
                     </div>
-                  </div>
                 </div>
-                <% }); %>
             </div>
-          </div>
+
+            <div class="mt-4 border rounded p-3 bg-white">
+                <div class="row g-3 align-items-center">
+                    <!-- Search Box -->
+                    <div class="col-md-9 col-sm-12">
+                        <div class="input-group">
+                            <span class="input-group-text bg-white border-end-0">
+                                <i class="bi bi-search text-muted"></i>
+                            </span>
+                            <input type="text" id="searchInput" class="form-control border-start-0"
+                                placeholder="Search by registration number, owner name, or flat...">
+                        </div>
+                    </div>
+
+                    <!-- Filter Dropdown -->
+                    <div class="col-md-3 col-sm-12">
+                        <select id="vehicleType" class="form-select border-primary text-dark fw-semibold">
+                            <option selected>All Vehicles</option>
+                            <option>Two Wheelers</option>
+                            <option>Four Wheelers</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <div class="vehicle-info mt-4 border rounded bg-white">
+                <div class="info-head m-4">
+                    <h5 class="fw-bold">Search Results</h5>
+                </div>
+                <hr>
+
+                <div class="container mb-3 mt-4">
+                    <div class="row g-3">
+                        <% allParkingDetails.forEach(pDetail=> { %>
+                            <div class="col-12 col-sm-6 col-md-4 vehicleCard"
+                                data-four_wheeler="<%= pDetail.four_wheeler ? pDetail.four_wheeler : '' %>"
+                                data-two_wheeler="<%= pDetail.two_wheeler ? pDetail.two_wheeler : '' %>"
+                                data-owner="<%= (pDetail.first_name + ' ' + pDetail.last_name).toLowerCase() %>"
+                                data-flat="<%= (pDetail.block + '-' + pDetail.flat_number).toLowerCase() %>">
+                                <div class="card p-3 shadow-sm h-100">
+                                    <div class="row align-items-center mb-3">
+                                        <div class="col-auto">
+                                            <% if (pDetail.four_wheeler) { %>
+                                                <i class="bi bi-car-front fs-1 text-primary"></i>
+                                                <h4 class="mb-0">
+                                                    <%= pDetail.four_wheeler %>
+                                                    <span class="badge bg-light text-primary">4-wheeler</span>
+                                                </h4>
+                                            <% } %>
+                                            <% if (pDetail.two_wheeler) { %>
+                                                <i class="bi bi-bicycle fs-1 text-success"></i>
+                                                <h4 class="mb-0">
+                                                    <%= pDetail.two_wheeler %>
+                                                    <span class="badge bg-light text-success">2-wheeler</span>
+                                                </h4>
+                                            <% } %>
+                                        </div>
+                                    </div>
+
+                                    <div class="mb-2 fs-5">
+                                        <strong>Owner :</strong>
+                                        <%= pDetail.first_name %> <%= pDetail.last_name %> <br />
+                                        <strong>Flat :</strong> Block <%= pDetail.block %> - <%= pDetail.flat_number %> <br />
+                                        <strong>Phone :</strong> +91 <%= pDetail.mobile_number %> <br />
+                                    </div>
+
+                                    <div class="d-flex flex-column flex-sm-row gap-3 mt-3">
+                                        <button class="btn btn-primary w-100 w-sm-auto">Contact Owner</button>
+                                        <button class="btn btn-outline-secondary w-100 w-sm-auto">Report Issue</button>
+                                    </div>
+                                </div>
+                            </div>
+                        <% }); %>
+                    </div>
+                </div>
+            </div>
         </div>
-      </div>
     </div>
+
     <script>
-      function filterVehicle() {
-        const search = document.getElementById("searchInput").value.toLowerCase();
-        const filter = document.getElementById("vehicleType").value;
-        const vehicleCards = document.querySelectorAll(".vehicleCard");
+        function filterVehicle() {
+            const search = document.getElementById("searchInput").value.toLowerCase();
+            const filter = document.getElementById("vehicleType").value;
+            const vehicleCards = document.querySelectorAll(".vehicleCard");
 
-        vehicleCards.forEach(card => {
-          const car = card.dataset.four_wheeler.toLowerCase();
-          const bike = card.dataset.two_wheeler.toLowerCase();
-          const owner = card.dataset.owner;
-          const flat = card.dataset.flat;
+            vehicleCards.forEach(card => {
+                const car = card.dataset.four_wheeler.toLowerCase();
+                const bike = card.dataset.two_wheeler.toLowerCase();
+                const owner = card.dataset.owner;
+                const flat = card.dataset.flat;
 
-          const matchesSearch =
-            car.includes(search) ||
-            bike.includes(search) ||
-            owner.includes(search) ||
-            flat.includes(search);
+                const matchesSearch =
+                    car.includes(search) ||
+                    bike.includes(search) ||
+                    owner.includes(search) ||
+                    flat.includes(search);
 
-          const type = car ? "Four Wheelers" : "Two Wheelers";
-          const matchesType = filter === "All Vehicles" || filter === type;
+                const type = car ? "Four Wheelers" : "Two Wheelers";
+                const matchesType = filter === "All Vehicles" || filter === type;
 
-          if (matchesSearch && matchesType) {
-            card.style.display = "block";
-          } else {
-            card.style.display = "none";
-          }
-        });
-      }
+                if (matchesSearch && matchesType) {
+                    card.style.display = "block";
+                } else {
+                    card.style.display = "none";
+                }
+            });
+        }
 
-      document.getElementById("searchInput").addEventListener("input", filterVehicle);
-      document.getElementById("vehicleType").addEventListener("change", filterVehicle);
+        document.getElementById("searchInput").addEventListener("input", filterVehicle);
+        document.getElementById("vehicleType").addEventListener("change", filterVehicle);
     </script>
-  </body>
+</body>

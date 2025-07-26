@@ -54,76 +54,764 @@
             color: #666;
         }
 
-        @media (max-width: 768px) {
-  /* Container padding & box-sizing fix */
-  body {
-    margin: 0 !important;
-    padding: 0 !important;
-    box-sizing: border-box;
-  }
+        /* === IMPROVED BILL SECTION STYLES === */
+        .bill-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 18px;
+            padding: 0 1.5rem 2rem;
+        }
 
-  /* Dash info container as horizontal scroll */
-  .dash-info {
-    display: flex !important;
-    flex-wrap: nowrap !important; /* No wrap: single row */
-    overflow-x: auto !important;  /* Horizontal scroll */
-    gap: 1rem !important;
-    padding-left: 1rem;
-    padding-right: 1rem;
-    -webkit-overflow-scrolling: touch; /* Smooth scroll on iOS */
-    scrollbar-width: thin;
-  }
-  /* Optional: style scrollbar for WebKit browsers */
-  .dash-info::-webkit-scrollbar {
-    height: 8px;
-  }
-  .dash-info::-webkit-scrollbar-thumb {
-    background: rgba(0,0,0,0.1);
-    border-radius: 4px;
-  }
-  .dash-info::-webkit-scrollbar-track {
-    background: transparent;
-  }
+        .bill-card {
+            background: #fff;
+            border: 1px solid #e5e7eb;
+            border-radius: 12px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, .04);
+            display: flex;
+            flex-direction: column;
+            transition: box-shadow .2s ease;
+        }
 
-  /* Cards fixed width and no shrink */
-  .dash-card {
-    flex: 0 0 auto !important; /* No grow, no shrink */
-    width: 16rem !important;    /* Fixed card width */
-    height: auto !important;
-    margin-bottom: 0 !important; /* Remove bottom margin */
-    padding: 1rem !important;
-    border-radius: 1rem !important;
-    background-color: #fff !important;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
-    display: flex !important;
-    justify-content: space-between !important;
-    align-items: center !important;
-  }
+        .bill-card:hover {
+            box-shadow: 0 4px 12px rgba(0, 0, 0, .08);
+        }
 
-  /* Left and right sections inside card */
-  .dash-card .left, .dash-card .right {
-    margin: 0 !important;
-    padding: 0 !important;
-  }
+        .bill-card__main {
+            padding: 1.25rem 1.5rem;
+            display: flex;
+            justify-content: space-between;
+            gap: 1rem;
+        }
 
-  .dash-card .left p {
-    font-size: 0.9rem !important;
-    margin-bottom: 0.3rem !important;
-    color: #555;
-  }
-  .dash-card .left h3 {
-    font-size: 1.2rem !important;
-    font-weight: 700 !important;
-    margin: 0 !important;
-    color: #222;
-  }
+        .bill-card__footer {
+            border-top: 1px solid #f1f3f5;
+            padding: .75rem 1.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
 
-  .dash-card .right i {
-    font-size: 2.5rem !important;
-  }
-}
+        .bill-title {
+            font-size: 1.125rem;
+            font-weight: 600;
+            margin-bottom: .25rem;
+        }
 
-        
+        .badge {
+            font-size: .75rem;
+            padding: 4px 10px;
+            border-radius: 7px;
+        }
+
+        .status-badge {
+            background: #fef3c7;
+            color: #92400e;
+        }
+
+        .is-paid .status-badge {
+            background: #4ade80;
+            color: #065f46;
+        }
+
+        .overdue-badge {
+            background: #fee2e2;
+            color: #991b1b;
+            margin-top: .25rem;
+            display: inline-block;
+        }
+
+        .bill-amount {
+            font-size: 1.5rem;
+            font-weight: 700;
+            white-space: nowrap;
+        }
+
+        .pay-btn {
+            background: #2563eb;
+            color: #fff;
+            padding: 6px 16px;
+            border-radius: 8px;
+            font-weight: 500;
+            border: none;
+            transition: background .2s;
+        }
+
+        .pay-btn:hover {
+            background: #1d4ed8;
+        }
+
+        .bill-select-all input {
+            cursor: pointer;
+        }
+
+        .bill-select-all span {
+            font-size: .9rem;
+        }
+
+        .bill-card .form-check-input {
+            margin-top: 3px;
+            cursor: pointer;
+        }
+
+        .bill-card .form-check-input:focus {
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, .3);
+            border-color: #2563eb;
+        }
+
+        .bill-sub {
+            font-size: 0.9rem;
+        }
+
+        /* ==== LARGE DESKTOP (1400px and above) ==== */
+        @media screen and (min-width: 1400px) {
+            .payment-container {
+                max-width: 1400px;
+                margin: 0 auto;
+                padding: 0 30px;
+            }
+            
+            .quick-pay-card {
+                padding: 25px 35px;
+            }
+            
+            .quick-pay-card h5 {
+                font-size: 1.3rem;
+            }
+            
+            .all-bills {
+                padding: 0 20px;
+            }
+
+            .bill-grid {
+                grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
+                gap: 20px;
+            }
+        }
+
+        /* ==== STANDARD DESKTOP (1200px to 1399px) ==== */
+        @media screen and (min-width: 1200px) and (max-width: 1399px) {
+            .payment-container {
+                max-width: 1200px;
+                margin: 0 auto;
+                padding: 0 25px;
+            }
+            
+            .com-header {
+                margin-bottom: 20px;
+            }
+            
+            .quick-pay-card {
+                padding: 20px 30px;
+            }
+
+            .bill-grid {
+                grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            }
+        }
+
+        /* ==== SMALL LAPTOP/LARGE TABLET (1024px to 1199px) ==== */
+        @media screen and (min-width: 1024px) and (max-width: 1199px) {
+            .payment-container {
+                padding: 0 20px;
+            }
+            
+            .com-header {
+                flex-direction: row;
+                gap: 15px;
+                margin-bottom: 20px;
+            }
+            
+            .com-header .right a {
+                padding: 8px 15px !important;
+                font-size: 0.9rem;
+            }
+            
+            .row.g-3 {
+                gap: 12px !important;
+            }
+            
+            .col-md-4 {
+                flex: 0 0 calc(33.33% - 10px);
+                max-width: calc(33.33% - 10px);
+            }
+            
+            .card {
+                padding: 15px !important;
+                min-height: 100px;
+            }
+            
+            .card h3 {
+                font-size: 1.4rem;
+            }
+            
+            .card i {
+                font-size: 1.8rem !important;
+            }
+            
+            .quick-pay-card {
+                padding: 18px 25px;
+                flex-direction: row;
+                align-items: center;
+            }
+            
+            .quick-pay-card h5 {
+                font-size: 1.1rem;
+                margin-bottom: 5px !important;
+            }
+            
+            .all-bills h3 {
+                font-size: 1.3rem;
+                margin: 20px !important;
+            }
+
+            .bill-grid {
+                grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+                gap: 16px;
+            }
+        }
+
+        /* ==== TABLET (768px to 1023px) ==== */
+        @media screen and (min-width: 768px) and (max-width: 1023px) {
+            .payment-container {
+                padding: 0 15px;
+            }
+            
+            .com-header {
+                flex-direction: column;
+                gap: 15px;
+                text-align: left;
+            }
+            
+            .com-header h2 {
+                font-size: 1.8rem;
+            }
+            
+            .com-header .right {
+                align-self: flex-start;
+            }
+            
+            .com-header .right a {
+                padding: 10px 20px !important;
+                font-size: 0.9rem;
+            }
+            
+            .row.g-3 {
+                margin: 0 !important;
+            }
+            
+            .col-md-4 {
+                flex: 0 0 100%;
+                max-width: 100%;
+                margin-bottom: 12px;
+            }
+            
+            .card {
+                padding: 18px !important;
+                min-height: 90px;
+            }
+            
+            .card h6 {
+                font-size: 0.9rem;
+                margin-bottom: 8px;
+            }
+            
+            .card h3 {
+                font-size: 1.5rem;
+            }
+            
+            .card i {
+                font-size: 2rem !important;
+            }
+            
+            .quick-pay-card {
+                padding: 20px;
+                flex-direction: column;
+                text-align: center;
+                gap: 15px;
+            }
+            
+            .quick-pay-card h5 {
+                font-size: 1.1rem;
+                margin-bottom: 5px !important;
+            }
+            
+            .quick-pay-card small {
+                font-size: 0.85rem;
+            }
+            
+            .pay-btn {
+                padding: 12px 25px !important;
+                font-size: 0.9rem;
+                width: auto;
+            }
+            
+            .all-bills {
+                margin-top: 30px !important;
+            }
+            
+            .all-bills h3 {
+                font-size: 1.4rem;
+                margin: 20px !important;
+            }
+
+            .bill-grid {
+                grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+                gap: 15px;
+                padding: 0 1rem 1.5rem;
+            }
+
+            .bill-card__main {
+                padding: 1rem;
+            }
+
+            .bill-card__footer {
+                padding: .6rem 1rem;
+            }
+
+            .bill-amount {
+                font-size: 1.35rem;
+            }
+        }
+
+        /* ==== MOBILE LARGE (481px to 767px) ==== */
+        @media screen and (min-width: 481px) and (max-width: 767px) {
+            .payment-container {
+                padding: 0 12px;
+            }
+            
+            .com-header {
+                flex-direction: column;
+                gap: 15px;
+                text-align: left;
+            }
+            
+            .com-header h2 {
+                font-size: 1.6rem;
+                margin-bottom: 5px;
+            }
+            
+            .com-header p {
+                font-size: 0.9rem;
+                margin-bottom: 0;
+            }
+            
+            .com-header .right a {
+                padding: 10px 18px !important;
+                font-size: 0.85rem;
+                display: inline-block;
+            }
+            
+            .row.g-3 {
+                margin: 0 !important;
+            }
+            
+            .col-md-4 {
+                flex: 0 0 100%;
+                max-width: 100%;
+                margin-bottom: 10px;
+            }
+            
+            .card {
+                padding: 16px !important;
+                min-height: 80px;
+            }
+            
+            .card h6 {
+                font-size: 0.85rem;
+                margin-bottom: 8px;
+            }
+            
+            .card h3 {
+                font-size: 1.3rem;
+            }
+            
+            .card i {
+                font-size: 1.8rem !important;
+            }
+            
+            .quick-pay-card {
+                padding: 18px;
+                flex-direction: column;
+                text-align: center;
+                gap: 12px;
+            }
+            
+            .quick-pay-card h5 {
+                font-size: 1rem;
+                margin-bottom: 3px !important;
+            }
+            
+            .quick-pay-card small {
+                font-size: 0.8rem;
+            }
+            
+            .pay-btn {
+                padding: 12px 20px !important;
+                font-size: 0.85rem;
+                width: 100%;
+            }
+            
+            .all-bills {
+                margin-top: 25px !important;
+            }
+            
+            .all-bills h3 {
+                font-size: 1.3rem;
+                margin: 18px !important;
+            }
+
+            .bill-grid {
+                gap: 14px;
+                padding: 0 1rem 1.5rem;
+            }
+
+            .bill-card__main {
+                flex-direction: column;
+                gap: .75rem;
+            }
+
+            .bill-amount {
+                align-self: flex-start;
+            }
+
+            .bill-card__footer {
+                flex-direction: column;
+                gap: .6rem;
+                align-items: flex-start;
+            }
+
+            .pay-form {
+                width: 100%;
+            }
+
+            .pay-btn {
+                width: 100%;
+                text-align: center;
+            }
+        }
+
+        /* ==== MOBILE SMALL (320px to 480px) ==== */
+        @media screen and (min-width: 320px) and (max-width: 480px) {
+            .payment-container {
+                padding: 0 10px;
+            }
+            
+            .com-header {
+                flex-direction: column;
+                gap: 12px;
+                text-align: left;
+            }
+            
+            .com-header h2 {
+                font-size: 1.4rem;
+                margin-bottom: 3px;
+            }
+            
+            .com-header p {
+                font-size: 0.85rem;
+                margin-bottom: 0;
+            }
+            
+            .com-header .right a {
+                padding: 8px 15px !important;
+                font-size: 0.8rem;
+                display: inline-block;
+            }
+            
+            .row.g-3 {
+                margin: 0 !important;
+            }
+            
+            .col-md-4 {
+                flex: 0 0 100%;
+                max-width: 100%;
+                margin-bottom: 8px;
+            }
+            
+            .card {
+                padding: 14px !important;
+                min-height: 70px;
+            }
+            
+            .card h6 {
+                font-size: 0.8rem;
+                margin-bottom: 6px;
+            }
+            
+            .card h3 {
+                font-size: 1.2rem;
+            }
+            
+            .card i {
+                font-size: 1.5rem !important;
+            }
+            
+            .quick-pay-card {
+                padding: 15px;
+                flex-direction: column;
+                text-align: center;
+                gap: 10px;
+            }
+            
+            .quick-pay-card h5 {
+                font-size: 0.95rem;
+                margin-bottom: 2px !important;
+            }
+            
+            .quick-pay-card small {
+                font-size: 0.75rem;
+            }
+            
+            .pay-btn {
+                padding: 10px 18px !important;
+                font-size: 0.8rem;
+                width: 100%;
+            }
+            
+            .all-bills {
+                margin-top: 20px !important;
+            }
+            
+            .all-bills h3 {
+                font-size: 1.2rem;
+                margin: 15px !important;
+            }
+
+            .bill-grid {
+                grid-template-columns: 1fr;
+                gap: 12px;
+                padding: 0 0.8rem 1.2rem;
+            }
+
+            .bill-card__main {
+                flex-direction: column;
+                gap: .75rem;
+                padding: 1rem;
+            }
+
+            .bill-amount {
+                align-self: flex-start;
+                font-size: 1.3rem;
+            }
+
+            .bill-card__footer {
+                flex-direction: column;
+                gap: .6rem;
+                align-items: flex-start;
+                padding: .6rem 1rem;
+            }
+
+            .pay-form {
+                width: 100%;
+            }
+
+            .pay-btn {
+                width: 100%;
+                text-align: center;
+                padding: 8px !important;
+                font-size: 0.8rem;
+            }
+
+            .bill-title {
+                font-size: 1rem;
+            }
+
+            .bill-sub {
+                font-size: 0.8rem;
+            }
+
+            .badge {
+                font-size: 0.7rem;
+                padding: 3px 6px;
+            }
+        }
+
+        /* ==== EXTRA SMALL MOBILE (below 320px) ==== */
+        @media screen and (max-width: 319px) {
+            .payment-container {
+                padding: 0 8px;
+            }
+            
+            .com-header h2 {
+                font-size: 1.2rem;
+            }
+            
+            .com-header p {
+                font-size: 0.8rem;
+            }
+            
+            .com-header .right a {
+                padding: 6px 12px !important;
+                font-size: 0.75rem;
+            }
+            
+            .card {
+                padding: 12px !important;
+                min-height: 65px;
+            }
+            
+            .card h6 {
+                font-size: 0.75rem;
+            }
+            
+            .card h3 {
+                font-size: 1.1rem;
+            }
+            
+            .card i {
+                font-size: 1.3rem !important;
+            }
+            
+            .quick-pay-card {
+                padding: 12px;
+            }
+            
+            .quick-pay-card h5 {
+                font-size: 0.9rem;
+            }
+            
+            .quick-pay-card small {
+                font-size: 0.7rem;
+            }
+            
+            .pay-btn {
+                padding: 8px 15px !important;
+                font-size: 0.75rem;
+            }
+            
+            .all-bills h3 {
+                font-size: 1.1rem;
+                margin: 12px !important;
+            }
+
+            .bill-grid {
+                padding: 0 0.5rem 1rem;
+            }
+
+            .bill-card__main {
+                padding: 0.8rem;
+            }
+
+            .bill-card__footer {
+                padding: 0.5rem 0.8rem;
+            }
+
+            .bill-title {
+                font-size: 0.95rem;
+            }
+
+            .bill-amount {
+                font-size: 1.2rem;
+            }
+
+            .badge {
+                font-size: 0.65rem;
+                padding: 2px 5px;
+            }
+        }
+
+        /* ==== LANDSCAPE ORIENTATION FOR MOBILE ==== */
+        @media screen and (orientation: landscape) and (max-height: 600px) and (max-width: 1023px) {
+            .com-header {
+                margin-bottom: 15px;
+            }
+            
+            .com-header h2 {
+                font-size: 1.3rem;
+            }
+            
+            .com-header p {
+                font-size: 0.8rem;
+            }
+            
+            .quick-pay-card {
+                padding: 12px 15px;
+                flex-direction: row;
+                text-align: left;
+            }
+            
+            .quick-pay-card h5 {
+                font-size: 0.95rem;
+            }
+            
+            .quick-pay-card small {
+                font-size: 0.75rem;
+            }
+            
+            .all-bills h3 {
+                margin: 12px !important;
+            }
+            
+            .card {
+                min-height: 60px;
+                padding: 10px !important;
+            }
+
+            .bill-grid {
+                gap: 12px;
+                padding: 0 1rem 1rem;
+            }
+
+            .bill-card__main {
+                padding: 0.8rem;
+            }
+
+            .bill-card__footer {
+                padding: 0.5rem 0.8rem;
+            }
+        }
+
+        /* ==== UNIVERSAL IMPROVEMENTS ==== */
+        @media screen and (max-width: 1023px) {
+            .form-check-input:focus {
+                border-color: #2563eb;
+                box-shadow: 0 0 0 0.2rem rgba(37, 99, 235, 0.25);
+            }
+            
+            .pay-btn:disabled {
+                opacity: 0.6;
+                cursor: not-allowed;
+            }
+            
+            .status-badge {
+                white-space: nowrap;
+            }
+        }
+
+        /* ==== HIGH DPI SCREENS ==== */
+        @media screen and (-webkit-min-device-pixel-ratio: 2),
+               screen and (min-resolution: 192dpi) {
+            .card i,
+            .quick-pay-card,
+            .status-badge,
+            .bill-card i {
+                -webkit-font-smoothing: antialiased;
+                -moz-osx-font-smoothing: grayscale;
+            }
+        }
+
+        /* ==== PRINT STYLES ==== */
+        @media print {
+            .com-header .right,
+            .quick-pay-card,
+            .form-check-input,
+            .pay-btn,
+            .bill-select-all {
+                display: none !important;
+            }
+            
+            .bill-card {
+                break-inside: avoid;
+                box-shadow: none;
+                border: 1px solid #000;
+            }
+            
+            .status-badge {
+                color: #000 !important;
+                background: transparent !important;
+                border: 1px solid #000 !important;
+            }
+        }
     </style>
 
     <body>
@@ -142,7 +830,6 @@
 
             <div class="mt-4">
                 <div class="row g-3">
-                    <!-- Pending Bills -->
                     <!-- Pending Bills -->
                     <div class="col-md-4 col-sm-12">
                         <div class="card p-3 d-flex justify-content-between align-items-center flex-row">
@@ -193,84 +880,83 @@
             </div>
         </div>
 
+        <!-- IMPROVED ALL BILLS SECTION -->
         <div class="all-bills border rounded mt-5">
             <h3 class="m-4">All Bills</h3>
             <hr>
 
-            <% if (!billDetails || billDetails.length===0) { %>
-                <div class="no-bills p-4">
+            <!-- Select-all helper -->
+            <label class="bill-select-all ms-4 mb-3 d-flex align-items-center">
+                <input type="checkbox" id="selectAllBills" class="form-check-input me-2">
+                <span>Select all unpaid bills</span>
+            </label>
+
+            <% if (!billDetails || billDetails.length === 0) { %>
+                <div class="no-bills">
                     <i class="bi bi-receipt fs-1 text-muted"></i>
                     <p class="mt-3">No bills found for your account</p>
                 </div>
-                <% } else { %>
-                    <% billDetails.forEach(bill=> { %>
-                        <div class="bill-item d-flex justify-content-between bg-white align-items-center">
-                            <div class="d-flex align-items-start gap-3 ms-4">
-                                <input type="checkbox" class="form-check-input mt-1 bill-checkbox"
-                                    data-amount="<%= bill.amount %>" <%=bill.status==='Paid' ? 'disabled' : '' %>>
+            <% } else { %>
+                <div class="bill-grid">
+                    <% billDetails.forEach(bill => { %>
+                        <article class="bill-card <%= bill.status === 'Paid' ? 'is-paid' : 'is-pending' %>">
+                            <header class="bill-card__main">
+                                <div class="d-flex align-items-start gap-2">
+                                    <input type="checkbox"
+                                           class="form-check-input bill-checkbox"
+                                           data-amount="<%= bill.amount %>"
+                                           <%= bill.status === 'Paid' ? 'disabled checked' : '' %>>
 
-                                <div>
-                                    <h4 class="fw-bold mb-1">
-                                        <%= bill.title %>
-                                    </h4>
-                                    <div class="text-muted small d-flex align-items-center gap-2">
-                                        <i class="bi bi-clock due-date-icon"></i>
-                                        <% if (bill.type) { %>
-                                            <%= bill.type %> •
-                                                <% } %>
-                                                    <% if (bill.dueDate) { %>
-                                                        Due <%= new Date(bill.dueDate).toLocaleDateString('en-US', {
-                                                            month: 'short' , day: 'numeric' , year: 'numeric' }) %>
-                                                            <% } else { %>
-                                                                No due date specified
-                                                                <% } %>
+                                    <div class="bill-meta">
+                                        <h4 class="bill-title"><%= bill.title %></h4>
+
+                                        <p class="bill-sub text-muted mb-1">
+                                            <% if (bill.type) { %><%= bill.type %> • <% } %>
+                                            <% if (bill.dueDate) { %>
+                                                Due <%= new Date(bill.dueDate)
+                                                        .toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'}) %>
+                                            <% } else { %>No due date<% } %>
+                                        </p>
+
+                                        <% if (bill.status === 'Pending' && bill.dueDate && new Date(bill.dueDate) < new Date()) { %>
+                                            <span class="badge overdue-badge">Overdue</span>
+                                        <% } %>
                                     </div>
-                                    <% if (bill.status==='Pending' && bill.dueDate && new Date(bill.dueDate) < new
-                                        Date()) { %>
-                                        <small class="text-danger">Overdue</small>
-                                        <% } %>
-                                </div>
-                            </div>
-
-                            <div class="text-end me-4">
-                                <div class="fw-bold fs-4 mt-4">₹<%= bill.amount %>
                                 </div>
 
-                                <% if (bill.status==="Pending" ) { %>
-                                    <span class="status-badge text-dark fw-bold">
-                                        <%= bill.status %>
-                                    </span>
-                                    <% } else { %>
-                                        <span class="status-badge bg-success text-white fw-bold px-3">
-                                            <%= bill.status %>
-                                        </span>
-                                        <% } %>
+                                <div class="bill-amount">
+                                    ₹<%= bill.amount %>
+                                </div>
+                            </header>
 
-                                            <div class="mt-4 mb-4">
-                                                <% if (bill.status==="Pending" ) { %>
-                                                    <form action="/pay-bill/<%= bill._id %>" method="POST">
-                                                        <button type="submit" class="btn pay-btn">
-                                                            <i class="bi bi-credit-card me-1"></i> Pay Now
-                                                        </button>
-                                                    </form>
+                            <footer class="bill-card__footer">
+                                <span class="badge status-badge">
+                                    <%= bill.status %>
+                                </span>
 
-                                                    <% } else { %>
-                                                        <small class="text-muted">
-                                                            Paid on <%= new Date(bill.paidAt).toLocaleDateString() %>
-                                                        </small>
-                                                        <% } %>
-                                            </div>
-                            </div>
-                        </div>
-                        <hr>
-                        <% }); %>
-                            <% } %>
+                                <% if (bill.status === 'Pending') { %>
+                                    <form action="/pay-bill/<%= bill._id %>" method="POST" class="pay-form">
+                                        <button class="btn pay-btn">
+                                            <i class="bi bi-credit-card me-1"></i>Pay
+                                        </button>
+                                    </form>
+                                <% } else { %>
+                                    <small class="text-muted">
+                                        Paid on <%= new Date(bill.paidAt).toLocaleDateString() %>
+                                    </small>
+                                <% } %>
+                            </footer>
+                        </article>
+                    <% }); %>
+                </div>
+            <% } %>
         </div>
 
         <script>
             document.addEventListener("DOMContentLoaded", function () {
                 const checkboxes = document.querySelectorAll(".bill-checkbox");
                 const quickPayBtn = document.getElementById("quickPayBtn");
+                const selectAllCheckbox = document.getElementById("selectAllBills");
                 let total = 0;
 
                 function updateTotal() {
@@ -285,8 +971,19 @@
                     quickPayBtn.disabled = total === 0;
                 }
 
+                // Individual checkbox change
                 checkboxes.forEach(checkbox => {
                     checkbox.addEventListener("change", updateTotal);
+                });
+
+                // Select all functionality
+                selectAllCheckbox.addEventListener("change", function() {
+                    checkboxes.forEach(cb => {
+                        if (!cb.disabled) {
+                            cb.checked = this.checked;
+                        }
+                    });
+                    updateTotal();
                 });
 
                 // Quick pay functionality
@@ -294,7 +991,8 @@
                     const selectedBills = [];
                     checkboxes.forEach(cb => {
                         if (cb.checked && !cb.disabled) {
-                            selectedBills.push(cb.closest('.bill-item').querySelector('form'));
+                            const form = cb.closest('.bill-card').querySelector('form');
+                            if (form) selectedBills.push(form);
                         }
                     });
 

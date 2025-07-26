@@ -1,275 +1,353 @@
 <%- layout("layouts/boilerplate") %>
+<%- layout("layouts/boilerplate") %>
 <style>
-@media (max-width: 576px) {
-  /* Container padding and spacing fix */
-  .staff-container {
-    padding: 0 1rem;
-    margin-bottom: 1rem;
-  }
+    /* Default styles for desktop and large screens */
+    .staff-container {
+        padding: 1rem;
+    }
 
-  .owner-list-container {
-    padding: 0;
-    margin-bottom: 1rem;
-  }
+    .card-body {
+        padding: 1.5rem;
+    }
 
-  .event-container {
-    padding: 0;
-    margin-bottom: 1rem;
-  }
+    .fs-1 {
+        font-size: 3rem !important;
+    }
 
-  /* Header section responsive with proper spacing */
-  .com-header {
-    margin-bottom: 1.5rem;
-  }
+    .card-title {
+        font-size: 1.25rem;
+    }
 
-  .com-header h2 {
-    font-size: 1.15rem;
-    margin-bottom: 0.5rem;
-  }
+    .text-muted {
+        font-size: 1rem;
+    }
 
-  .com-header p {
-    font-size: 0.9rem;
-    margin-bottom: 0;
-  }
+    /* Layout spacing */
+    .container {
+        max-width: 1140px;
+        margin: auto;
+    }
 
-  /* Search section - side by side like previous pages */
-  .mt-4.border.rounded.p-3.bg-white {
-    margin-top: 1.5rem !important;
-    margin-bottom: 1.5rem !important;
-  }
+    /* Large desktop screens */
+    @media screen and (min-width: 1400px) {
+        .staff-container {
+            padding: 2rem;
+        }
 
-  .mt-4.border.rounded.p-3.bg-white .row {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: nowrap;
-    gap: 0.5rem;
-    margin-left: 0;
-    margin-right: 0;
-  }
+        .card-body {
+            padding: 2rem;
+        }
 
-  .mt-4.border.rounded.p-3.bg-white .col-md-9 {
-    width: 75%;
-    max-width: 75%;
-    flex: 0 0 75%;
-    padding-left: 0;
-    padding-right: 0;
-    margin-left: 0;
-    margin-right: 0;
-    min-width: 0;
-    box-sizing: border-box;
-  }
+        .fs-1 {
+            font-size: 3.5rem !important;
+        }
 
-  .mt-4.border.rounded.p-3.bg-white .col-md-3 {
-    width: 25%;
-    max-width: 25%;
-    flex: 0 0 25%;
-    padding-left: 0;
-    padding-right: 0;
-    margin-left: 0;
-    margin-right: 0;
-    min-width: 0;
-    box-sizing: border-box;
-  }
+        .card-title {
+            font-size: 1.5rem;
+        }
+    }
 
-  .input-group,
-  #roleFilter {
-    width: 100%;
-    min-width: 0;
-  }
+    /* Desktop */
+    @media screen and (max-width: 1199px) {
+        .staff-container {
+            padding: 1.5rem;
+        }
 
-  /* Container spacing fix */
-  .container.mt-4 {
-    margin-top: 1.5rem !important;
-    padding-left: 1rem;
-    padding-right: 1rem;
-  }
+        .card-body {
+            padding: 1.25rem;
+        }
 
-  /* Staff cards - 2 per row on mobile with proper spacing */
-  .container .row.g-4 {
-    --bs-gutter-x: 1rem;
-    --bs-gutter-y: 1rem;
-    margin-left: 0;
-    margin-right: 0;
-  }
+        .fs-1 {
+            font-size: 2.8rem !important;
+        }
 
-  .staff-card {
-    width: 48% !important;
-    max-width: 48% !important;
-    flex: 0 0 48% !important;
-    margin-bottom: 1rem !important;
-    padding-left: 0.5rem;
-    padding-right: 0.5rem;
-  }
+        .card-title {
+            font-size: 1.3rem;
+        }
+    }
 
-  /* If only one card, make it full width */
-  .staff-card:only-child {
-    width: 100% !important;
-    max-width: 100% !important;
-    flex: 0 0 100% !important;
-  }
+    /* Large tablets (up to 1024px width) */
+    @media screen and (max-width: 1024px) {
+        .staff-container {
+            padding: 1rem;
+        }
 
-  /* Card content adjustments */
-  .card {
-    font-size: 0.85rem;
-    margin-bottom: 0;
-  }
+        .com-header h2 {
+            font-size: 1.6rem;
+        }
 
-  .card-body {
-    padding: 1rem 0.75rem;
-  }
+        .com-header p {
+            font-size: 1rem;
+        }
 
-  .card-title {
-    font-size: 1rem;
-    margin-bottom: 0.5rem;
-  }
+        .card-body {
+            padding: 1rem;
+        }
 
-  .text-muted {
-    font-size: 0.8rem;
-    margin-bottom: 0.75rem;
-  }
+        .fs-1 {
+            font-size: 2.4rem !important;
+        }
 
-  .card-body p {
-    font-size: 0.8rem;
-    margin-bottom: 0.5rem;
-  }
+        .card-title {
+            font-size: 1.2rem;
+        }
 
-  .card-body .fs-1 {
-    font-size: 2rem;
-    margin-bottom: 1rem;
-  }
-}
+        .text-muted {
+            font-size: 0.95rem;
+        }
+    }
+    
+    /* Standard tablets (up to 768px) */
+    @media screen and (max-width: 768px) {
+        .staff-container {
+            padding: 0.8rem;
+        }
 
+        .com-header {
+            flex-direction: column;
+            text-align: center;
+            margin-bottom: 1rem;
+        }
 
-@media (max-width: 768px) {
-  /* Container padding for all content */
-  .vehicle-container,
-  .owner-list-container,
-  .event-container {
-    margin-bottom: 1.5rem;
-  }
+        .com-header h2 {
+            font-size: 1.4rem;
+            margin-bottom: 0.3rem;
+        }
 
-  /* Header fonts and spacing */
-  .com-header h2 {
-    font-size: 1.3rem;
-    margin-bottom: 0.5rem;
-  }
+        .com-header p {
+            font-size: 0.9rem;
+        }
 
-  .com-header p {
-    font-size: 1rem;
-    margin-bottom: 1rem;
-  }
+        /* Staff cards: full width on tablets for better readability */
+        .col-lg-3 {
+            flex: 0 0 50%;
+            max-width: 50%;
+        }
 
-  /* Search and filter row - no wrap, nicely spaced */
-  .mt-4.border.rounded.p-3.bg-white .row {
-    display: flex !important;
-    flex-wrap: nowrap !important;
-    gap: 0.5rem !important;
-    margin-left: 0 !important;
-    margin-right: 0 !important;
-  }
+        .card-body {
+            padding: 0.8rem;
+        }
 
-  .mt-4.border.rounded.p-3.bg-white .col-md-9 {
-    flex: 0 0 75% !important;
-    max-width: 75% !important;
-    width: 75% !important;
-    margin: 0 !important;
-    padding: 0 !important;
-    box-sizing: border-box;
-  }
+        .fs-1 {
+            font-size: 2rem !important;
+        }
 
-  .mt-4.border.rounded.p-3.bg-white .col-md-3 {
-    flex: 0 0 25% !important;
-    max-width: 25% !important;
-    width: 25% !important;
-    margin: 0 !important;
-    padding: 0 !important;
-    box-sizing: border-box;
-  }
+        .card-title {
+            font-size: 1.1rem;
+        }
 
-  .input-group,
-  #vehicleType {
-    width: 100% !important;
-    min-width: 0 !important;
-  }
+        .text-muted {
+            font-size: 0.85rem;
+        }
+    }
 
-  #searchBtn {
-    display: none !important;
-  }
+    /* Small tablets and large phone devices (up to 600px) */
+    @media screen and (max-width: 600px) {
+        .staff-container {
+            padding: 0.6rem;
+        }
 
-  /* Dashboard summary cards container */
-  .row.g-3 {
-    display: flex !important;
-    flex-wrap: wrap !important;
-    gap: 1rem !important;
-    padding: 0 1rem !important;
-    margin: 0 !important;
-    justify-content: flex-start !important;
-  }
+        .com-header h2 {
+            font-size: 1.25rem;
+        }
 
-  /* First summary card full width */
-  .row.g-3 .col-md-4:nth-child(1) {
-    flex: 0 0 100% !important;
-    max-width: 100% !important;
-    width: 100% !important;
-  }
+        .com-header p {
+            font-size: 0.8rem;
+        }
 
-  /* Second and third cards half width */
-  .row.g-3 .col-md-4:nth-child(2),
-  .row.g-3 .col-md-4:nth-child(3) {
-    flex: 0 0 calc(50% - 0.5rem) !important;
-    max-width: calc(50% - 0.5rem) !important;
-    width: calc(50% - 0.5rem) !important;
-  }
+        /* Stack staff cards vertically */
+        .col-lg-3, .col-md-4 {
+            flex: 0 0 100%;
+            max-width: 100%;
+        }
 
-  /* Vehicle result cards container */
-  .vehicle-info .row.g-3 {
-    display: flex !important;
-    flex-wrap: wrap !important;
-    gap: 1rem !important;
-    padding: 0 1rem !important;
-    margin: 0 !important;
-  }
+        .card-body {
+            padding: 0.6rem;
+        }
 
-  /* Vehicle cards - 2 per row */
-  .vehicle-info .row.g-3 > .col-12,
-  .vehicle-info .row.g-3 > .col-sm-6,
-  .vehicle-info .row.g-3 > .col-md-4 {
-    flex: 0 0 calc(50% - 0.5rem) !important;
-    max-width: calc(50% - 0.5rem) !important;
-    width: calc(50% - 0.5rem) !important;
-  }
+        .fs-1 {
+            font-size: 1.6rem !important;
+        }
 
-  /* Card styling */
-  .vehicle-info .card {
-    padding: 1rem !important;
-    font-size: 0.9rem;
-    margin-bottom: 0;
-  }
+        .card-title {
+            font-size: 1rem;
+        }
 
-  /* Buttons inside vehicle cards stack vertically */
-  .d-flex.flex-column.flex-sm-row.gap-3.mt-3 {
-    flex-direction: column !important;
-    gap: 0.5rem !important;
-  }
-  .btn, .btn.w-100 {
-    width: 100% !important;
-  }
+        .text-muted {
+            font-size: 0.8rem;
+        }
 
-  /* Section heading */
-  .info-head h5 {
-    font-size: 1.15rem !important;
-  }
+        /* Adjust icon and spacing */
+        .bi-person-badge {
+            margin-bottom: 1rem;
+        }
+    }
 
-  /* Reset container side paddings */
-  .container {
-    padding-left: 0;
-    padding-right: 0;
-  }
-}
+    /* Standard mobile phones (up to 480px) */
+    @media screen and (max-width: 480px) {
+        .staff-container {
+            padding: 0.4rem;
+        }
 
+        .com-header h2 {
+            font-size: 1.1rem;
+        }
 
+        .com-header p {
+            font-size: 0.75rem;
+        }
 
+        .card-body {
+            padding: 0.5rem;
+        }
+
+        .fs-1 {
+            font-size: 1.4rem !important;
+        }
+
+        .card-title {
+            font-size: 0.9rem;
+        }
+
+        .text-muted {
+            font-size: 0.75rem;
+        }
+
+        /* Center text */
+        .card-body.text-center {
+            padding-left: 0.5rem;
+            padding-right: 0.5rem;
+        }
+    }
+
+    /* Small mobile phones (up to 390px) */
+    @media screen and (max-width: 390px) {
+        .staff-container {
+            padding: 0.3rem;
+        }
+
+        .com-header h2 {
+            font-size: 1rem;
+        }
+
+        .com-header p {
+            font-size: 0.7rem;
+        }
+
+        .card-body {
+            padding: 0.4rem;
+        }
+
+        .fs-1 {
+            font-size: 1.2rem !important;
+        }
+
+        .card-title {
+            font-size: 0.85rem;
+        }
+
+        .text-muted {
+            font-size: 0.7rem;
+        }
+
+        .bi-person-badge {
+            font-size: 1.5rem !important;
+        }
+    }
+
+    /* Extra small mobile phones (up to 320px) */
+    @media screen and (max-width: 320px) {
+        .staff-container {
+            padding: 0.2rem;
+        }
+
+        .com-header h2 {
+            font-size: 0.9rem;
+        }
+
+        .com-header p {
+            font-size: 0.65rem;
+        }
+
+        .card-body {
+            padding: 0.3rem;
+        }
+
+        .fs-1 {
+            font-size: 1rem !important;
+        }
+
+        .card-title {
+            font-size: 0.8rem;
+        }
+
+        .text-muted {
+            font-size: 0.65rem;
+        }
+
+        .bi-person-badge {
+            font-size: 1.3rem !important;
+        }
+    }
+
+    /* Landscape orientation optimizations for mobiles with short height */
+    @media screen and (max-height: 500px) and (orientation: landscape) {
+        .staff-container {
+            padding: 0.3rem;
+        }
+
+        .com-header {
+            margin-bottom: 0.5rem;
+        }
+
+        .card-body {
+            padding: 0.4rem;
+        }
+
+        .fs-1 {
+            font-size: 1.1rem !important;
+        }
+    }
+
+    /* High DPI displays */
+    @media screen and (-webkit-min-device-pixel-ratio: 2),
+           screen and (min-resolution: 192dpi) {
+        .card {
+            border-width: 0.5px;
+        }
+    }
+
+    /* Specific device targeting */
+
+    /* iPhone 14 Pro Max, iPhone 13 Pro Max, iPhone 12 Pro Max */
+    @media screen and (max-width: 430px) {
+        .container {
+            max-width: 400px;
+        }
+    }
+
+    /* iPhone 14, iPhone 13, iPhone 12 */
+    @media screen and (max-width: 390px) {
+        .container {
+            max-width: 360px;
+        }
+    }
+
+    /* iPhone SE, iPhone 8 */
+    @media screen and (max-width: 375px) {
+        .container {
+            max-width: 345px;
+        }
+    }
+
+    /* Samsung Galaxy S series, Google Pixel */
+    @media screen and (max-width: 360px) {
+        .container {
+            max-width: 330px;
+        }
+    }
 </style>
+
 
 <body>
     <div class="staff-container">
