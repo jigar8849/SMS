@@ -236,7 +236,7 @@ app.post("/admin-login", async (req, res) => {
 
     // ❌ Not an admin
     if (!admin || admin.role !== "admin") {
-      req.flash("error", "Access denied. Admins only.");
+      req.flash("error", "Access denied. Adins only.");
       return res.redirect("/admin-login");
     }
 

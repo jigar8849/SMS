@@ -719,6 +719,19 @@
         </div>
     </div>
     <script src="../js/validate.js"></script>
+    <!-- Make sure Bootstrap JS is loaded -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    setTimeout(() => {
+      const successAlert = document.getElementById("flash-success");
+      const errorAlert = document.getElementById("flash-error");
+
+      if (successAlert) bootstrap.Alert.getOrCreateInstance(successAlert).close();
+      if (errorAlert) bootstrap.Alert.getOrCreateInstance(errorAlert).close();
+    }, 3000);
+  });
+</script>
 </body>
 
 </html>
