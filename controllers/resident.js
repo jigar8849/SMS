@@ -102,13 +102,27 @@ module.exports.newComplaints = async (req, res) => {
 }
 
 module.exports.newComplaintsData = async (req, res) => {
-  const newComplainData = req.body;
-  //Attach the logged-in resident’s ID
-  newComplainData.resident = req.session.addNewMember.id;
-  const newComplain = new Complaints(newComplainData);
-  await newComplain.save();
-  res.redirect("/resident/complaints");
-}
+  try {
+    if (!req.body || !req.body.title || !req.body.description) {
+      req.flash("error", "All fields are required.");
+      return res.redirect("/resident/complaints");
+    }
+
+    req.body.resident = req.session.addNewMember.id;
+
+    const newComplain = new Complaints(req.body);
+    await newComplain.save();
+
+    req.flash("success", "Complaint submitted successfully.");
+    res.redirect("/resident/complaints");
+  } catch (err) {
+    console.error("🔴 Error in newComplaintsData:", err);
+    req.flash("error", "Failed to submit complaint.");
+    res.redirect("/resident/complaints");
+  }
+};
+
+
 
 module.exports.complaintsDelete = async (req, res) => {
   const { id } = req.params;
