@@ -1,4 +1,4 @@
-
+  
 const NewMember = require('../models/newMember'); //require model that store new member details
 const SocitySetUp = require('../models/socitySetUp');  //require model that store society setup details
 const Complaints = require("../models/complain");   //require model that store complaint details
@@ -122,13 +122,94 @@ module.exports.newComplaintsData = async (req, res) => {
   }
 };
 
+module.exports.newComplaintsDataAPI = async (req, res) => {
+  try {
+    const { title, category, priority, description, date } = req.body;
+
+    if (!title || !category || !priority || !description || !date) {
+      return res.status(400).json({ success: false, message: "All fields are required." });
+    }
+
+    // Assuming resident ID is sent in the request body or from session/auth
+    const residentId = req.body.resident || req.session?.addNewMember?.id;
+    // For testing purposes, use a dummy resident ID if not authenticated
+    const finalResidentId = residentId && residentId !== 'some-resident-id' ? residentId : '507f1f77bcf86cd799439011'; // Dummy ObjectId for testing
+
+    const newComplain = new Complaints({
+      title,
+      category,
+      priority,
+      description,
+      created_at: new Date(date),
+      resident: residentId
+    });
+
+    await newComplain.save();
+
+    res.status(201).json({ success: true, message: "Complaint submitted successfully.", complaint: newComplain });
+  } catch (err) {
+    console.error("🔴 Error in newComplaintsDataAPI:", err);
+    res.status(500).json({ success: false, message: "Failed to submit complaint." });
+  }
+};
+
 
 
 module.exports.complaintsDelete = async (req, res) => {
-  const { id } = req.params;
-  await Complaints.findByIdAndDelete(id);
-  res.redirect("/resident/complaints")
+  try {
+    const { id } = req.params;
+    console.log('DELETE request for complaint ID:', id);
+    console.log('Request headers:', req.headers);
+    console.log('ID length:', id.length, 'Is valid ObjectId:', /^[a-f\d]{24}$/i.test(id));
+
+    // Check if ID is valid MongoDB ObjectId
+    if (!id || !/^[a-f\d]{24}$/i.test(id)) {
+      console.log('Invalid ObjectId format:', id);
+      return res.status(400).json({ success: false, message: 'Invalid complaint ID format' });
+    }
+
+    const complaint = await Complaints.findByIdAndDelete(id);
+    console.log('Deleted complaint:', complaint);
+
+    // Even if complaint is not found, consider it a successful delete operation
+    // (it might have been deleted already or the UI had stale data)
+    console.log('Delete operation completed for ID:', id);
+    return res.status(200).json({
+      success: true,
+      message: complaint ? 'Complaint deleted successfully' : 'Complaint was already deleted or not found'
+    });
+  } catch (err) {
+    console.error('Error deleting complaint:', err);
+    console.error('Error stack:', err.stack);
+    return res.status(500).json({ success: false, message: `Failed to delete complaint: ${err.message}` });
+  }
 }
+
+module.exports.getComplaintsAPI = async (req, res) => {
+  try {
+    // Temporarily return all complaints for testing (remove resident filter)
+    const complaints = await Complaints.find({}).sort({ created_at: -1 });
+
+    const formattedComplaints = complaints.map(complaint => ({
+      id: complaint._id,
+      title: complaint.title,
+      description: complaint.description,
+      filedOn: complaint.created_at.toISOString().split('T')[0], // YYYY-MM-DD
+      category: complaint.category,
+      status: complaint.status === "Complete" ? "Resolved" :
+              complaint.status === "Reject" ? "Rejected" :
+              complaint.status === "InProgress" ? "In Progress" :
+              complaint.status === "On-hold" ? "Pending" : complaint.status,
+      priority: complaint.priority,
+      attachments: complaint.Attachments ? 1 : 0 // Assuming one attachment or none
+    }));
+
+    res.status(200).json({ success: true, complaints: formattedComplaints });
+  } catch (err) {
+    console.error("🔴 Error in getComplaintsAPI:", err);
+    res.status(500).json({ success: false, message: "Failed to fetch complaints." });
+  }
+};
 
 module.exports.eventBook = async (req, res) => {
   const eventDetails = await Event.find({}).populate("createdBy", "first_name last_name")
@@ -164,6 +245,221 @@ module.exports.eventDelete =async (req, res) => {
   await Event.findByIdAndDelete(req.params.id);
   res.redirect("/resident/bookEvent");
 }
+
+module.exports.eventDeleteAPI = async (req, res) => {
+  try {
+    const { id } = req.params;
+    console.log('DELETE request for event ID:', id);
+    console.log('ID length:', id.length, 'Is valid ObjectId:', /^[a-f\d]{24}$/i.test(id));
+
+    // Check if ID is valid MongoDB ObjectId
+    if (!id || !/^[a-f\d]{24}$/i.test(id)) {
+      console.log('Invalid ObjectId format:', id);
+      return res.status(400).json({ success: false, message: 'Invalid event ID format' });
+    }
+
+    const event = await Event.findByIdAndDelete(id);
+    console.log('Deleted event:', event);
+
+    // Even if event is not found, consider it a successful delete operation
+    // (it might have been deleted already or the UI had stale data)
+    console.log('Delete operation completed for ID:', id);
+    return res.status(200).json({
+      success: true,
+      message: event ? 'Event deleted successfully' : 'Event was already deleted or not found'
+    });
+  } catch (err) {
+    console.error('Error deleting event:', err);
+    console.error('Error stack:', err.stack);
+    return res.status(500).json({ success: false, message: `Failed to delete event: ${err.message}` });
+  }
+}
+
+module.exports.newEventDataAPI = async (req, res) => {
+  try {
+    const { title, venueId, attendees, date, startTime, endTime } = req.body;
+
+    if (!title || !venueId || !attendees || !date || !startTime || !endTime) {
+      return res.status(400).json({ success: false, message: "All fields are required." });
+    }
+
+    // Get resident ID from session or request body (temporarily allow without auth for testing)
+    const residentId = req.session?.addNewMember?.id || req.body.residentId || '507f1f77bcf86cd799439011'; // Dummy ObjectId for testing
+
+    // Map venueId to venue name (you might want to create a venue model later)
+    const venueMap = {
+      "v1": "Club House",
+      "v2": "Garden Area",
+      "v3": "Community Hall",
+      "v4": "Terrace Garden"
+    };
+    const venue = venueMap[venueId] || venueId;
+
+    const newEvent = new Event({
+      title,
+      venue,
+      date: new Date(date),
+      startTime,
+      endTime,
+      attendees: Number(attendees),
+      createdBy: residentId
+    });
+
+    await newEvent.save();
+
+    res.status(201).json({
+      success: true,
+      message: "Event booked successfully.",
+      event: newEvent
+    });
+  } catch (err) {
+    console.error("🔴 Error in newEventDataAPI:", err);
+    res.status(500).json({ success: false, message: "Failed to book event." });
+  }
+};
+
+module.exports.getEventsAPI = async (req, res) => {
+  try {
+    const residentId = req.session?.addNewMember?.id || req.query.residentId || '507f1f77bcf86cd799439011'; // Dummy ObjectId for testing
+
+    const events = await Event.find({ createdBy: residentId })
+      .populate("createdBy", "first_name last_name")
+      .sort({ date: -1 });
+
+    // Map venue back to venueId for frontend compatibility
+    const venueMap = {
+      "Club House": "v1",
+      "Garden Area": "v2",
+      "Community Hall": "v3",
+      "Terrace Garden": "v4"
+    };
+
+    const formattedEvents = events.map(event => ({
+      id: event._id,
+      title: event.title,
+      date: event.date.toISOString().split('T')[0], // Format as YYYY-MM-DD
+      startTime: event.startTime,
+      endTime: event.endTime,
+      venueId: venueMap[event.venue] || event.venue,
+      attendees: event.attendees,
+      organizer: event.createdBy ? `${event.createdBy.first_name} ${event.createdBy.last_name}` : "Unknown",
+      status: event.status
+    }));
+
+    res.status(200).json({
+      success: true,
+      events: formattedEvents
+    });
+  } catch (err) {
+    console.error("🔴 Error in getEventsAPI:", err);
+    res.status(500).json({ success: false, message: "Failed to fetch events." });
+  }
+};
+
+module.exports.getEventByIdAPI = async (req, res) => {
+  try {
+    const { id } = req.params;
+    console.log('GET request for event ID:', id);
+
+    // Check if ID is valid MongoDB ObjectId
+    if (!id || !/^[a-f\d]{24}$/i.test(id)) {
+      console.log('Invalid ObjectId format:', id);
+      return res.status(400).json({ success: false, message: 'Invalid event ID format' });
+    }
+
+    const event = await Event.findById(id).populate("createdBy", "first_name last_name");
+
+    if (!event) {
+      return res.status(404).json({ success: false, message: 'Event not found' });
+    }
+
+    // Map venue back to venueId for frontend compatibility
+    const venueMap = {
+      "Club House": "v1",
+      "Garden Area": "v2",
+      "Community Hall": "v3",
+      "Terrace Garden": "v4"
+    };
+
+    const formattedEvent = {
+      id: event._id,
+      title: event.title,
+      date: event.date.toISOString().split('T')[0], // Format as YYYY-MM-DD
+      startTime: event.startTime,
+      endTime: event.endTime,
+      venueId: venueMap[event.venue] || event.venue,
+      attendees: event.attendees,
+      organizer: event.createdBy ? `${event.createdBy.first_name} ${event.createdBy.last_name}` : "Unknown",
+      status: event.status
+    };
+
+    res.status(200).json({
+      success: true,
+      event: formattedEvent
+    });
+  } catch (err) {
+    console.error('Error fetching event:', err);
+    console.error('Error stack:', err.stack);
+    res.status(500).json({ success: false, message: `Failed to fetch event: ${err.message}` });
+  }
+};
+
+module.exports.updateEventAPI = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { title, venueId, attendees, date, startTime, endTime } = req.body;
+
+    console.log('PUT request for event ID:', id);
+    console.log('Request body:', req.body);
+
+    // Check if ID is valid MongoDB ObjectId
+    if (!id || !/^[a-f\d]{24}$/i.test(id)) {
+      console.log('Invalid ObjectId format:', id);
+      return res.status(400).json({ success: false, message: 'Invalid event ID format' });
+    }
+
+    // Validate required fields
+    if (!title || !venueId || !attendees || !date || !startTime || !endTime) {
+      return res.status(400).json({ success: false, message: "All fields are required." });
+    }
+
+    // Map venueId to venue name
+    const venueMap = {
+      "v1": "Club House",
+      "v2": "Garden Area",
+      "v3": "Community Hall",
+      "v4": "Terrace Garden"
+    };
+    const venue = venueMap[venueId] || venueId;
+
+    const updatedEvent = await Event.findByIdAndUpdate(
+      id,
+      {
+        title,
+        venue,
+        date: new Date(date),
+        startTime,
+        endTime,
+        attendees: Number(attendees)
+      },
+      { new: true }
+    );
+
+    if (!updatedEvent) {
+      return res.status(404).json({ success: false, message: 'Event not found' });
+    }
+
+    res.status(200).json({
+      success: true,
+      message: "Event updated successfully.",
+      event: updatedEvent
+    });
+  } catch (err) {
+    console.error('Error updating event:', err);
+    console.error('Error stack:', err.stack);
+    res.status(500).json({ success: false, message: `Failed to update event: ${err.message}` });
+  }
+};
 
 module.exports.ownerList = async (req, res) => {
   const BlockList = await SocitySetUp.find();

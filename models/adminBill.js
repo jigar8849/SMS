@@ -7,7 +7,7 @@ const billTemplateSchema = new mongoose.Schema({
   },
   type: {
     type: String,
-    enum: ["Water", "Gas", "Maintenance", "Other"],
+    enum: ["Maintenance", "Parking", "Water", "Electricity", "Other"],
     required: true,
   },
   amount: {

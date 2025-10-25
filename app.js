@@ -21,7 +21,6 @@ const LocalStrategy = require("passport-local");
 const adminRoutes = require("./routes/admin");
 const residentsRoutes = require("./routes/residents");
 
-
 const session = require('express-session');  // require midleware sessions
 const RedisStore = require('connect-redis').default // use to store sessions
 const { createClient } = require('redis');   // use to store sessions
@@ -31,11 +30,31 @@ const PDFDocument = require('pdfkit');
 const router = require('./routes/admin');
 require('pdfkit-table');
 
+/* ✅ CORS */
+const cors = require("cors");
+
+/* ✅ read allowed origin from env (fallback to local Next) */
+const FRONTEND_ORIGIN = process.env.FRONTEND_ORIGIN || "http://localhost:3000";
+
+/* ✅ trust proxy (useful behind Render/Nginx) */
+app.set("trust proxy", 1);
+
+/* ✅ Global CORS (with credentials) */
+app.use(cors({
+  origin: FRONTEND_ORIGIN,     // your Next.js URL
+  credentials: true,           // allow cookies/authorization headers
+  methods: ["GET","HEAD","PUT","PATCH","POST","DELETE","OPTIONS"],
+  allowedHeaders: ["Content-Type","Authorization","X-Requested-With"]
+}));
+
+/* ✅ Handle preflight (Express 5 compatible) */
+app.options(/.*/, cors());   // <-- use a RegExp, not a string
+
+/* Razorpay instance */
 const instance = new Razorpay({
   key_id: process.env.RAZORPAY_KEY_ID,
   key_secret: process.env.RAZORPAY_KEY_SECRET
 });
-
 
 // Middleware to parse JSON requests
 app.use(express.json());
@@ -45,22 +64,26 @@ app.use(express.static('public'));
 app.engine("ejs", ejsMate);
 app.use(express.urlencoded({ extended: true }));
 app.use(methodOverride("_method"))
-app.use(express.json());
+app.use(express.json()); // (left as-is per your request)
 
+/* 🔧 Session cookie for cross-origin (CORS) */
+const COOKIE_SECURE = process.env.COOKIE_SECURE === "true"; // set true in production HTTPS
 app.use(
   session({
-    secret: process.env.SECRET,
+    secret: process.env.SECRET || "fallback-secret-key",
     resave: false,
     saveUninitialized: false,
     cookie: {
       maxAge: 7 * 24 * 60 * 60 * 1000,
+      httpOnly: true,
+      sameSite: "none",   // required for cross-site
+      secure: COOKIE_SECURE // true on HTTPS prod, false on local HTTP
     },
   })
 );
 
 app.use(passport.initialize());
 app.use(passport.session());
-
 
 app.use((req, res, next) => {
   res.locals.user = req.session.addNewMember || req.session.admin || null;
@@ -82,8 +105,8 @@ app.use("/resident", residentsRoutes);
 main().catch(err => console.log("MongoDB Connection Error:", err));
 
 async function main() {
-// await mongoose.connect("mongodb://127.0.0.1:27017/SMS");
-await mongoose.connect(process.env.MONGO_URL);
+  await mongoose.connect("mongodb://127.0.0.1:27017/NextSMS");
+  // await mongoose.connect(process.env.MONGO_URL);
   console.log("MongoDB Connected");
 }
 
@@ -91,19 +114,11 @@ app.get("/", (req, res) => {
   res.render("home");
 });
 
-
-
-
-
-
 app.get("/logout", (req, res) => {
   req.session.destroy(() => {
     res.redirect("/");
   });
 });
-
-
-
 
 //Pay Now btn press kharavathi paid thay se
 // NEW: Creates Razorpay order and redirects to checkout
@@ -177,10 +192,6 @@ app.post("/verify-payment", express.urlencoded({ extended: true }), async (req, 
   }
 });
 
-
-
-
-
 // This route render to ADMIN panel dashboard quick access side that open and give permission to "Approved", "Rejected","Pending"
 app.get("/approveEvent", async (req, res) => {
   const eventDetails = await Event.find().populate("createdBy", "first_name last_name block flat_number")
@@ -198,7 +209,6 @@ app.post("/approveEvent/:id/reject", catchAsync(async (req, res) => {
   await Event.findByIdAndUpdate(req.params.id, { status: "Rejected" })
   res.redirect("/approveEvent");
 }))
-
 
 //this route use to check the venue is available for any event for perticular date
 app.post("/check-availability", async (req, res) => {
@@ -224,126 +234,185 @@ app.get("/create-account", (req, res) => {
   res.render("admin/createAccount");
 })
 
-app.get("/admin-login", (req, res) => {
-  res.render("login/admin");
-})
+// app.get("/admin-login", (req, res) => {
+//   res.render("login/admin");
+// })
 
 app.post("/admin-login", async (req, res) => {
-  const { email, create_password } = req.body;
+  const wantsJSON =
+    (req.headers.accept && req.headers.accept.includes("application/json")) ||
+    req.headers["content-type"] === "application/json" ||
+    req.xhr;
 
   try {
-    const admin = await SocitySetUp.findOne({ email });
+    const { email, create_password } = req.body;
 
-    // ❌ Not an admin
-    if (!admin || admin.role !== "admin") {
-      req.flash("error", "Access denied. Adins only.");
+    // Basic guard
+    if (!email || !create_password) {
+      if (wantsJSON) return res.status(400).json({ ok: false, error: "Email and password are required" });
+      req.flash("error", "Email and password are required");
       return res.redirect("/admin-login");
     }
 
-    // ✅ Try to authenticate
-    const authenticatedAdmin = await new Promise((resolve, reject) => {
-      SocitySetUp.authenticate()(email, create_password, (err, user, options) => {
-        if (err || !user) return reject("❌ Incorrect email or password");
-        resolve(user);
-      });
+    const admin = await SocitySetUp.findOne({ email });
+
+    if (!admin) {
+      if (wantsJSON) return res.status(404).json({ ok: false, error: "Admin not found" });
+      req.flash("error", "Admin not found");
+      return res.redirect("/admin-login");
+    }
+
+    if (admin.role !== "admin") {
+      if (wantsJSON) return res.status(403).json({ ok: false, error: "Access denied. Admins only." });
+      req.flash("error", "Access denied. Admins only.");
+      return res.redirect("/admin-login");
+    }
+
+    // passport-local-mongoose authenticate using email (usernameField is 'email')
+    SocitySetUp.authenticate()(email, create_password, (err, user /*, info */) => {
+      if (err || !user) {
+        if (wantsJSON) return res.status(401).json({ ok: false, error: "Incorrect email or password" });
+        req.flash("error", "Incorrect email or password");
+        return res.redirect("/admin-login");
+      }
+
+      // Save to session
+      req.session.admin = {
+        id: user._id,
+        email: user.email,
+        role: user.role
+      };
+
+      if (wantsJSON) {
+        return res.status(200).json({ ok: true, message: "Logged in", redirect: "/admin/dashboard" });
+      }
+
+      req.flash("success", "✅ Logged in successfully!");
+      return res.redirect("/admin/dashboard");
     });
-
-    // ✅ Save to session
-    req.session.admin = {
-      id: authenticatedAdmin._id,
-      email: authenticatedAdmin.email,
-      role: authenticatedAdmin.role
-    };
-
-        req.flash("success", "✅ Logged in successfully!");
-    res.redirect("/admin/dashboard");
   } catch (err) {
-    req.flash("error", typeof err === "string" ? err : "❌ Login failed");
-    res.redirect("/admin-login");
+    console.error("❌ Admin login error:", err);
+    if (wantsJSON) return res.status(500).json({ ok: false, error: "Internal server error" });
+    req.flash("error", "Login failed");
+    return res.redirect("/admin-login");
   }
 });
 
 
-
-app.get("/resident-login", (req, res) => {
-  res.render("login/resident");
-})
+// app.get("/resident-login", (req, res) => {
+//   res.render("login/resident");
+// })
 
 app.post("/resident-login", async (req, res) => {
-  const { email, create_password } = req.body;
+  const wantsJSON =
+    (req.headers.accept && req.headers.accept.includes("application/json")) ||
+    req.headers["content-type"] === "application/json" ||
+    req.xhr;
 
   try {
-    const resident = await NewMember.findOne({ email });
+    const { email, create_password } = req.body;
 
+    if (!email || !create_password) {
+      if (wantsJSON) return res.status(400).json({ ok: false, error: "Email and password are required" });
+      req.flash("error", "Email and password are required");
+      return res.redirect("/resident-login");
+    }
+
+    const resident = await NewMember.findOne({ email });
     if (!resident) {
-      req.flash("error", "❌ Resident not found with that email.");
+      if (wantsJSON) return res.status(404).json({ ok: false, error: "Resident not found" });
+      req.flash("error", "Resident not found with that email.");
       return res.redirect("/resident-login");
     }
 
     if (resident.role !== "resident") {
-      req.flash("error", "❌ Access denied. This account is not a resident.");
+      if (wantsJSON) return res.status(403).json({ ok: false, error: "Access denied. This account is not a resident." });
+      req.flash("error", "Access denied. This account is not a resident.");
       return res.redirect("/resident-login");
     }
 
-    const authenticatedResident = await new Promise((resolve, reject) => {
-      NewMember.authenticate()(email, create_password, (err, user, options) => {
-        if (err || !user) return reject("❌ Incorrect email or password");
-        resolve(user);
-      });
+    NewMember.authenticate()(email, create_password, (err, user /*, info */) => {
+      if (err || !user) {
+        if (wantsJSON) return res.status(401).json({ ok: false, error: "Incorrect email or password" });
+        req.flash("error", "Incorrect email or password");
+        return res.redirect("/resident-login");
+      }
+
+      req.session.addNewMember = {
+        id: user._id,
+        email: user.email,
+        role: user.role,
+      };
+
+      if (wantsJSON) {
+        return res.status(200).json({ ok: true, message: "Logged in", redirect: "/resident/dashboard" });
+      }
+
+      req.flash("success", "✅ Logged in successfully!");
+      return res.redirect("/resident/dashboard");
     });
-
-    req.session.addNewMember = {
-      id: authenticatedResident._id,
-      email: authenticatedResident.email,
-      role: authenticatedResident.role
-    };
-
-    req.flash("success", "✅ Logged in successfully!");
-    res.redirect("/resident/dashboard");
-
   } catch (err) {
-    req.flash("error", typeof err === "string" ? err : "❌ Login failed. Please try again.");
-    res.redirect("/resident-login");
+    console.error("❌ Resident login error:", err);
+    if (wantsJSON) return res.status(500).json({ ok: false, error: "Internal server error" });
+    req.flash("error", "Login failed. Please try again.");
+    return res.redirect("/resident-login");
   }
 });
-
 
 app.post("/create-account", async (req, res) => {
-  const { password, confirm_password, ...otherFields } = req.body;
-
-  if (password !== confirm_password) {
-    req.flash("error", "❌ Passwords do not match");
-    return res.redirect("/create-account");
-  }
-
   try {
-    const newAdmin = new SocitySetUp(otherFields);
-    await SocitySetUp.register(newAdmin, password); // Passport-local-mongoose handles hashing
-    req.flash("success", "✅ Account created successfully!");
-    res.redirect("/admin/dashboard");
+    const { password, confirm_password, ...otherFields } = req.body;
+
+    if (!password || !confirm_password) {
+      return res.status(400).json({ ok: false, error: "Password and confirm_password are required" });
+    }
+    if (password !== confirm_password) {
+      return res.status(400).json({ ok: false, error: "Passwords do not match" });
+    }
+
+    // Optional pre-check for clarity
+    const exists = await SocitySetUp.findOne({ email: otherFields.email });
+    if (exists) {
+      return res.status(409).json({ ok: false, error: "Email already registered" });
+    }
+
+    const draft = new SocitySetUp(otherFields);
+    await SocitySetUp.register(draft, password); // hashes & saves
+    return res.status(201).json({ ok: true, message: "Account created", id: draft._id });
+
   } catch (err) {
-    console.error("❌ Error while creating account:", err);
-    req.flash("error", "❌ Failed to create society account. Email might be already used.");
-    res.redirect("/create-account");
+    if (err && err.name === "UserExistsError") {
+      // Thrown by passport-local-mongoose when the username (email) already exists
+      return res.status(409).json({ ok: false, error: "Email already registered" });
+    }
+    console.error("❌ Create-account error:", err);
+    return res.status(500).json({ ok: false, error: "Internal server error" });
   }
 });
 
-
-app.listen(3000, () => {
-  console.log("Server is running on port 3000");
+/* 🔧 Use PORT var so log matches the actual port */
+const PORT = process.env.PORT || 3001;
+app.listen(PORT, () => {
+  console.log(`Server is running on port ${PORT} (CORS origin: ${FRONTEND_ORIGIN})`);
 });
-
-
-
-
 
 // If route not found
 app.use((req, res, next) => {
+  // Check if it's an API request
+  const isAPI = req.path.startsWith('/resident/api/') || req.path.startsWith('/admin/api/');
+  if (isAPI) {
+    return res.status(404).json({ success: false, message: 'Endpoint not found' });
+  }
   res.status(404).send('404 Not Found');
 });
 
 // Global error handler
 app.use((err, req, res, next) => {
   console.error(err.stack);
+  // Check if it's an API request
+  const isAPI = req.path.startsWith('/resident/api/') || req.path.startsWith('/admin/api/');
+  if (isAPI) {
+    return res.status(500).json({ success: false, message: 'Internal server error' });
+  }
   res.status(500).send('Something went wrong!');
 });

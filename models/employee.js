@@ -8,7 +8,7 @@ const employeesSchema = new Schema({
     },
     role : {
         type : String,
-        enum : ['Security Guard', 'Plumber','Gardener','Cleaner','Other'],
+        enum : ['Security Guard', 'Housekeeping', 'Electrician', 'Plumber', 'Gardener', 'Manager', 'Other'],
         required : true
     },
     contact : {

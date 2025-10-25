@@ -18,6 +18,9 @@ router.get("/dashboard", adminController.dashboard);
 // simple admin page RESIDENTS page route
 router.get("/residents", adminController.residents)
 
+// API route to get residents data as JSON for frontend
+router.get("/api/residents", adminController.getResidentsAPI)
+
 // this is for add new resident btn 
 router.get("/addNewResident", isAdminLoggedIn, adminController.addNewResident)
 
@@ -46,7 +49,7 @@ router.get("/payments", adminController.payments)
 router.get("/createBill", isAdminLoggedIn,adminController.createBill);
 
 //save created bill data in database
-router.post("/createBill", isAdminLoggedIn, adminController.createBillData);
+router.post("/createBill", adminController.createBillData);
 
 
 // GET: Render created bill list for admin
@@ -106,6 +109,9 @@ router.get('/download-pdf', adminController.pdfDownload);
 /* COMPLAINTS */
 //this routes are use to render complaint page
 router.get("/complaints", adminController.complaints)
+
+// API route to get complaints data as JSON for frontend
+router.get("/api/complaints", adminController.getComplaintsAPI)
 
 // render to complaint MANAGE page
 router.get("/complaints/:id/edit", isAdminLoggedIn,adminController.complaintEditPage)

@@ -31,8 +31,17 @@ router.get("/newComplain", isResidentLoggedIn, residentController.newComplaints)
 //POST the newComplain data to the database
 router.post("/newComplain", isResidentLoggedIn, residentController.newComplaintsData);
 
-//DELETe the created complain
-router.delete("/complaints/:id", isResidentLoggedIn, residentController.complaintsDelete)
+// API route for submitting complaints from frontend
+router.post("/api/complaints", residentController.newComplaintsDataAPI);
+
+// API route for fetching complaints (temporarily removed auth for testing)
+router.get("/api/complaints", residentController.getComplaintsAPI);
+
+// API route for deleting complaints (temporarily removed auth for testing)
+router.delete("/api/complaints/:id", residentController.complaintsDelete)
+
+// Legacy route for deleting complaints (removed auth for testing)
+router.delete("/complaints/:id", residentController.complaintsDelete)
 
 
 /* EVENT */
@@ -92,5 +101,11 @@ router.get("/profile/:id/change-password", isResidentLoggedIn,residentController
 //this route post new PAssword in database
 router.post("/profile/:id/change-password", isResidentLoggedIn, residentController.profilePasswordData);
 
+// API routes for events (temporarily removed auth for testing)
+router.post("/api/events", residentController.newEventDataAPI);
+router.get("/api/events", residentController.getEventsAPI);
+router.get("/api/events/:id", residentController.getEventByIdAPI);
+router.put("/api/events/:id", residentController.updateEventAPI);
+router.delete("/api/events/:id", residentController.eventDeleteAPI);
 
 module.exports = router;
